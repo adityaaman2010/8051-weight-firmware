@@ -1,0 +1,60 @@
+[Version]
+Signature="$CHICAGO$"
+provider=%MSFT%
+LayoutFile=layout.inf
+Class=USB
+ClassGuid={36FC9E60-C465-11CF-8056-444553540000}
+DriverVer=06/30/2017, 3.0.0.2
+CatalogFile=ISPICP.cat
+
+[ControlFlags]
+; Remove comment from this line if all devices are PnP.
+ExcludeFromSelect=*
+
+[DestinationDirs]
+MEGAUSB.Files.Ext=11, Drivers
+
+[Manufacturer]
+%MfgName%=Model, NTamd64
+
+[Model]
+%USB\VID_0E6A&PID_030D.DeviceDesc%=MEGAUSB.Dev, USB\VID_0E6A&PID_030D
+
+[Model.NTamd64]
+%USB\VID_0E6A&PID_030D.DeviceDesc%=MEGAUSB.Dev, USB\VID_0E6A&PID_030D
+
+[MEGAUSB.Dev]
+CopyFiles=MEGAUSB.Files.Ext
+AddReg=MEGAUSB.AddReg
+
+[MEGAUSB.Dev.NT]
+Include=sti.inf
+Needs=STI.USBSection
+AddReg=MEGAUSB.NT.AddReg
+
+[MEGAUSB.Dev.NT.Services]
+Include=sti.inf
+Needs=STI.USBSection.Services
+DisplayName=%MEGAUSB.SvcDesc%
+
+[MEGAUSB.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbscan.sys
+
+[MEGAUSB.NT.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,usbscan.sys
+HKR,,NoSetupUI,,1
+HKLM,"System\Currentcontrolset\Services\MEGAUSB030D\Parameters","MaximumTransferSize",0x10001,4096
+HKLM,"System\Currentcontrolset\Services\MEGAUSB030D\Parameters","DebugLevel",0x10001,2
+
+[MEGAUSB.Files.Ext]
+USBSCAN.SYS,usbscan.sy_
+
+[Strings]
+MSFT="Megawin"
+MfgName="Megawin"
+USB\VID_0E6A&PID_030D.DeviceDesc="Megawin 8051 ISP-ICP Programmer"
+MEGAUSB.SvcDesc="Megawin 8051 ISP-ICP Programmer"
+
+

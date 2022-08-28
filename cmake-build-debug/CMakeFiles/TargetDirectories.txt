@@ -1,0 +1,3 @@
+C:/Users/aditya/Desktop/weight-machine/cmake-build-debug/CMakeFiles/weight_machine.dir
+C:/Users/aditya/Desktop/weight-machine/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/aditya/Desktop/weight-machine/cmake-build-debug/CMakeFiles/rebuild_cache.dir

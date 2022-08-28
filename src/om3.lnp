@@ -1,0 +1,5 @@
+"om3.obj",
+"tm1640.obj",
+"utility.obj" 
+TO "om3" 
+RAMSIZE(256) 
