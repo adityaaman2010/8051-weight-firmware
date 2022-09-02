@@ -12,4 +12,8 @@ add_executable(weight_machine
         src/tm1640.c
         src/tm1640.h
         src/utility.c
-        src/utility.h)
+        src/utility.h
+        src/keypad.c
+        src/keypad.h
+        src/weight.c
+        src/weight.h)

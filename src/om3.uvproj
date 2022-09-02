@@ -396,6 +396,26 @@
               <FileType>1</FileType>
               <FilePath>.\utility.c</FilePath>
             </File>
+            <File>
+              <FileName>keypad.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\keypad.h</FilePath>
+            </File>
+            <File>
+              <FileName>keypad.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\keypad.c</FilePath>
+            </File>
+            <File>
+              <FileName>weight.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\weight.c</FilePath>
+            </File>
+            <File>
+              <FileName>weight.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\weight.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -1,0 +1,236 @@
+C51 COMPILER V9.60.0.0   KEYPAD                                                            09/02/2022 18:36:04 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYPAD
+OBJECT MODULE PLACED IN keypad.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE keypad.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          //
+   2          // Created by aditya on 02-09-2022.
+   3          //
+   4          
+   5          #include "REG_MG82FG5Bxx.h"
+   6          #include "macro.h"
+   7          #include "keypad.h"
+   8          
+   9          unsigned char scan_keypad(void)
+  10          {
+  11   1          unsigned char i;
+  12   1          unsigned char key_status = 'A';
+  13   1      
+  14   1          for(i = 0; i<5; i++)
+  15   1          {
+  16   2              if( i == 0)
+  17   2              {
+  18   3                  KROW0 = 1;
+  19   3                  KROW1 = 0;
+  20   3                  KROW2 = 0;
+  21   3                  KROW3 = 0;
+  22   3                  KROW4 = 0;
+  23   3                  if(KCOL0 == 1)
+  24   3                  {
+  25   4                      while(KCOL0 == 1);
+  26   4                      key_status = 1;
+  27   4      //                key_status = 21;
+  28   4                  }
+  29   3                  if(KCOL1 == 1)
+  30   3                  {
+  31   4                      while(KCOL1 == 1);
+  32   4                      key_status = 2;
+  33   4      //                key_status = 24;
+  34   4                  }
+  35   3                  if(KCOL2 == 1)
+  36   3                  {
+  37   4                      while(KCOL2 == 1);
+  38   4                      key_status = 3;
+  39   4      //                key_status = 19;
+  40   4                  }
+  41   3                  if(KCOL3 == 1)
+  42   3                  {
+  43   4                      while(KCOL3 == 1);
+  44   4                      key_status = 23;
+  45   4      //                key_status = 14;
+  46   4                  }
+  47   3                  if(KCOL4 == 1)
+  48   3                  {
+  49   4                      while(KCOL4 == 1);
+  50   4                      key_status = 4;
+  51   4                  }
+  52   3              }
+  53   2              if( i == 1)
+  54   2              {
+  55   3                  KROW0 = 0;
+C51 COMPILER V9.60.0.0   KEYPAD                                                            09/02/2022 18:36:04 PAGE 2   
+
+  56   3                  KROW1 = 1;
+  57   3                  KROW2 = 0;
+  58   3                  KROW3 = 0;
+  59   3                  KROW4 = 0;
+  60   3                  if(KCOL0 == 1)
+  61   3                  {
+  62   4                      while(KCOL0 == 1);
+  63   4                      key_status = 4;
+  64   4      //                key_status = 18;
+  65   4                  }
+  66   3                  if(KCOL1 == 1)
+  67   3                  {
+  68   4                      while(KCOL1 == 1);
+  69   4                      key_status = 5;
+  70   4      //                key_status = 13;
+  71   4                  }
+  72   3                  if(KCOL2 == 1)
+  73   3                  {
+  74   4                      while(KCOL2 == 1);
+  75   4                      key_status = 6;
+  76   4      //                key_status = 22;
+  77   4                  }
+  78   3                  if(KCOL3 == 1)
+  79   3                  {
+  80   4                      while(KCOL3 == 1);
+  81   4                      key_status = 21;
+  82   4      //                key_status = 17;
+  83   4                  }
+  84   3                  if(KCOL4 == 1)
+  85   3                  {
+  86   4                      while(KCOL4 == 1);
+  87   4                      key_status = 22;
+  88   4      //                key_status = 12;
+  89   4                  }
+  90   3              }
+  91   2              if( i == 2)
+  92   2              {
+  93   3                  KROW0 = 0;
+  94   3                  KROW1 = 0;
+  95   3                  KROW2 = 1;
+  96   3                  KROW3 = 0;
+  97   3                  KROW4 = 0;
+  98   3                  if(KCOL0 == 1)
+  99   3                  {
+ 100   4                      while(KCOL0 == 1);
+ 101   4                      key_status = 7;
+ 102   4      //                key_status = 10;
+ 103   4                  }
+ 104   3                  if(KCOL1 == 1)
+ 105   3                  {
+ 106   4                      while(KCOL1 == 1);
+ 107   4                      key_status = 8;
+ 108   4      //                key_status = 11;
+ 109   4                  }
+ 110   3                  if(KCOL2 == 1)
+ 111   3                  {
+ 112   4                      while(KCOL2 == 1);
+ 113   4                      key_status = 9;
+ 114   4      //                key_status = 9;
+ 115   4                  }
+ 116   3                  if(KCOL3 == 1)
+ 117   3                  {
+C51 COMPILER V9.60.0.0   KEYPAD                                                            09/02/2022 18:36:04 PAGE 3   
+
+ 118   4                      while(KCOL3 == 1);
+ 119   4                      key_status = 19;
+ 120   4      //                key_status = 6;
+ 121   4                  }
+ 122   3                  if(KCOL4 == 1)
+ 123   3                  {
+ 124   4                      while(KCOL4 == 1);
+ 125   4                      key_status = 20;
+ 126   4      //                key_status = 3;
+ 127   4                  }
+ 128   3              }
+ 129   2              if( i == 3)
+ 130   2              {
+ 131   3                  KROW0 = 0;
+ 132   3                  KROW1 = 0;
+ 133   3                  KROW2 = 0;
+ 134   3                  KROW3 = 1;
+ 135   3                  KROW4 = 0;
+ 136   3                  if(KCOL0 == 1)
+ 137   3                  {
+ 138   4                      while(KCOL0 == 1);
+ 139   4                      key_status = 0;
+ 140   4      //                key_status = 15;
+ 141   4                  }
+ 142   3                  if(KCOL1 == 1)
+ 143   3                  {
+ 144   4                      while(KCOL1 == 1);
+ 145   4                      key_status = 10;
+ 146   4      //                key_status = 16;
+ 147   4                  }
+ 148   3                  if(KCOL2 == 1)
+ 149   3                  {
+ 150   4                      while(KCOL2 == 1);
+ 151   4                      key_status = 11;
+ 152   4      //                key_status = 8;
+ 153   4                  }
+ 154   3                  if(KCOL3 == 1)
+ 155   3                  {
+ 156   4                      while(KCOL3 == 1);
+ 157   4                      key_status = 17;
+ 158   4      //                key_status = 5;
+ 159   4                  }
+ 160   3                  if(KCOL4 == 1)
+ 161   3                  {
+ 162   4                      while(KCOL4 == 1);
+ 163   4                      key_status = 18;
+ 164   4      //                key_status = 2;
+ 165   4                  }
+ 166   3              }
+ 167   2              if( i == 4)
+ 168   2              {
+ 169   3                  KROW0 = 0;
+ 170   3                  KROW1 = 0;
+ 171   3                  KROW2 = 0;
+ 172   3                  KROW3 = 0;
+ 173   3                  KROW4 = 1;
+ 174   3                  if(KCOL0 == 1)
+ 175   3                  {
+ 176   4                      while(KCOL0 == 1);
+ 177   4                      key_status = 15;
+ 178   4      //                key_status = 20;
+ 179   4                  }
+C51 COMPILER V9.60.0.0   KEYPAD                                                            09/02/2022 18:36:04 PAGE 4   
+
+ 180   3                  if(KCOL1 == 1)
+ 181   3                  {
+ 182   4                      while(KCOL1 == 1);
+ 183   4                      key_status = 14;
+ 184   4      //                key_status = 0;
+ 185   4                  }
+ 186   3                  if(KCOL2 == 1)
+ 187   3                  {
+ 188   4                      while(KCOL2 == 1);
+ 189   4                      key_status = 16;
+ 190   4      //                key_status = 7;
+ 191   4                  }
+ 192   3                  if(KCOL3 == 1)
+ 193   3                  {
+ 194   4                      while(KCOL3 == 1);
+ 195   4                      key_status = 12;
+ 196   4      //                key_status = 4;
+ 197   4                  }
+ 198   3                  if(KCOL4 == 1)
+ 199   3                  {
+ 200   4                      while(KCOL4 == 1);
+ 201   4                      key_status = 13;
+ 202   4      //                key_status = 1;
+ 203   4                  }
+ 204   3              }
+ 205   2          }
+ 206   1          return key_status;
+ 207   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    296    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

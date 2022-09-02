@@ -5,6 +5,8 @@
 #ifndef WEIGHT_MACHINE_MACRO_H
 #define WEIGHT_MACHINE_MACRO_H
 
+#define ZERO_HEX     0xed
+#define BLANK_HEX    0x00
 #define GPIO_write_DIN_high()		P20 = 1
 #define GPIO_write_DIN_low()		P20 = 0
 #define GPIO_write_SCLK_high()	P21 = 1
