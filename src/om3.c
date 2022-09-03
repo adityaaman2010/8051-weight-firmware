@@ -115,14 +115,14 @@ unsigned char* get_number_display(unsigned char* value, int displayLength, int p
         return overflowHex;
     }
 
-    for (i= sizeof(value); i > -1; i--){
+    for (i= sizeof(value)-1; i > -1; i--){
         y = sizeof(value) - 1 - i;
         t[y] = value[i];
     }
     for(i=0;i < displayLength; i++) {
         final_display[i] = BLANK_HEX;
     }
-    for(i=1;i < sizeof(t); i++) {
+    for(i=0;i < sizeof(t); i++) {
         if(t[i] == '.') {
             set_flag = 1;
             after_display = 1;
@@ -132,13 +132,13 @@ unsigned char* get_number_display(unsigned char* value, int displayLength, int p
         a = no_digits[index];
         if(after_display == 1) {
             if (set_flag == 1) {
-                final_display[i-2] = a | 0x02;
+                final_display[i-1] = a | 0x02;
                 set_flag = 0;
             }else{
-                final_display[i-2] = a;
+                final_display[i-1] = a;
             }
         }else{
-            final_display[i-1] = a;
+            final_display[i] = a;
         }
     }
     return final_display;
@@ -174,14 +174,14 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
 //        return overflowHex;
 //    }
 
-    for (i= sizeof(value); i > -1; i--){
+    for (i= sizeof(value) - 1; i > -1; i--){
         y = sizeof(value) - 1 - i;
         t[y] = value[i];
     }
     for(i=0;i < displayLength; i++) {
         final_display[i] = BLANK_HEX;
     }
-    for(i=1;i < sizeof(t); i++) {
+    for(i=0;i < sizeof(t); i++) {
         if(t[i] == '.') {
             set_flag = 1;
             after_display = 1;
@@ -191,13 +191,13 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
         a = no_digits[index];
         if(after_display == 1) {
             if (set_flag == 1) {
-                final_display[i-2] = a | 0x02;
+                final_display[i-1] = a | 0x02;
                 set_flag = 0;
             }else{
-                final_display[i-2] = a;
+                final_display[i-1] = a;
             }
         }else{
-            final_display[i-1] = a;
+            final_display[i] = a;
         }
     }
     return final_display;
