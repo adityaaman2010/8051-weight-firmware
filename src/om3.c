@@ -13,8 +13,9 @@
 void key_display(void);
 void Keypad_GPIO_Config(void);
 void key_sort(unsigned char);
-unsigned char* get_number_display(unsigned char*, int, int);
-unsigned char* get_number_display_float(double, int, int);
+unsigned char* getNumberDisplay(unsigned char*, int, int);
+unsigned char* getCharArray(int);
+unsigned char* getNumberDisplayFloat(double, int, int);
 void initializeDisplay();
 
 unsigned char hi_key_no, lo_key_no;
@@ -40,24 +41,29 @@ void main(void)
         unsigned char* output;
         unsigned char temp[1];
         int precision = 2;
-		initializeDisplay();
+				initializeDisplay();
+				output = getNumberDisplayFloat(0.00, 5, precision);
+				TM1640_M_display(output);
+				output = getNumberDisplayFloat(0.00, 5, precision);
+				TM1640_L_display(output);
 		while(1)
 		{
             weight = getWeight();
-            output = get_number_display_float(weight, 5, precision);
+            output = getNumberDisplayFloat(weight, 5, precision);
             TM1640_U_display(output);
+					
 			key = scan_keypad();
 			Delay_Some_Time(10);
 			if(key != 'A') {
                 if (key < 11) {
-                    key = 0x3f & key;
+                    key = 0x30 | key;
                     temp[0] = key;
                     strcat(inputPrice, temp);
                     x = atof(inputPrice);
                     total = x * weight;
-                    output = get_number_display(inputPrice, 5, precision);
+                    output = getNumberDisplay(inputPrice, 5, precision);
                     TM1640_M_display(output);
-                    output = get_number_display_float(total, 6, precision);
+                    output = getNumberDisplayFloat(total, 6, precision);
                     TM1640_L_display(output);
                 }
 			}
@@ -84,7 +90,7 @@ void Keypad_GPIO_Config(void)
 }
 
 
-unsigned char* get_number_display(unsigned char* value, int displayLength, int precision){
+unsigned char* getNumberDisplay(unsigned char* value, int displayLength, int precision){
     int value_len = 0;
     int set_flag = 0;
     int after_display = 0;
@@ -144,8 +150,8 @@ unsigned char* get_number_display(unsigned char* value, int displayLength, int p
     return final_display;
 }
 
-unsigned char* get_number_display_float(double x, int displayLength, int precision){
-    unsigned char value[displayLength + 1];
+unsigned char* getNumberDisplayFloat(double x, int displayLength, int precision){
+    unsigned char value[7];
     unsigned char t[sizeof(value)];
     int value_len = 0;
     int set_flag = 0;
@@ -169,10 +175,10 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
             value_len++;
         }
     }
-//    if((value_len + precision) > (displayLength)){
-//        // Display out of bound values on display
-//        return overflowHex;
-//    }
+    if((value_len + precision) > (displayLength)){
+        // Display out of bound values on display
+        return overflowHex;
+    }
 
     for (i= strlen(value) - 1; i > -1; i--){
         y = strlen(value) - 1 - i;
@@ -183,7 +189,6 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
         final_display[i] = BLANK_HEX;
     }
     for(i=0;i < strlen(t); i++) {
-        
         if(t[i] == '.') {
             set_flag = 1;
             after_display = 1;
@@ -193,7 +198,8 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
         a = no_digits[index];
         if(after_display == 1) {
             if (set_flag == 1) {
-                final_display[i-1] = a | 0x02;
+                a = 0x02 | a;
+                final_display[i-1] = a;
                 set_flag = 0;
             }else{
                 final_display[i-1] = a;

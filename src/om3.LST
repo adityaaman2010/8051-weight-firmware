@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   OM3                                                               09/02/2022 20:41:07 PAGE 1   
+C51 COMPILER V9.60.0.0   OM3                                                               09/04/2022 19:21:46 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE OM3
@@ -22,251 +22,260 @@ line level    source
   13          void key_display(void);
   14          void Keypad_GPIO_Config(void);
   15          void key_sort(unsigned char);
-  16          unsigned char* get_number_display(unsigned char*, int, int);
-  17          unsigned char* get_number_display_float(double, int, int);
-  18          void initializeDisplay();
-  19          
-  20          unsigned char hi_key_no, lo_key_no;
-  21          unsigned char xdata overflowHex[] = {0x10, 0x10, 0x10, 0x10, 0x10, 0x10};
-  22          unsigned char xdata no_digits[] = {0xed,0xa0,0xd9,0xf8,0xb4,0x7c,0x7d,0xe0,0xfd,0xfc};  //0,1,2,3,4,5,6,7,8
+  16          unsigned char* getNumberDisplay(unsigned char*, int, int);
+  17          unsigned char* getCharArray(int);
+  18          unsigned char* getNumberDisplayFloat(double, int, int);
+  19          void initializeDisplay();
+  20          
+  21          unsigned char hi_key_no, lo_key_no;
+  22          unsigned char xdata overflowHex[] = {0x10, 0x10, 0x10, 0x10, 0x10, 0x10};
+  23          unsigned char xdata no_digits[] = {0xed,0xa0,0xd9,0xf8,0xb4,0x7c,0x7d,0xe0,0xfd,0xfc};  //0,1,2,3,4,5,6,7,8
              -,9
-  23          unsigned char xdata digi_chk[] = {0x40,0xc0,0xe0,0xe8,0xe9,0xed,0xfd};
-  24          unsigned char xdata prc[] = {0x00, 0x4d,0x45, 0xd5, 0x00};
-  25          unsigned char xdata ver[] = { 0xed, 0xa2,0x00,0x45,0x5d, 0xad};
-  26          unsigned char xdata compny_name[] = { 0xb5, 0x5d,0x0d, 0x0d, 0xed, 0x10, 0x7c, 0x4d, 0xf5,0x0d,0x00,0x00,0
+  24          unsigned char xdata digi_chk[] = {0x40,0xc0,0xe0,0xe8,0xe9,0xed,0xfd};
+  25          unsigned char xdata prc[] = {0x00, 0x4d,0x45, 0xd5, 0x00};
+  26          unsigned char xdata ver[] = { 0xed, 0xa2,0x00,0x45,0x5d, 0xad};
+  27          unsigned char xdata compny_name[] = { 0xb5, 0x5d,0x0d, 0x0d, 0xed, 0x10, 0x7c, 0x4d, 0xf5,0x0d,0x00,0x00,0
              -x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
-  27          unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
-  28          unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
-  29          unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
-  30          unsigned char final_display[6];
-  31          
+  28          unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
+  29          unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
+  30          unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
+  31          unsigned char final_display[6];
   32          
-  33          void main(void)
-  34          {       double x;
-  35   1          unsigned char key;
-  36   1              double weight;
-  37   1              double total;
-  38   1              double currentPrice;
-  39   1              unsigned char inputPrice[5];
-  40   1              unsigned char* output;
-  41   1              unsigned char temp[1];
-  42   1              int precision = 2;
-  43   1          initializeDisplay();
-  44   1          while(1)
-  45   1          {
-  46   2                  weight = getWeight();
-  47   2                  output = get_number_display_float(weight, 5, precision);
-  48   2                  TM1640_U_display(output);
-  49   2            key = scan_keypad();
-  50   2            Delay_Some_Time(10);
-  51   2            if(key != 'A') {
-  52   3                      if (key < 11) {
-  53   4                          key = 0x3f & key;
-C51 COMPILER V9.60.0.0   OM3                                                               09/02/2022 20:41:07 PAGE 2   
+  33          
+  34          void main(void)
+  35          {       double x;
+  36   1          unsigned char key;
+  37   1              double weight;
+  38   1              double total;
+  39   1              double currentPrice;
+  40   1              unsigned char inputPrice[5];
+  41   1              unsigned char* output;
+  42   1              unsigned char temp[1];
+  43   1              int precision = 2;
+  44   1              initializeDisplay();
+  45   1              output = getNumberDisplayFloat(0.00, 5, precision);
+  46   1              TM1640_M_display(output);
+  47   1              output = getNumberDisplayFloat(0.00, 5, precision);
+  48   1              TM1640_L_display(output);
+  49   1          while(1)
+  50   1          {
+  51   2                  weight = getWeight();
+  52   2                  output = getNumberDisplayFloat(weight, 5, precision);
+  53   2                  TM1640_U_display(output);
+C51 COMPILER V9.60.0.0   OM3                                                               09/04/2022 19:21:46 PAGE 2   
 
-  54   4                          temp[0] = key;
-  55   4                          strcat(inputPrice, temp);
-  56   4                          x = atof(inputPrice);
-  57   4                          total = x * weight;
-  58   4                          output = get_number_display(inputPrice, 5, precision);
-  59   4                          TM1640_M_display(output);
-  60   4                          output = get_number_display_float(total, 6, precision);
-  61   4                          TM1640_L_display(output);
-  62   4                      }
-  63   3            }
-  64   2            Delay_Some_Time(10);
-  65   2      //      key_display();
-  66   2            Delay_Some_Time(100);
-  67   2          }
-  68   1          
-  69   1      }
-*** WARNING C280 IN LINE 38 OF om3.c: 'currentPrice': unreferenced local variable
-  70          void Keypad_GPIO_Config(void)
-  71          {
-  72   1          P1M0 = 0x1f;
-  73   1          P22 = 1;
-  74   1          P24 = 1;
-  75   1          P26 = 1;
-  76   1          P16 = 1;
-  77   1          P15 = 1;
-  78   1          P10 = 0;
-  79   1          P11 = 0;
-  80   1          P12 = 0;
-  81   1          P13 = 0;
-  82   1          P14 = 0;
-  83   1          
-  84   1      }
-  85          
-  86          
-  87          unsigned char* get_number_display(unsigned char* value, int displayLength, int precision){
-  88   1          int value_len = 0;
-  89   1          int set_flag = 0;
-  90   1          int after_display = 0;
-  91   1          int y, i, index;
-  92   1          unsigned char t[sizeof(value)];
-  93   1          unsigned char a;
-  94   1          double x;
-  95   1          x = atof(value);
-  96   1          if (precision == 0){
-  97   2              sprintf(value, "%.0lf", x);
-  98   2          }else if (precision == 1) {
-  99   2              sprintf(value, "%.1lf", x);
- 100   2          }else if (precision == 2) {
- 101   2              sprintf(value, "%.2lf", x);
- 102   2          }else if (precision == 3) {
- 103   2              sprintf(value, "%.3lf", x);
- 104   2          }
- 105   1          for(i=0; i<sizeof(value);i++){
- 106   2              if(value[i] == '.'){
- 107   3                  break;
- 108   3              }
- 109   2              else{
- 110   3                  value_len++;
- 111   3              }
- 112   2          }
- 113   1          if((value_len + precision) > (displayLength)){
- 114   2              // Display out of bound values on display
-C51 COMPILER V9.60.0.0   OM3                                                               09/02/2022 20:41:07 PAGE 3   
+  54   2                
+  55   2            key = scan_keypad();
+  56   2            Delay_Some_Time(10);
+  57   2            if(key != 'A') {
+  58   3                      if (key < 11) {
+  59   4                          key = 0x30 | key;
+  60   4                          temp[0] = key;
+  61   4                          strcat(inputPrice, temp);
+  62   4                          x = atof(inputPrice);
+  63   4                          total = x * weight;
+  64   4                          output = getNumberDisplay(inputPrice, 5, precision);
+  65   4                          TM1640_M_display(output);
+  66   4                          output = getNumberDisplayFloat(total, 6, precision);
+  67   4                          TM1640_L_display(output);
+  68   4                      }
+  69   3            }
+  70   2            Delay_Some_Time(10);
+  71   2      //      key_display();
+  72   2            Delay_Some_Time(100);
+  73   2          }
+  74   1          
+  75   1      }
+*** WARNING C280 IN LINE 39 OF om3.c: 'currentPrice': unreferenced local variable
+  76          void Keypad_GPIO_Config(void)
+  77          {
+  78   1          P1M0 = 0x1f;
+  79   1          P22 = 1;
+  80   1          P24 = 1;
+  81   1          P26 = 1;
+  82   1          P16 = 1;
+  83   1          P15 = 1;
+  84   1          P10 = 0;
+  85   1          P11 = 0;
+  86   1          P12 = 0;
+  87   1          P13 = 0;
+  88   1          P14 = 0;
+  89   1          
+  90   1      }
+  91          
+  92          
+  93          unsigned char* getNumberDisplay(unsigned char* value, int displayLength, int precision){
+  94   1          int value_len = 0;
+  95   1          int set_flag = 0;
+  96   1          int after_display = 0;
+  97   1          int y, i, index;
+  98   1          unsigned char t[sizeof(value)];
+  99   1          unsigned char a;
+ 100   1          double x;
+ 101   1          x = atof(value);
+ 102   1          if (precision == 0){
+ 103   2              sprintf(value, "%.0lf", x);
+ 104   2          }else if (precision == 1) {
+ 105   2              sprintf(value, "%.1lf", x);
+ 106   2          }else if (precision == 2) {
+ 107   2              sprintf(value, "%.2lf", x);
+ 108   2          }else if (precision == 3) {
+ 109   2              sprintf(value, "%.3lf", x);
+ 110   2          }
+ 111   1          for(i=0; i<sizeof(value);i++){
+ 112   2              if(value[i] == '.'){
+ 113   3                  break;
+ 114   3              }
+C51 COMPILER V9.60.0.0   OM3                                                               09/04/2022 19:21:46 PAGE 3   
 
- 115   2              return overflowHex;
- 116   2          }
- 117   1      
- 118   1          for (i= sizeof(value); i > -1; i--){
- 119   2              y = sizeof(value) - 1 - i;
- 120   2              t[y] = value[i];
- 121   2          }
- 122   1          for(i=0;i < displayLength; i++) {
- 123   2              final_display[i] = BLANK_HEX;
- 124   2          }
- 125   1          for(i=1;i < sizeof(t); i++) {
- 126   2              if(t[i] == '.') {
- 127   3                  set_flag = 1;
- 128   3                  after_display = 1;
- 129   3                  continue;
- 130   3              }
- 131   2              index = t[i] & 0x0f;
- 132   2              a = no_digits[index];
- 133   2              if(after_display == 1) {
- 134   3                  if (set_flag == 1) {
- 135   4                      final_display[i-2] = a | 0x02;
- 136   4                      set_flag = 0;
- 137   4                  }else{
- 138   4                      final_display[i-2] = a;
- 139   4                  }
- 140   3              }else{
- 141   3                  final_display[i-1] = a;
- 142   3              }
- 143   2          }
- 144   1          return final_display;
- 145   1      }
- 146          
- 147          unsigned char* get_number_display_float(double x, int displayLength, int precision){
- 148   1          unsigned char value[5];
- 149   1          unsigned char t[sizeof(value)];
- 150   1          int value_len = 0;
- 151   1          int set_flag = 0;
- 152   1          int after_display = 0;
- 153   1          int y, i, index;
- 154   1          unsigned char a;
- 155   1          if (precision == 0){
- 156   2              sprintf(value, "%.0lf", x);
- 157   2          }else if (precision == 1) {
- 158   2              sprintf(value, "%.1lf", x);
- 159   2          }else if (precision == 2) {
- 160   2              sprintf(value, "%.2lf", x);
- 161   2          }else if (precision == 3) {
- 162   2              sprintf(value, "%.3lf", x);
- 163   2          }
- 164   1          for(i=0; i<sizeof(value);i++){
- 165   2              if(value[i] == '.'){
- 166   3                  break;
- 167   3              }
- 168   2              else{
- 169   3                  value_len++;
- 170   3              }
- 171   2          }
- 172   1      //    if((value_len + precision) > (displayLength)){
- 173   1      //        // Display out of bound values on display
- 174   1      //        return overflowHex;
- 175   1      //    }
- 176   1      
-C51 COMPILER V9.60.0.0   OM3                                                               09/02/2022 20:41:07 PAGE 4   
+ 115   2              else{
+ 116   3                  value_len++;
+ 117   3              }
+ 118   2          }
+ 119   1          if((value_len + precision) > (displayLength)){
+ 120   2              // Display out of bound values on display
+ 121   2              return overflowHex;
+ 122   2          }
+ 123   1      
+ 124   1          for (i= sizeof(value)-1; i > -1; i--){
+ 125   2              y = sizeof(value) - 1 - i;
+ 126   2              t[y] = value[i];
+ 127   2          }
+ 128   1          for(i=0;i < displayLength; i++) {
+ 129   2              final_display[i] = BLANK_HEX;
+ 130   2          }
+ 131   1          for(i=0;i < sizeof(t); i++) {
+ 132   2              if(t[i] == '.') {
+ 133   3                  set_flag = 1;
+ 134   3                  after_display = 1;
+ 135   3                  continue;
+ 136   3              }
+ 137   2              index = t[i] & 0x0f;
+ 138   2              a = no_digits[index];
+ 139   2              if(after_display == 1) {
+ 140   3                  if (set_flag == 1) {
+ 141   4                      final_display[i-1] = a | 0x02;
+ 142   4                      set_flag = 0;
+ 143   4                  }else{
+ 144   4                      final_display[i-1] = a;
+ 145   4                  }
+ 146   3              }else{
+ 147   3                  final_display[i] = a;
+ 148   3              }
+ 149   2          }
+ 150   1          return final_display;
+ 151   1      }
+ 152          
+ 153          unsigned char* getNumberDisplayFloat(double x, int displayLength, int precision){
+ 154   1          unsigned char value[7];
+ 155   1          unsigned char t[sizeof(value)];
+ 156   1          int value_len = 0;
+ 157   1          int set_flag = 0;
+ 158   1          int after_display = 0;
+ 159   1          int y, i, index;
+ 160   1          unsigned char a;
+ 161   1          if (precision == 0){
+ 162   2              sprintf(value, "%.0lf", x);
+ 163   2          }else if (precision == 1) {
+ 164   2              sprintf(value, "%.1lf", x);
+ 165   2          }else if (precision == 2) {
+ 166   2              sprintf(value, "%.2lf", x);
+ 167   2          }else if (precision == 3) {
+ 168   2              sprintf(value, "%.3lf", x);
+ 169   2          }
+ 170   1          for(i=0; i<strlen(value);i++){
+ 171   2              if(value[i] == '.'){
+ 172   3                  break;
+ 173   3              }
+ 174   2              else{
+ 175   3                  value_len++;
+ 176   3              }
+C51 COMPILER V9.60.0.0   OM3                                                               09/04/2022 19:21:46 PAGE 4   
 
- 177   1          for (i= sizeof(value); i > -1; i--){
- 178   2              y = sizeof(value) - 1 - i;
- 179   2              t[y] = value[i];
- 180   2          }
- 181   1          for(i=0;i < displayLength; i++) {
- 182   2              final_display[i] = BLANK_HEX;
- 183   2          }
- 184   1          for(i=1;i < sizeof(t); i++) {
- 185   2              if(t[i] == '.') {
- 186   3                  set_flag = 1;
- 187   3                  after_display = 1;
- 188   3                  continue;
- 189   3              }
- 190   2              index = t[i] & 0x0f;
- 191   2              a = no_digits[index];
- 192   2              if(after_display == 1) {
- 193   3                  if (set_flag == 1) {
- 194   4                      final_display[i-2] = a | 0x02;
- 195   4                      set_flag = 0;
- 196   4                  }else{
- 197   4                      final_display[i-2] = a;
- 198   4                  }
- 199   3              }else{
- 200   3                  final_display[i-1] = a;
- 201   3              }
- 202   2          }
- 203   1          return final_display;
- 204   1      }
- 205          
- 206          void initializeDisplay() {
- 207   1          TM1640_GPIO_Config();
- 208   1          Keypad_GPIO_Config();
- 209   1          TM1640_Init(DSPTM1640_DIS);     //TM1640 initialization
- 210   1          Delay_Some_Time(10 );
- 211   1      
- 212   1          TM1640_U_display(blank_L);
- 213   1          TM1640_M_display(blank_L);
- 214   1          TM1640_L_display(blank_L);
- 215   1      
- 216   1          TM1640_U_display(prc);
- 217   1          ldelay();
- 218   1      
- 219   1          TM1640_L_display(ver);
- 220   1          ldelay();
- 221   1      
- 222   1          TM1640_L_display(blank_L);
- 223   1          TM1640_U_display(blank_L);
- 224   1          TM1640_M_display(blank_L);
- 225   1          ldelay();
- 226   1      
- 227   1          TM1640_UM_display(compny_name);
- 228   1          ldelay();
- 229   1      
- 230   1          TM1640_digichk(digi_chk);
- 231   1          ldelay();
- 232   1      
- 233   1          TM1640_L_display(blank_L);
- 234   1          TM1640_U_display(blank_L);
- 235   1          TM1640_M_display(blank_L);
- 236   1          ldelay();
- 237   1      
- 238   1          TM1640_U_display(bat_digi);
-C51 COMPILER V9.60.0.0   OM3                                                               09/02/2022 20:41:07 PAGE 5   
+ 177   2          }
+ 178   1          if((value_len + precision) > (displayLength)){
+ 179   2              // Display out of bound values on display
+ 180   2              return overflowHex;
+ 181   2          }
+ 182   1      
+ 183   1          for (i= strlen(value) - 1; i > -1; i--){
+ 184   2              y = strlen(value) - 1 - i;
+ 185   2              t[y] = value[i];
+ 186   2          }
+ 187   1          t[strlen(value)] = '\0';
+ 188   1          for(i=0;i < displayLength; i++) {
+ 189   2              final_display[i] = BLANK_HEX;
+ 190   2          }
+ 191   1          for(i=0;i < strlen(t); i++) {
+ 192   2              if(t[i] == '.') {
+ 193   3                  set_flag = 1;
+ 194   3                  after_display = 1;
+ 195   3                  continue;
+ 196   3              }
+ 197   2              index = t[i] & 0x0f;
+ 198   2              a = no_digits[index];
+ 199   2              if(after_display == 1) {
+ 200   3                  if (set_flag == 1) {
+ 201   4                      a = 0x02 | a;
+ 202   4                      final_display[i-1] = a;
+ 203   4                      set_flag = 0;
+ 204   4                  }else{
+ 205   4                      final_display[i-1] = a;
+ 206   4                  }
+ 207   3              }else{
+ 208   3                  final_display[i] = a;
+ 209   3              }
+ 210   2              
+ 211   2          }
+ 212   1          return final_display;
+ 213   1      }
+ 214          
+ 215          void initializeDisplay() {
+ 216   1          TM1640_GPIO_Config();
+ 217   1          Keypad_GPIO_Config();
+ 218   1          TM1640_Init(DSPTM1640_DIS);     //TM1640 initialization
+ 219   1          Delay_Some_Time(10 );
+ 220   1      
+ 221   1          TM1640_U_display(blank_L);
+ 222   1          TM1640_M_display(blank_L);
+ 223   1          TM1640_L_display(blank_L);
+ 224   1      
+ 225   1          TM1640_U_display(prc);
+ 226   1          ldelay();
+ 227   1      
+ 228   1          TM1640_L_display(ver);
+ 229   1          ldelay();
+ 230   1      
+ 231   1          TM1640_L_display(blank_L);
+ 232   1          TM1640_U_display(blank_L);
+ 233   1          TM1640_M_display(blank_L);
+ 234   1          ldelay();
+ 235   1      
+ 236   1          TM1640_UM_display(compny_name);
+ 237   1          ldelay();
+ 238   1      
+C51 COMPILER V9.60.0.0   OM3                                                               09/04/2022 19:21:46 PAGE 5   
 
- 239   1          TM1640_M_display(bat_voltg);
+ 239   1          TM1640_digichk(digi_chk);
  240   1          ldelay();
- 241   1      }
+ 241   1      
+ 242   1          TM1640_L_display(blank_L);
+ 243   1          TM1640_U_display(blank_L);
+ 244   1          TM1640_M_display(blank_L);
+ 245   1          ldelay();
+ 246   1      
+ 247   1          TM1640_U_display(bat_digi);
+ 248   1          TM1640_M_display(bat_voltg);
+ 249   1          ldelay();
+ 250   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1170    ----
+   CODE SIZE        =   1362    ----
    CONSTANT SIZE    =     24    ----
    XDATA SIZE       =     70    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      8      74
+   DATA SIZE        =      8      80
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
