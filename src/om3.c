@@ -145,7 +145,7 @@ unsigned char* get_number_display(unsigned char* value, int displayLength, int p
 }
 
 unsigned char* get_number_display_float(double x, int displayLength, int precision){
-    unsigned char value[5];
+    unsigned char value[displayLength + 1];
     unsigned char t[sizeof(value)];
     int value_len = 0;
     int set_flag = 0;
@@ -161,7 +161,7 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
     }else if (precision == 3) {
         sprintf(value, "%.3lf", x);
     }
-    for(i=0; i<sizeof(value);i++){
+    for(i=0; i<strlen(value);i++){
         if(value[i] == '.'){
             break;
         }
@@ -174,14 +174,16 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
 //        return overflowHex;
 //    }
 
-    for (i= sizeof(value) - 1; i > -1; i--){
-        y = sizeof(value) - 1 - i;
+    for (i= strlen(value) - 1; i > -1; i--){
+        y = strlen(value) - 1 - i;
         t[y] = value[i];
     }
+    t[strlen(value)] = '\0';
     for(i=0;i < displayLength; i++) {
         final_display[i] = BLANK_HEX;
     }
-    for(i=0;i < sizeof(t); i++) {
+    for(i=0;i < strlen(t); i++) {
+        
         if(t[i] == '.') {
             set_flag = 1;
             after_display = 1;
@@ -199,6 +201,7 @@ unsigned char* get_number_display_float(double x, int displayLength, int precisi
         }else{
             final_display[i] = a;
         }
+        
     }
     return final_display;
 }
