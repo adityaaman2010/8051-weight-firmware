@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.27.1.0
 Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: John Snow, self, LIC=9W1EV-PZLGU-RKTBI-TT9CH-Z6PJP-7LQZ3
+License Information: test test, test, LIC=EXTBS-LUVWJ-UPPZV-P79E4-ASN4Z-E3YWF
  
 Tool Versions:
 Toolchain:       PK51 Prof. Developers Kit  Version: 9.60.0.0
@@ -18,22 +18,36 @@ Hex Converter:   OH51.exe V2.7.0.0
 CPU DLL:         
 Dialog DLL:       
 <h2>Project:</h2>
-C:\Users\aditya\Desktop\weight-machine\src\om3.uvproj
-Project File Date:  09/02/2022
+D:\grovebyte\code\8051-weight-firmware\src\om3.uvproj
+Project File Date:  09/05/2019
 
 <h2>Output:</h2>
-Build target 'Target 1'
+Rebuild target 'Target 1'
 compiling om3.c...
+om3.c(35): warning C280: 'x': unreferenced local variable
+om3.c(36): warning C280: 'key': unreferenced local variable
+om3.c(37): warning C280: 'weight': unreferenced local variable
+om3.c(38): warning C280: 'total': unreferenced local variable
 om3.c(39): warning C280: 'currentPrice': unreferenced local variable
+om3.c(40): warning C280: 'inputPrice': unreferenced local variable
+om3.c(42): warning C280: 'temp': unreferenced local variable
+compiling tm1640.c...
+compiling utility.c...
+compiling keypad.c...
+compiling weight.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_TM1640_DISPLAY?TM1640
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_STOF?UTILITY
-Program Size: data=123.1 xdata=70 code=12338
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?SCAN_KEYPAD?KEYPAD
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?GETWEIGHT?WEIGHT
+Program Size: data=116.1 xdata=76 code=11354
 creating hex file from "om3"...
-"om3" - 0 Error(s), 3 Warning(s).
-Build Time Elapsed:  00:00:00
+"om3" - 0 Error(s), 11 Warning(s).
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
