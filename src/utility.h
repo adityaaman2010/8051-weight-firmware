@@ -7,6 +7,6 @@
 
 void ldelay(void);
 void Delay_Some_Time(unsigned int );
-double stof(const char*);
+void joinCharacter(unsigned char*, unsigned char*);
 
 #endif //WEIGHT_MACHINE_UTILITY_H
