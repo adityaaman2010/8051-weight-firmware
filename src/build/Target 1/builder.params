@@ -1,0 +1,70 @@
+{
+    "name": "om3",
+    "target": "Target 1",
+    "toolchain": "Keil_C51",
+    "toolchainLocation": "C:\\Keil_v5\\C51",
+    "toolchainCfgFile": "..\\cfg\\8051.keil.model.json",
+    "buildMode": "normal|multhread",
+    "showRepathOnLog": true,
+    "threadNum": 8,
+    "rootDir": "c:\\Users\\aditya\\Desktop\\GitHub\\8051-weight-firmware\\src",
+    "dumpPath": "build\\Target 1",
+    "outDir": "build\\Target 1",
+    "incDirs": [
+        "../../../../../../Keil_v5/C51/INC"
+    ],
+    "libDirs": [],
+    "defines": [
+        "__UVISION_VERSION=526"
+    ],
+    "sourceList": [
+        "keypad.c",
+        "memory.c",
+        "om3.c",
+        "tm1640.c",
+        "utility.c",
+        "weight.c"
+    ],
+    "sourceParams": {},
+    "sourceParamsMtime": 1664347038079.5972,
+    "options": {
+        "version": 2,
+        "beforeBuildTasks": [],
+        "afterBuildTasks": [],
+        "global": {
+            "ram-mode": "SMALL",
+            "rom-mode": "LARGE"
+        },
+        "c/cpp-compiler": {
+            "optimization-type": "SPEED",
+            "optimization-level": "level-8",
+            "optimization": "8,SPEED"
+        },
+        "asm-compiler": {},
+        "linker": {
+            "remove-unused": true,
+            "output-format": "elf"
+        }
+    },
+    "env": {
+        "workspaceFolder": "c:\\Users\\aditya\\Desktop\\GitHub\\8051-weight-firmware\\src",
+        "workspaceFolderBasename": "src",
+        "OutDir": "c:\\Users\\aditya\\Desktop\\GitHub\\8051-weight-firmware\\src\\build\\Target 1",
+        "OutDirRoot": "build",
+        "OutDirBase": "build\\Target 1",
+        "ProjectName": "om3",
+        "ConfigName": "Target 1",
+        "ProjectRoot": "c:\\Users\\aditya\\Desktop\\GitHub\\8051-weight-firmware\\src",
+        "ExecutableName": "c:\\Users\\aditya\\Desktop\\GitHub\\8051-weight-firmware\\src\\build\\Target 1\\om3",
+        "ToolchainRoot": "C:\\Keil_v5\\C51"
+    },
+    "sha": {
+        "c/cpp-defines": "b5babb9cacba6494fa0692e84c1cf8da",
+        "beforeBuildTasks": "d751713988987e9331980363e24189ce",
+        "afterBuildTasks": "d751713988987e9331980363e24189ce",
+        "global": "c16529a49a409094a87f0219fb297e41",
+        "c/cpp-compiler": "d6401cb3a45dab99a8d0301dd2b94e32",
+        "asm-compiler": "99914b932bd37a50b983c5e7c90ae93b",
+        "linker": "8f1ebe355af85e07f74ac5fb45fcd416"
+    }
+}

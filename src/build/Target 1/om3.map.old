@@ -1,0 +1,673 @@
+LX51 LINKER/LOCATER V4.66.97.0                                                          10/03/2022  11:43:58  PAGE 1
+
+
+LX51 LINKER/LOCATER V4.66.97.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\LX51.EXE .\build\Target 1\keypad.o, .\build\Target 1\memory.o, .\build\Target 1\om3.o, .\build\Target
+>>  1\tm1640.o, .\build\Target 1\utility.o, .\build\Target 1\weight.o TO .\build\Target 1\om3 PRINT (.\build\Target 1\om
+>> 3.map) REMOVEUNUSED
+
+
+CPU MODE:     8051 MODE
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  .\build\Target 1\keypad.o (KEYPAD)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  .\build\Target 1\memory.o (MEMORY)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  .\build\Target 1\om3.o (OM3)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  .\build\Target 1\tm1640.o (TM1640)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  .\build\Target 1\utility.o (UTILITY)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  .\build\Target 1\weight.o (WEIGHT)
+         COMMENT TYPE 0: C51 V9.60.0.0
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPMUL)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (PRINTF)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (ATOF)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPROUND)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPCONVERT)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?ATOF)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPADD)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPDIV)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FPNEG)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FCAST)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51FPS.LIB (?C?FTNPWR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CLDOPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CSTOPTR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LNEG)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULCMP)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTXDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?LSTKXDATA)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?PLDIIDATA)
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 2
+
+
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?CCASE)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (PUTCHAR)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (ISSPACE)
+         COMMENT TYPE 1: C51 Compiler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (STRLEN)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+         COMMENT TYPE 1: A51 / ASM51 Assembler
+
+
+ACTIVE MEMORY CLASSES OF MODULE:  .\build\Target 1\om3 (KEYPAD)
+
+BASE        START       END         USED      MEMORY CLASS
+==========================================================
+C:000000H   C:000000H   C:00FFFFH   002F9FH   CODE
+I:000000H   I:000000H   I:00007FH   000044H   DATA
+X:000000H   X:000000H   X:00FFFFH   00008BH   XDATA
+C:000000H   C:000000H   C:00FFFFH   000014H   CONST
+I:000020H.0 I:000020H.0 I:00002FH.7 000001H.1 BIT
+I:000000H   I:000000H   I:0000FFH   000001H   IDATA
+
+
+MEMORY MAP OF MODULE:  .\build\Target 1\om3 (KEYPAD)
+
+
+START     STOP      LENGTH    ALIGN  RELOC    MEMORY CLASS   SEGMENT NAME
+=========================================================================
+
+* * * * * * * * * * *   D A T A   M E M O R Y   * * * * * * * * * * * * *
+000000H   000007H   000008H   ---    AT..     DATA           "REG BANK 0"
+000008H.0 00001FH.7 000018H.0 ---    ---      **GAP**
+000020H.0 000021H.0 000001H.1 BIT    UNIT     BIT            _BIT_GROUP_
+000021H.1 000021H   000000H.7 ---    ---      **GAP**
+000022H   00005DH   00003CH   BYTE   UNIT     DATA           _DATA_GROUP_
+00005EH   00005EH   000001H   BYTE   UNIT     IDATA          ?STACK
+
+* * * * * * * * * * *   C O D E   M E M O R Y   * * * * * * * * * * * * *
+000000H   000002H   000003H   ---    OFFS..   CODE           ?CO??C_STARTUP?0
+000003H   000E3AH   000E38H   BYTE   UNIT     CODE           ?PR?_TM1640_UM_DISPLAY?TM1640
+000E3BH   0018A0H   000A66H   BYTE   UNIT     CODE           ?PR?_TM1640_DIGICHK?TM1640
+0018A1H   001E85H   0005E5H   BYTE   UNIT     CODE           ?C?LIB_CODE
+001E86H   0022F4H   00046FH   BYTE   UNIT     CODE           ?PR?PRINTF?PRINTF
+0022F5H   002511H   00021DH   BYTE   UNIT     CODE           ?PR?_GETNUMBERDISPLAYFLOAT?OM3
+002512H   002681H   000170H   BYTE   UNIT     CODE           ?PR?HANDLEMODEONE?OM3
+002682H   0027A9H   000128H   BYTE   UNIT     CODE           ?PR?SCAN_KEYPAD?KEYPAD
+0027AAH   002898H   0000EFH   BYTE   UNIT     CODE           ?PR?MAIN?OM3
+002899H   002985H   0000EDH   BYTE   UNIT     CODE           ?PR?INITIALIZEDISPLAY?OM3
+002986H   002A6BH   0000E6H   BYTE   UNIT     CODE           ?PR??C?ATOF??C?ATOF
+002A6CH   002B12H   0000A7H   BYTE   UNIT     CODE           ?C_INITSEG
+002B13H   002BB9H   0000A7H   BYTE   UNIT     CODE           ?PR?_TM1640_L_DISPLAY?TM1640
+002BBAH   002C49H   000090H   BYTE   UNIT     CODE           ?PR?_TM1640_U_DISPLAY?TM1640
+002C4AH   002CD9H   000090H   BYTE   UNIT     CODE           ?PR?_TM1640_M_DISPLAY?TM1640
+002CDAH   002D65H   00008CH   BYTE   UNIT     CODE           ?C_C51STARTUP
+002D66H   002DCFH   00006AH   BYTE   UNIT     CODE           ?PR?LDELAY?UTILITY
+002DD0H   002E1CH   00004DH   BYTE   UNIT     CODE           ?PR?_TM1640WRITEBYTE?TM1640
+002E1DH   002E64H   000048H   BYTE   UNIT     CODE           ?PR?ATOF?ATOF
+002E65H   002EA2H   00003EH   BYTE   UNIT     CODE           ?PR?_JOINCHARACTER?UTILITY
+002EA3H   002ED1H   00002FH   BYTE   UNIT     CODE           ?PR?_TM1640_INIT?TM1640
+002ED2H   002EF8H   000027H   BYTE   UNIT     CODE           ?PR?PUTCHAR?PUTCHAR
+002EF9H   002F18H   000020H   BYTE   UNIT     CODE           ?PR?_DELAY_SOME_TIME?UTILITY
+002F19H   002F35H   00001DH   BYTE   UNIT     CODE           ?PR?TM1640START?TM1640
+002F36H   002F4DH   000018H   BYTE   UNIT     CODE           ?PR?KEYPAD_GPIO_CONFIG?OM3
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 3
+
+
+002F4EH   002F62H   000015H   BYTE   UNIT     CODE           ?PR?_STRLEN?STRLEN
+002F63H   002F76H   000014H   BYTE   UNIT     CODE           ?PR?TM1640STOP?TM1640
+002F77H   002F89H   000013H   BYTE   UNIT     CODE           ?PR?_ISSPACE?ISSPACE
+002F8AH   002F94H   00000BH   BYTE   UNIT     CODE           ?PR?TM1640_GPIO_CONFIG?TM1640
+002F95H   002F9DH   000009H   BYTE   UNIT     CODE           ?PR?GETWEIGHT?WEIGHT
+002F9EH   002F9EH   000001H   BYTE   UNIT     CODE           ?PR?LOADPRICESFROMMEMORY?MEMORY
+002F9FH   002FB2H   000014H   BYTE   UNIT     CONST          ?CO?OM3
+
+* * * * * * * * * * *  X D A T A   M E M O R Y  * * * * * * * * * * * * *
+000000H   00006EH   00006FH   BYTE   UNIT     XDATA          ?XD?OM3
+00006FH   00008AH   00001CH   BYTE   UNIT     XDATA          ?XD?MEMORY
+
+* * * * * * * * *   R E M O V E D     S E G M E N T S   * * * * * * * *
+   *DEL*:           000058H   BYTE   UNIT     CODE           ?PR?_GETPRICEFROMMEMORY?MEMORY
+   *DEL*:           000003H   BYTE   UNIT     CODE           ?PR?_SAVEPRICETOMEMORY?MEMORY
+   *DEL*:           000005H   BYTE   UNIT     DATA           ?DT?_SAVEPRICETOMEMORY?MEMORY
+   *DEL*:           000048H   BYTE   UNIT     CODE           ?PR?_TM1640_DISPLAY?TM1640
+   *DEL*:           000004H   BYTE   UNIT     DATA           ?DT?_TM1640_DISPLAY?TM1640
+
+
+
+OVERLAY MAP OF MODULE:   .\build\Target 1\om3 (KEYPAD)
+
+
+FUNCTION/MODULE                   BIT_GROUP   DATA_GROUP 
+--> CALLED FUNCTION/MODULE       START  STOP  START  STOP
+=========================================================
+?C_C51STARTUP                    ----- -----  ----- -----
+  +--> MAIN/OM3
+  +--> ?C_INITSEG
+
+MAIN/OM3                         ----- -----  ----- -----
+  +--> INITIALIZEDISPLAY/OM3
+  +--> GETWEIGHT/WEIGHT
+  +--> _GETNUMBERDISPLAYFLOAT/OM3
+  +--> _TM1640_U_DISPLAY/TM1640
+  +--> SCAN_KEYPAD/KEYPAD
+  +--> _DELAY_SOME_TIME/UTILITY
+  +--> _STRLEN/STRLEN
+  +--> HANDLEMODEONE/OM3
+
+INITIALIZEDISPLAY/OM3            ----- -----  ----- -----
+  +--> TM1640_GPIO_CONFIG/TM1640
+  +--> KEYPAD_GPIO_CONFIG/OM3
+  +--> _TM1640_INIT/TM1640
+  +--> _DELAY_SOME_TIME/UTILITY
+  +--> _TM1640_U_DISPLAY/TM1640
+  +--> _TM1640_M_DISPLAY/TM1640
+  +--> _TM1640_L_DISPLAY/TM1640
+  +--> LDELAY/UTILITY
+  +--> _TM1640_UM_DISPLAY/TM1640
+  +--> _TM1640_DIGICHK/TM1640
+  +--> _GETNUMBERDISPLAYFLOAT/OM3
+  +--> LOADPRICESFROMMEMORY/MEMORY
+
+TM1640_GPIO_CONFIG/TM1640        ----- -----  ----- -----
+
+KEYPAD_GPIO_CONFIG/OM3           ----- -----  ----- -----
+
+_TM1640_INIT/TM1640              ----- -----  0022H 0022H
+  +--> _DELAY_SOME_TIME/UTILITY
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 4
+
+
+_DELAY_SOME_TIME/UTILITY         ----- -----  ----- -----
+
+TM1640START/TM1640               ----- -----  ----- -----
+  +--> _DELAY_SOME_TIME/UTILITY
+
+_TM1640WRITEBYTE/TM1640          ----- -----  0025H 0026H
+  +--> _DELAY_SOME_TIME/UTILITY
+
+TM1640STOP/TM1640                ----- -----  ----- -----
+  +--> _DELAY_SOME_TIME/UTILITY
+
+_TM1640_U_DISPLAY/TM1640         ----- -----  0022H 0024H
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+
+_TM1640_M_DISPLAY/TM1640         ----- -----  0022H 0024H
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+
+_TM1640_L_DISPLAY/TM1640         ----- -----  0022H 0024H
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+
+LDELAY/UTILITY                   ----- -----  0022H 0029H
+
+_TM1640_UM_DISPLAY/TM1640        ----- -----  0022H 0024H
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+  +--> _DELAY_SOME_TIME/UTILITY
+
+_TM1640_DIGICHK/TM1640           ----- -----  0022H 0024H
+  +--> TM1640START/TM1640
+  +--> _TM1640WRITEBYTE/TM1640
+  +--> TM1640STOP/TM1640
+  +--> _DELAY_SOME_TIME/UTILITY
+
+_GETNUMBERDISPLAYFLOAT/OM3       ----- -----  0022H 0041H
+  +--> PRINTF/PRINTF
+  +--> _STRLEN/STRLEN
+
+PRINTF/PRINTF                    20H.0 21H.0  0042H 005DH
+  +--> PUTCHAR/PUTCHAR
+
+PUTCHAR/PUTCHAR                  ----- -----  ----- -----
+
+_STRLEN/STRLEN                   ----- -----  ----- -----
+
+LOADPRICESFROMMEMORY/MEMORY      ----- -----  ----- -----
+
+GETWEIGHT/WEIGHT                 ----- -----  ----- -----
+
+SCAN_KEYPAD/KEYPAD               ----- -----  ----- -----
+
+HANDLEMODEONE/OM3                ----- -----  ----- -----
+  +--> _JOINCHARACTER/UTILITY
+  +--> ATOF/ATOF
+  +--> _GETNUMBERDISPLAYFLOAT/OM3
+  +--> _TM1640_M_DISPLAY/TM1640
+  +--> _TM1640_L_DISPLAY/TM1640
+
+_JOINCHARACTER/UTILITY           ----- -----  0022H 0027H
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 5
+
+
+
+ATOF/ATOF                        ----- -----  0022H 0024H
+  +--> _ISSPACE/ISSPACE
+  +--> ?C?ATOF?/C/ATOF
+
+_ISSPACE/ISSPACE                 ----- -----  ----- -----
+
+?C?ATOF?/C/ATOF                  20H.0 20H.4  0025H 0026H
+
+?C_INITSEG                       ----- -----  ----- -----
+
+
+
+PUBLIC SYMBOLS OF MODULE:  .\build\Target 1\om3 (KEYPAD)
+
+
+      VALUE       CLASS    TYPE      PUBLIC SYMBOL NAME
+      =================================================
+      00000022H   DATA     BYTE      ?_getNumberDisplayFloat?BYTE
+      00000022H   DATA     BYTE      ?_joinCharacter?BYTE
+      00000042H   DATA     ---       ?_PRINTF?BYTE
+*DEL*:00000000H   DATA     BYTE      ?_savePriceToMemory?BYTE
+      00000042H   DATA     ---       ?_SPRINTF?BYTE
+      00000020H.0 BIT      ---       ?C?ATOFFIRSTCALL
+      01001E60H   CODE     ---       ?C?CCASE
+      01001D93H   CODE     ---       ?C?CLDOPTR
+      01001D7AH   CODE     ---       ?C?CLDPTR
+      00000000H   NUMBER   ---       ?C?CODESEG
+      01001DD2H   CODE     ---       ?C?CSTOPTR
+      01001DC0H   CODE     ---       ?C?CSTPTR
+      01001CD6H   CODE     ---       ?C?FCASTC
+      01001CD1H   CODE     ---       ?C?FCASTI
+      01001CCCH   CODE     ---       ?C?FCASTL
+      01001B2AH   CODE     ---       ?C?FPADD
+      01002999H   CODE     ---       ?C?FPATOF
+      01001A20H   CODE     ---       ?C?FPCONVERT
+      01001C1EH   CODE     ---       ?C?FPDIV
+      010019A7H   CODE     ---       ?C?FPGETOPN2
+      010018A1H   CODE     ---       ?C?FPMUL
+      010019DCH   CODE     ---       ?C?FPNANRESULT
+      01001CBBH   CODE     ---       ?C?FPNEG
+      010019E6H   CODE     ---       ?C?FPOVERFLOW
+      010019BEH   CODE     ---       ?C?FPRESULT
+      010019D2H   CODE     ---       ?C?FPRESULT2
+      010019F1H   CODE     ---       ?C?FPROUND
+      01001B26H   CODE     ---       ?C?FPSUB
+      010019E3H   CODE     ---       ?C?FPUNDERFLOW
+      01001D3AH   CODE     ---       ?C?FTNPWR
+      01001DF4H   CODE     ---       ?C?LNEG
+      01001E1FH   CODE     ---       ?C?LSTKXDATA
+      01001E13H   CODE     ---       ?C?LSTXDATA
+      01001E50H   CODE     ---       ?C?PLDIIDATA
+      01001E02H   CODE     ---       ?C?ULCMP
+      00000000H   NUMBER   ---       ?C?XDATASEG
+      01002D21H   CODE     ---       ?C_START
+      01000000H   CODE     ---       ?C_STARTUP
+      01002E1DH   CODE     ---       _ATOF
+      01002EF9H   CODE     ---       _Delay_Some_Time
+      01002310H   CODE     ---       _getNumberDisplayFloat
+*DEL*:00000000H   CODE     ---       _getPriceFromMemory
+      01002F77H   CODE     ---       _isspace
+      01002E65H   CODE     ---       _joinCharacter
+      01001EE8H   CODE     ---       _PRINTF
+      01002ED2H   CODE     ---       _PUTCHAR
+*DEL*:00000000H   CODE     ---       _savePriceToMemory
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 6
+
+
+      01001EE2H   CODE     ---       _SPRINTF
+      01002F4EH   CODE     ---       _STRLEN
+      01000E3BH   CODE     ---       _TM1640_digichk
+*DEL*:00000000H   CODE     ---       _TM1640_display
+      01002EA3H   CODE     ---       _TM1640_Init
+      01002B13H   CODE     ---       _TM1640_L_display
+      01002C4AH   CODE     ---       _TM1640_M_display
+      01002BBAH   CODE     ---       _TM1640_U_display
+      01000003H   CODE     ---       _TM1640_UM_display
+      01002DDDH   CODE     ---       _TM1640WriteByte
+      0200005DH   XDATA    INT       afterDecimal
+      02000042H   XDATA    ---       bat_digi
+      02000058H   XDATA    ---       bat_voltg
+      02000034H   XDATA    ---       blank_L
+      0200000AH   XDATA    ---       compny_name
+      02000000H   XDATA    FLOAT     currentPrice
+      0200003AH   XDATA    ---       digi_chk
+      02000068H   XDATA    ---       final_display
+      01002F95H   CODE     ---       getWeight
+      01002512H   CODE     ---       handleModeOne
+      02000047H   XDATA    BYTE      hi_key_no
+      01002899H   CODE     ---       initializeDisplay
+      02000028H   XDATA    ---       inputPrice
+      02000008H   XDATA    INT       isDecimal
+      02000032H   XDATA    INT       isOverflow
+      0200005FH   XDATA    BYTE      key
+      01002F36H   CODE     ---       Keypad_GPIO_Config
+      01002D66H   CODE     ---       ldelay
+      02000048H   XDATA    BYTE      lo_key_no
+      01002F9EH   CODE     ---       loadPricesFromMemory
+      010027AAH   CODE     ---       main
+      02000077H   XDATA    FLOAT     memoryFive
+      0200007BH   XDATA    FLOAT     memoryFour
+      0200007FH   XDATA    FLOAT     memoryOne
+      02000073H   XDATA    FLOAT     memorySeven
+      02000083H   XDATA    FLOAT     memorySix
+      0200006FH   XDATA    FLOAT     memoryThree
+      02000087H   XDATA    FLOAT     memoryTwo
+      0200004EH   XDATA    ---       no_digits
+      0200002FH   XDATA    ---       output
+      0200001EH   XDATA    ---       overflowHex
+      02000049H   XDATA    ---       prc
+      02000066H   XDATA    INT       precision
+      01002682H   CODE     ---       scan_keypad
+      02000041H   XDATA    ---       temp
+      01002F8AH   CODE     ---       TM1640_GPIO_Config
+      01002F19H   CODE     ---       TM1640Start
+      01002F63H   CODE     ---       TM1640Stop
+      02000024H   XDATA    FLOAT     total
+      02000060H   XDATA    ---       ver
+      02000004H   XDATA    FLOAT     weight
+
+
+
+SYMBOL TABLE OF MODULE:  .\build\Target 1\om3 (KEYPAD)
+
+      VALUE       REP       CLASS    TYPE      SYMBOL NAME
+      ====================================================
+      ---         MODULE    ---      ---       KEYPAD
+      01002682H   PUBLIC    CODE     ---       scan_keypad
+
+      01002682H   BLOCK     CODE     ---       LVL=0
+      01002682H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000006H   SYMBOL    DATA     VOID      i
+      00000007H   SYMBOL    DATA     VOID      key_status
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 7
+
+
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       MEMORY
+      02000087H   PUBLIC    XDATA    FLOAT     memoryTwo
+      02000083H   PUBLIC    XDATA    FLOAT     memorySix
+      0200007FH   PUBLIC    XDATA    FLOAT     memoryOne
+      0200007BH   PUBLIC    XDATA    FLOAT     memoryFour
+      02000077H   PUBLIC    XDATA    FLOAT     memoryFive
+      02000073H   PUBLIC    XDATA    FLOAT     memorySeven
+      0200006FH   PUBLIC    XDATA    FLOAT     memoryThree
+      01002F9EH   PUBLIC    CODE     ---       loadPricesFromMemory
+
+      01002F9EH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       OM3
+      02000068H   PUBLIC    XDATA    ---       final_display
+      02000066H   PUBLIC    XDATA    INT       precision
+      02000060H   PUBLIC    XDATA    ---       ver
+      0200005FH   PUBLIC    XDATA    BYTE      key
+      0200005DH   PUBLIC    XDATA    INT       afterDecimal
+      02000058H   PUBLIC    XDATA    ---       bat_voltg
+      0200004EH   PUBLIC    XDATA    ---       no_digits
+      02000049H   PUBLIC    XDATA    ---       prc
+      02000048H   PUBLIC    XDATA    BYTE      lo_key_no
+      02000047H   PUBLIC    XDATA    BYTE      hi_key_no
+      02000042H   PUBLIC    XDATA    ---       bat_digi
+      02000041H   PUBLIC    XDATA    ---       temp
+      0200003AH   PUBLIC    XDATA    ---       digi_chk
+      02000034H   PUBLIC    XDATA    ---       blank_L
+      02000032H   PUBLIC    XDATA    INT       isOverflow
+      0200002FH   PUBLIC    XDATA    ---       output
+      02000028H   PUBLIC    XDATA    ---       inputPrice
+      02000024H   PUBLIC    XDATA    FLOAT     total
+      0200001EH   PUBLIC    XDATA    ---       overflowHex
+      0200000AH   PUBLIC    XDATA    ---       compny_name
+      02000008H   PUBLIC    XDATA    INT       isDecimal
+      02000004H   PUBLIC    XDATA    FLOAT     weight
+      02000000H   PUBLIC    XDATA    FLOAT     currentPrice
+      01002899H   PUBLIC    CODE     ---       initializeDisplay
+      00000022H   PUBLIC    DATA     BYTE      ?_getNumberDisplayFloat?BYTE
+      01002310H   PUBLIC    CODE     ---       _getNumberDisplayFloat
+      01002F36H   PUBLIC    CODE     ---       Keypad_GPIO_Config
+      01002512H   PUBLIC    CODE     ---       handleModeOne
+      010027AAH   PUBLIC    CODE     ---       main
+
+      010027AAH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002512H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002F36H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      010022F5H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002310H   BLOCK     CODE     ---       LVL=0
+      01002318H   BLOCK     CODE     NEAR LAB  LVL=1
+      0000002AH   SYMBOL    DATA     VOID      value
+      00000032H   SYMBOL    DATA     VOID      t
+      0000003AH   SYMBOL    DATA     VOID      value_len
+      0000003CH   SYMBOL    DATA     VOID      set_flag
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 8
+
+
+      0000003EH   SYMBOL    DATA     VOID      after_display
+      00000006H   SYMBOL    DATA     VOID      y
+      00000040H   SYMBOL    DATA     VOID      i
+      00000006H   SYMBOL    DATA     VOID      index
+      00000007H   SYMBOL    DATA     VOID      a
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002899H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       TM1640
+      01002F8AH   PUBLIC    CODE     ---       TM1640_GPIO_Config
+      01002B13H   PUBLIC    CODE     ---       _TM1640_L_display
+      01000E3BH   PUBLIC    CODE     ---       _TM1640_digichk
+      01000003H   PUBLIC    CODE     ---       _TM1640_UM_display
+      01002C4AH   PUBLIC    CODE     ---       _TM1640_M_display
+      01002BBAH   PUBLIC    CODE     ---       _TM1640_U_display
+      01002F63H   PUBLIC    CODE     ---       TM1640Stop
+      01002DDDH   PUBLIC    CODE     ---       _TM1640WriteByte
+      01002F19H   PUBLIC    CODE     ---       TM1640Start
+      01002EA3H   PUBLIC    CODE     ---       _TM1640_Init
+
+      01002EA3H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002F19H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002DD0H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002DDDH   BLOCK     CODE     ---       LVL=0
+      01002DDDH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000025H   SYMBOL    DATA     VOID      i
+      00000026H   SYMBOL    DATA     VOID      Tmp
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002F63H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002BBAH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002C4AH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000003H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01000E3BH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002B13H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002F8AH   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       UTILITY
+      00000022H   PUBLIC    DATA     BYTE      ?_joinCharacter?BYTE
+      01002E65H   PUBLIC    CODE     ---       _joinCharacter
+      01002EF9H   PUBLIC    CODE     ---       _Delay_Some_Time
+      01002D66H   PUBLIC    CODE     ---       ldelay
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 9
+
+
+
+      01002D66H   BLOCK     CODE     ---       LVL=0
+      01002D66H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000022H   SYMBOL    DATA     VOID      i
+      00000026H   SYMBOL    DATA     VOID      j
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002EF9H   BLOCK     CODE     ---       LVL=0
+      01002EF9H   BLOCK     CODE     NEAR LAB  LVL=1
+      00000004H   SYMBOL    DATA     VOID      i
+      00000002H   SYMBOL    DATA     VOID      j
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      01002E65H   BLOCK     CODE     ---       LVL=0
+      01002E6BH   BLOCK     CODE     NEAR LAB  LVL=1
+      00000006H   SYMBOL    DATA     VOID      i
+      ---         BLOCKEND  ---      ---       LVL=1
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       WEIGHT
+      01002F95H   PUBLIC    CODE     ---       getWeight
+
+      01002F95H   BLOCK     CODE     ---       LVL=0
+      ---         BLOCKEND  ---      ---       LVL=0
+
+      ---         MODULE    ---      ---       ?C?FPMUL
+      010018A1H   PUBLIC    CODE     ---       ?C?FPMUL
+
+      ---         MODULE    ---      ---       PRINTF
+      00000042H   PUBLIC    DATA     ---       ?_PRINTF?BYTE
+      00000042H   PUBLIC    DATA     ---       ?_SPRINTF?BYTE
+      01001EE8H   PUBLIC    CODE     ---       _PRINTF
+      01001EE2H   PUBLIC    CODE     ---       _SPRINTF
+
+      ---         MODULE    ---      ---       ATOF
+      01002E1DH   PUBLIC    CODE     ---       _ATOF
+
+      ---         MODULE    ---      ---       ?C?FPGETOPN
+      010019A7H   PUBLIC    CODE     ---       ?C?FPGETOPN2
+      010019DCH   PUBLIC    CODE     ---       ?C?FPNANRESULT
+      010019E6H   PUBLIC    CODE     ---       ?C?FPOVERFLOW
+      010019BEH   PUBLIC    CODE     ---       ?C?FPRESULT
+      010019D2H   PUBLIC    CODE     ---       ?C?FPRESULT2
+      010019E3H   PUBLIC    CODE     ---       ?C?FPUNDERFLOW
+
+      ---         MODULE    ---      ---       ?C?FPROUND
+      010019F1H   PUBLIC    CODE     ---       ?C?FPROUND
+
+      ---         MODULE    ---      ---       ?C?FPCONVERT
+      01001A20H   PUBLIC    CODE     ---       ?C?FPCONVERT
+
+      ---         MODULE    ---      ---       ?C?ATOF
+      00000020H.0 PUBLIC    BIT      ---       ?C?ATOFFIRSTCALL
+      01002999H   PUBLIC    CODE     ---       ?C?FPATOF
+
+      ---         MODULE    ---      ---       ?C?FPADD
+      01001B2AH   PUBLIC    CODE     ---       ?C?FPADD
+      01001B26H   PUBLIC    CODE     ---       ?C?FPSUB
+
+      ---         MODULE    ---      ---       ?C?FPDIV
+      01001C1EH   PUBLIC    CODE     ---       ?C?FPDIV
+
+      ---         MODULE    ---      ---       ?C?FPNEG
+LX51 LINKER/LOCATER V4.66.97.0                                                        10/03/2022  11:43:58  PAGE 10
+
+
+      01001CBBH   PUBLIC    CODE     ---       ?C?FPNEG
+
+      ---         MODULE    ---      ---       ?C?FCAST
+      01001CD6H   PUBLIC    CODE     ---       ?C?FCASTC
+      01001CD1H   PUBLIC    CODE     ---       ?C?FCASTI
+      01001CCCH   PUBLIC    CODE     ---       ?C?FCASTL
+
+      ---         MODULE    ---      ---       ?C?FTNPWR
+      01001D3AH   PUBLIC    CODE     ---       ?C?FTNPWR
+
+      ---         MODULE    ---      ---       ?C_STARTUP
+      01000000H   PUBLIC    CODE     ---       ?C_STARTUP
+
+      ---         MODULE    ---      ---       ?C?CLDPTR
+      01001D7AH   PUBLIC    CODE     ---       ?C?CLDPTR
+
+      ---         MODULE    ---      ---       ?C?CLDOPTR
+      01001D93H   PUBLIC    CODE     ---       ?C?CLDOPTR
+
+      ---         MODULE    ---      ---       ?C?CSTPTR
+      01001DC0H   PUBLIC    CODE     ---       ?C?CSTPTR
+
+      ---         MODULE    ---      ---       ?C?CSTOPTR
+      01001DD2H   PUBLIC    CODE     ---       ?C?CSTOPTR
+
+      ---         MODULE    ---      ---       ?C?LNEG
+      01001DF4H   PUBLIC    CODE     ---       ?C?LNEG
+
+      ---         MODULE    ---      ---       ?C?ULCMP
+      01001E02H   PUBLIC    CODE     ---       ?C?ULCMP
+
+      ---         MODULE    ---      ---       ?C?LSTXDATA
+      01001E13H   PUBLIC    CODE     ---       ?C?LSTXDATA
+
+      ---         MODULE    ---      ---       ?C?LSTKXDATA
+      01001E1FH   PUBLIC    CODE     ---       ?C?LSTKXDATA
+
+      ---         MODULE    ---      ---       ?C?PLDIIDATA
+      01001E50H   PUBLIC    CODE     ---       ?C?PLDIIDATA
+
+      ---         MODULE    ---      ---       ?C?CCASE
+      01001E60H   PUBLIC    CODE     ---       ?C?CCASE
+
+      ---         MODULE    ---      ---       PUTCHAR
+      01002ED2H   PUBLIC    CODE     ---       _PUTCHAR
+
+      ---         MODULE    ---      ---       ISSPACE
+      01002F77H   PUBLIC    CODE     ---       _ISSPACE
+
+      ---         MODULE    ---      ---       STRLEN
+      01002F4EH   PUBLIC    CODE     ---       _STRLEN
+
+      ---         MODULE    ---      ---       ?C_INIT
+      01002D21H   PUBLIC    CODE     ---       ?C_START
+
+Program Size: data=70.1 xdata=139 const=20 code=12191
+LX51 RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

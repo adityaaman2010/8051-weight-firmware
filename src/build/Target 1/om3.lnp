@@ -1,0 +1,2 @@
+".\build\Target 1\keypad.o",".\build\Target 1\memory.o",".\build\Target 1\om3.o",".\build\Target 1\tm1640.o",".\build\Target 1\utility.o",".\build\Target 1\weight.o" TO ".\build\Target 1\om3"
+PRINT(".\build\Target 1\om3.map") REMOVEUNUSED

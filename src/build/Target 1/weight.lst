@@ -1,0 +1,61 @@
+C51 COMPILER V9.60.0.0   WEIGHT                                                            10/03/2022 11:43:58 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE WEIGHT
+OBJECT MODULE PLACED IN .\build\Target 1\weight.o
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe .\WEIGHT.C OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(.\build\Target 1\weigh
+                    -t.lst) INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION=526) OPTIMIZE(8,SPEED) SMALL ROM(LARGE) OBJECT
+                    -(.\build\Target 1\weight.o)
+
+line level    source
+
+   1          //
+   2          // Created by aditya on 01-09-2022.
+   3          //
+   4          
+   5          #include "weight.h"
+   6          
+   7          double getWeight() {
+   8   1          return 25.555;
+   9   1      }
+C51 COMPILER V9.60.0.0   WEIGHT                                                            10/03/2022 11:43:58 PAGE 2   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION getWeight (BEGIN)
+                                           ; SOURCE LINE # 7
+                                           ; SOURCE LINE # 8
+0000 7FA4              MOV     R7,#0A4H
+0002 7E70              MOV     R6,#070H
+0004 7DCC              MOV     R5,#0CCH
+0006 7C41              MOV     R4,#041H
+                                           ; SOURCE LINE # 9
+0008 22                RET     
+             ; FUNCTION getWeight (END)
+
+C51 COMPILER V9.60.0.0   WEIGHT                                                            10/03/2022 11:43:58 PAGE 3   
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+getWeight. . . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      9    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

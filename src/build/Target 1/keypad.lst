@@ -1,0 +1,883 @@
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYPAD
+OBJECT MODULE PLACED IN .\build\Target 1\keypad.o
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe .\KEYPAD.C OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(.\build\Target 1\keypa
+                    -d.lst) INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION=526) OPTIMIZE(8,SPEED) SMALL ROM(LARGE) OBJECT
+                    -(.\build\Target 1\keypad.o)
+
+line level    source
+
+   1          //
+   2          // Created by aditya on 02-09-2022.
+   3          //
+   4          
+   5          #include "REG_MG82FG5Bxx.h"
+   6          #include "macro.h"
+   7          #include "keypad.h"
+   8          
+   9          unsigned char scan_keypad(void)
+  10          {
+  11   1          unsigned char i;
+  12   1          unsigned char key_status = 'A';
+  13   1      
+  14   1          for(i = 0; i<5; i++)
+  15   1          {
+  16   2              if( i == 0)
+  17   2              {
+  18   3                  KROW0 = 1;
+  19   3                  KROW1 = 0;
+  20   3                  KROW2 = 0;
+  21   3                  KROW3 = 0;
+  22   3                  KROW4 = 0;
+  23   3                  if(KCOL0 == 1)
+  24   3                  {
+  25   4                      while(KCOL0 == 1);
+  26   4                      key_status = 1;
+  27   4      //                key_status = 21;
+  28   4                  }
+  29   3                  if(KCOL1 == 1)
+  30   3                  {
+  31   4                      while(KCOL1 == 1);
+  32   4                      key_status = 2;
+  33   4      //                key_status = 24;
+  34   4                  }
+  35   3                  if(KCOL2 == 1)
+  36   3                  {
+  37   4                      while(KCOL2 == 1);
+  38   4                      key_status = 3;
+  39   4      //                key_status = 19;
+  40   4                  }
+  41   3                  if(KCOL3 == 1)
+  42   3                  {
+  43   4                      while(KCOL3 == 1);
+  44   4                      key_status = 23;
+  45   4      //                key_status = 14;
+  46   4                  }
+  47   3                  if(KCOL4 == 1)
+  48   3                  {
+  49   4                      while(KCOL4 == 1);
+  50   4                      key_status = 4;
+  51   4                  }
+  52   3              }
+  53   2              if( i == 1)
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 2   
+
+  54   2              {
+  55   3                  KROW0 = 0;
+  56   3                  KROW1 = 1;
+  57   3                  KROW2 = 0;
+  58   3                  KROW3 = 0;
+  59   3                  KROW4 = 0;
+  60   3                  if(KCOL0 == 1)
+  61   3                  {
+  62   4                      while(KCOL0 == 1);
+  63   4                      key_status = 4;
+  64   4      //                key_status = 18;
+  65   4                  }
+  66   3                  if(KCOL1 == 1)
+  67   3                  {
+  68   4                      while(KCOL1 == 1);
+  69   4                      key_status = 5;
+  70   4      //                key_status = 13;
+  71   4                  }
+  72   3                  if(KCOL2 == 1)
+  73   3                  {
+  74   4                      while(KCOL2 == 1);
+  75   4                      key_status = 6;
+  76   4      //                key_status = 22;
+  77   4                  }
+  78   3                  if(KCOL3 == 1)
+  79   3                  {
+  80   4                      while(KCOL3 == 1);
+  81   4                      key_status = 21;
+  82   4      //                key_status = 17;
+  83   4                  }
+  84   3                  if(KCOL4 == 1)
+  85   3                  {
+  86   4                      while(KCOL4 == 1);
+  87   4                      key_status = 22;
+  88   4      //                key_status = 12;
+  89   4                  }
+  90   3              }
+  91   2              if( i == 2)
+  92   2              {
+  93   3                  KROW0 = 0;
+  94   3                  KROW1 = 0;
+  95   3                  KROW2 = 1;
+  96   3                  KROW3 = 0;
+  97   3                  KROW4 = 0;
+  98   3                  if(KCOL0 == 1)
+  99   3                  {
+ 100   4                      while(KCOL0 == 1);
+ 101   4                      key_status = 7;
+ 102   4      //                key_status = 10;
+ 103   4                  }
+ 104   3                  if(KCOL1 == 1)
+ 105   3                  {
+ 106   4                      while(KCOL1 == 1);
+ 107   4                      key_status = 8;
+ 108   4      //                key_status = 11;
+ 109   4                  }
+ 110   3                  if(KCOL2 == 1)
+ 111   3                  {
+ 112   4                      while(KCOL2 == 1);
+ 113   4                      key_status = 9;
+ 114   4      //                key_status = 9;
+ 115   4                  }
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 3   
+
+ 116   3                  if(KCOL3 == 1)
+ 117   3                  {
+ 118   4                      while(KCOL3 == 1);
+ 119   4                      key_status = 19;
+ 120   4      //                key_status = 6;
+ 121   4                  }
+ 122   3                  if(KCOL4 == 1)
+ 123   3                  {
+ 124   4                      while(KCOL4 == 1);
+ 125   4                      key_status = 20;
+ 126   4      //                key_status = 3;
+ 127   4                  }
+ 128   3              }
+ 129   2              if( i == 3)
+ 130   2              {
+ 131   3                  KROW0 = 0;
+ 132   3                  KROW1 = 0;
+ 133   3                  KROW2 = 0;
+ 134   3                  KROW3 = 1;
+ 135   3                  KROW4 = 0;
+ 136   3                  if(KCOL0 == 1)
+ 137   3                  {
+ 138   4                      while(KCOL0 == 1);
+ 139   4                      key_status = 0;
+ 140   4      //                key_status = 15;
+ 141   4                  }
+ 142   3                  if(KCOL1 == 1)
+ 143   3                  {
+ 144   4                      while(KCOL1 == 1);
+ 145   4                      key_status = 10;
+ 146   4      //                key_status = 16;
+ 147   4                  }
+ 148   3                  if(KCOL2 == 1)
+ 149   3                  {
+ 150   4                      while(KCOL2 == 1);
+ 151   4                      key_status = 11;
+ 152   4      //                key_status = 8;
+ 153   4                  }
+ 154   3                  if(KCOL3 == 1)
+ 155   3                  {
+ 156   4                      while(KCOL3 == 1);
+ 157   4                      key_status = 17;
+ 158   4      //                key_status = 5;
+ 159   4                  }
+ 160   3                  if(KCOL4 == 1)
+ 161   3                  {
+ 162   4                      while(KCOL4 == 1);
+ 163   4                      key_status = 18;
+ 164   4      //                key_status = 2;
+ 165   4                  }
+ 166   3              }
+ 167   2              if( i == 4)
+ 168   2              {
+ 169   3                  KROW0 = 0;
+ 170   3                  KROW1 = 0;
+ 171   3                  KROW2 = 0;
+ 172   3                  KROW3 = 0;
+ 173   3                  KROW4 = 1;
+ 174   3                  if(KCOL0 == 1)
+ 175   3                  {
+ 176   4                      while(KCOL0 == 1);
+ 177   4                      key_status = 15;
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 4   
+
+ 178   4      //                key_status = 20;
+ 179   4                  }
+ 180   3                  if(KCOL1 == 1)
+ 181   3                  {
+ 182   4                      while(KCOL1 == 1);
+ 183   4                      key_status = 14;
+ 184   4      //                key_status = 0;
+ 185   4                  }
+ 186   3                  if(KCOL2 == 1)
+ 187   3                  {
+ 188   4                      while(KCOL2 == 1);
+ 189   4                      key_status = 16;
+ 190   4      //                key_status = 7;
+ 191   4                  }
+ 192   3                  if(KCOL3 == 1)
+ 193   3                  {
+ 194   4                      while(KCOL3 == 1);
+ 195   4                      key_status = 12;
+ 196   4      //                key_status = 4;
+ 197   4                  }
+ 198   3                  if(KCOL4 == 1)
+ 199   3                  {
+ 200   4                      while(KCOL4 == 1);
+ 201   4                      key_status = 13;
+ 202   4      //                key_status = 1;
+ 203   4                  }
+ 204   3              }
+ 205   2          }
+ 206   1          return key_status;
+ 207   1      }
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 5   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION scan_keypad (BEGIN)
+                                           ; SOURCE LINE # 9
+                                           ; SOURCE LINE # 10
+                                           ; SOURCE LINE # 12
+;---- Variable 'key_status' assigned to Register 'R7' ----
+0000 7F41              MOV     R7,#041H
+                                           ; SOURCE LINE # 14
+;---- Variable 'i' assigned to Register 'R6' ----
+0002 E4                CLR     A
+0003 FE                MOV     R6,A
+0004         ?C0001:
+0004 EE                MOV     A,R6
+0005 FD                MOV     R5,A
+0006 C3                CLR     C
+0007 9405              SUBB    A,#05H
+0009 7480              MOV     A,#080H
+000B 9480              SUBB    A,#080H
+000D 4003              JC      $ + 5H
+000F 020000      R     LJMP    ?C0002
+                                           ; SOURCE LINE # 15
+                                           ; SOURCE LINE # 16
+0012 ED                MOV     A,R5
+0013 7032              JNZ     ?C0004
+                                           ; SOURCE LINE # 17
+                                           ; SOURCE LINE # 18
+0015 D290              SETB    P10
+                                           ; SOURCE LINE # 19
+0017 C291              CLR     P11
+                                           ; SOURCE LINE # 20
+0019 C292              CLR     P12
+                                           ; SOURCE LINE # 21
+001B C293              CLR     P13
+                                           ; SOURCE LINE # 22
+001D C294              CLR     P14
+                                           ; SOURCE LINE # 23
+001F 309505            JNB     P15,?C0005
+                                           ; SOURCE LINE # 24
+0022         ?C0006:
+                                           ; SOURCE LINE # 25
+0022 2095FD            JB      P15,?C0006
+                                           ; SOURCE LINE # 26
+0025 7F01              MOV     R7,#01H
+                                           ; SOURCE LINE # 28
+0027         ?C0005:
+                                           ; SOURCE LINE # 29
+0027 309605            JNB     P16,?C0008
+                                           ; SOURCE LINE # 30
+002A         ?C0009:
+                                           ; SOURCE LINE # 31
+002A 2096FD            JB      P16,?C0009
+                                           ; SOURCE LINE # 32
+002D 7F02              MOV     R7,#02H
+                                           ; SOURCE LINE # 34
+002F         ?C0008:
+                                           ; SOURCE LINE # 35
+002F 30A205            JNB     P22,?C0011
+                                           ; SOURCE LINE # 36
+0032         ?C0012:
+                                           ; SOURCE LINE # 37
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 6   
+
+0032 20A2FD            JB      P22,?C0012
+                                           ; SOURCE LINE # 38
+0035 7F03              MOV     R7,#03H
+                                           ; SOURCE LINE # 40
+0037         ?C0011:
+                                           ; SOURCE LINE # 41
+0037 30A405            JNB     P24,?C0014
+                                           ; SOURCE LINE # 42
+003A         ?C0015:
+                                           ; SOURCE LINE # 43
+003A 20A4FD            JB      P24,?C0015
+                                           ; SOURCE LINE # 44
+003D 7F17              MOV     R7,#017H
+                                           ; SOURCE LINE # 46
+003F         ?C0014:
+                                           ; SOURCE LINE # 47
+003F 30A605            JNB     P26,?C0004
+                                           ; SOURCE LINE # 48
+0042         ?C0018:
+                                           ; SOURCE LINE # 49
+0042 20A6FD            JB      P26,?C0018
+                                           ; SOURCE LINE # 50
+0045 7F04              MOV     R7,#04H
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 52
+0047         ?C0004:
+                                           ; SOURCE LINE # 53
+0047 EE                MOV     A,R6
+0048 6401              XRL     A,#01H
+004A 7032              JNZ     ?C0020
+                                           ; SOURCE LINE # 54
+                                           ; SOURCE LINE # 55
+004C C290              CLR     P10
+                                           ; SOURCE LINE # 56
+004E D291              SETB    P11
+                                           ; SOURCE LINE # 57
+0050 C292              CLR     P12
+                                           ; SOURCE LINE # 58
+0052 C293              CLR     P13
+                                           ; SOURCE LINE # 59
+0054 C294              CLR     P14
+                                           ; SOURCE LINE # 60
+0056 309505            JNB     P15,?C0021
+                                           ; SOURCE LINE # 61
+0059         ?C0022:
+                                           ; SOURCE LINE # 62
+0059 2095FD            JB      P15,?C0022
+                                           ; SOURCE LINE # 63
+005C 7F04              MOV     R7,#04H
+                                           ; SOURCE LINE # 65
+005E         ?C0021:
+                                           ; SOURCE LINE # 66
+005E 309605            JNB     P16,?C0024
+                                           ; SOURCE LINE # 67
+0061         ?C0025:
+                                           ; SOURCE LINE # 68
+0061 2096FD            JB      P16,?C0025
+                                           ; SOURCE LINE # 69
+0064 7F05              MOV     R7,#05H
+                                           ; SOURCE LINE # 71
+0066         ?C0024:
+                                           ; SOURCE LINE # 72
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 7   
+
+0066 30A205            JNB     P22,?C0027
+                                           ; SOURCE LINE # 73
+0069         ?C0028:
+                                           ; SOURCE LINE # 74
+0069 20A2FD            JB      P22,?C0028
+                                           ; SOURCE LINE # 75
+006C 7F06              MOV     R7,#06H
+                                           ; SOURCE LINE # 77
+006E         ?C0027:
+                                           ; SOURCE LINE # 78
+006E 30A405            JNB     P24,?C0030
+                                           ; SOURCE LINE # 79
+0071         ?C0031:
+                                           ; SOURCE LINE # 80
+0071 20A4FD            JB      P24,?C0031
+                                           ; SOURCE LINE # 81
+0074 7F15              MOV     R7,#015H
+                                           ; SOURCE LINE # 83
+0076         ?C0030:
+                                           ; SOURCE LINE # 84
+0076 30A605            JNB     P26,?C0020
+                                           ; SOURCE LINE # 85
+0079         ?C0034:
+                                           ; SOURCE LINE # 86
+0079 20A6FD            JB      P26,?C0034
+                                           ; SOURCE LINE # 87
+007C 7F16              MOV     R7,#016H
+                                           ; SOURCE LINE # 89
+                                           ; SOURCE LINE # 90
+007E         ?C0020:
+                                           ; SOURCE LINE # 91
+007E EE                MOV     A,R6
+007F 6402              XRL     A,#02H
+0081 7032              JNZ     ?C0036
+                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 93
+0083 C290              CLR     P10
+                                           ; SOURCE LINE # 94
+0085 C291              CLR     P11
+                                           ; SOURCE LINE # 95
+0087 D292              SETB    P12
+                                           ; SOURCE LINE # 96
+0089 C293              CLR     P13
+                                           ; SOURCE LINE # 97
+008B C294              CLR     P14
+                                           ; SOURCE LINE # 98
+008D 309505            JNB     P15,?C0037
+                                           ; SOURCE LINE # 99
+0090         ?C0038:
+                                           ; SOURCE LINE # 100
+0090 2095FD            JB      P15,?C0038
+                                           ; SOURCE LINE # 101
+0093 7F07              MOV     R7,#07H
+                                           ; SOURCE LINE # 103
+0095         ?C0037:
+                                           ; SOURCE LINE # 104
+0095 309605            JNB     P16,?C0040
+                                           ; SOURCE LINE # 105
+0098         ?C0041:
+                                           ; SOURCE LINE # 106
+0098 2096FD            JB      P16,?C0041
+                                           ; SOURCE LINE # 107
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 8   
+
+009B 7F08              MOV     R7,#08H
+                                           ; SOURCE LINE # 109
+009D         ?C0040:
+                                           ; SOURCE LINE # 110
+009D 30A205            JNB     P22,?C0043
+                                           ; SOURCE LINE # 111
+00A0         ?C0044:
+                                           ; SOURCE LINE # 112
+00A0 20A2FD            JB      P22,?C0044
+                                           ; SOURCE LINE # 113
+00A3 7F09              MOV     R7,#09H
+                                           ; SOURCE LINE # 115
+00A5         ?C0043:
+                                           ; SOURCE LINE # 116
+00A5 30A405            JNB     P24,?C0046
+                                           ; SOURCE LINE # 117
+00A8         ?C0047:
+                                           ; SOURCE LINE # 118
+00A8 20A4FD            JB      P24,?C0047
+                                           ; SOURCE LINE # 119
+00AB 7F13              MOV     R7,#013H
+                                           ; SOURCE LINE # 121
+00AD         ?C0046:
+                                           ; SOURCE LINE # 122
+00AD 30A605            JNB     P26,?C0036
+                                           ; SOURCE LINE # 123
+00B0         ?C0050:
+                                           ; SOURCE LINE # 124
+00B0 20A6FD            JB      P26,?C0050
+                                           ; SOURCE LINE # 125
+00B3 7F14              MOV     R7,#014H
+                                           ; SOURCE LINE # 127
+                                           ; SOURCE LINE # 128
+00B5         ?C0036:
+                                           ; SOURCE LINE # 129
+00B5 EE                MOV     A,R6
+00B6 6403              XRL     A,#03H
+00B8 7032              JNZ     ?C0052
+                                           ; SOURCE LINE # 130
+                                           ; SOURCE LINE # 131
+00BA C290              CLR     P10
+                                           ; SOURCE LINE # 132
+00BC C291              CLR     P11
+                                           ; SOURCE LINE # 133
+00BE C292              CLR     P12
+                                           ; SOURCE LINE # 134
+00C0 D293              SETB    P13
+                                           ; SOURCE LINE # 135
+00C2 C294              CLR     P14
+                                           ; SOURCE LINE # 136
+00C4 309505            JNB     P15,?C0053
+                                           ; SOURCE LINE # 137
+00C7         ?C0054:
+                                           ; SOURCE LINE # 138
+00C7 2095FD            JB      P15,?C0054
+                                           ; SOURCE LINE # 139
+00CA E4                CLR     A
+00CB FF                MOV     R7,A
+                                           ; SOURCE LINE # 141
+00CC         ?C0053:
+                                           ; SOURCE LINE # 142
+00CC 309605            JNB     P16,?C0056
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 9   
+
+                                           ; SOURCE LINE # 143
+00CF         ?C0057:
+                                           ; SOURCE LINE # 144
+00CF 2096FD            JB      P16,?C0057
+                                           ; SOURCE LINE # 145
+00D2 7F0A              MOV     R7,#0AH
+                                           ; SOURCE LINE # 147
+00D4         ?C0056:
+                                           ; SOURCE LINE # 148
+00D4 30A205            JNB     P22,?C0059
+                                           ; SOURCE LINE # 149
+00D7         ?C0060:
+                                           ; SOURCE LINE # 150
+00D7 20A2FD            JB      P22,?C0060
+                                           ; SOURCE LINE # 151
+00DA 7F0B              MOV     R7,#0BH
+                                           ; SOURCE LINE # 153
+00DC         ?C0059:
+                                           ; SOURCE LINE # 154
+00DC 30A405            JNB     P24,?C0062
+                                           ; SOURCE LINE # 155
+00DF         ?C0063:
+                                           ; SOURCE LINE # 156
+00DF 20A4FD            JB      P24,?C0063
+                                           ; SOURCE LINE # 157
+00E2 7F11              MOV     R7,#011H
+                                           ; SOURCE LINE # 159
+00E4         ?C0062:
+                                           ; SOURCE LINE # 160
+00E4 30A605            JNB     P26,?C0052
+                                           ; SOURCE LINE # 161
+00E7         ?C0066:
+                                           ; SOURCE LINE # 162
+00E7 20A6FD            JB      P26,?C0066
+                                           ; SOURCE LINE # 163
+00EA 7F12              MOV     R7,#012H
+                                           ; SOURCE LINE # 165
+                                           ; SOURCE LINE # 166
+00EC         ?C0052:
+                                           ; SOURCE LINE # 167
+00EC EE                MOV     A,R6
+00ED 6404              XRL     A,#04H
+00EF 7032              JNZ     ?C0003
+                                           ; SOURCE LINE # 168
+                                           ; SOURCE LINE # 169
+00F1 C290              CLR     P10
+                                           ; SOURCE LINE # 170
+00F3 C291              CLR     P11
+                                           ; SOURCE LINE # 171
+00F5 C292              CLR     P12
+                                           ; SOURCE LINE # 172
+00F7 C293              CLR     P13
+                                           ; SOURCE LINE # 173
+00F9 D294              SETB    P14
+                                           ; SOURCE LINE # 174
+00FB 309505            JNB     P15,?C0069
+                                           ; SOURCE LINE # 175
+00FE         ?C0070:
+                                           ; SOURCE LINE # 176
+00FE 2095FD            JB      P15,?C0070
+                                           ; SOURCE LINE # 177
+0101 7F0F              MOV     R7,#0FH
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 10  
+
+                                           ; SOURCE LINE # 179
+0103         ?C0069:
+                                           ; SOURCE LINE # 180
+0103 309605            JNB     P16,?C0072
+                                           ; SOURCE LINE # 181
+0106         ?C0073:
+                                           ; SOURCE LINE # 182
+0106 2096FD            JB      P16,?C0073
+                                           ; SOURCE LINE # 183
+0109 7F0E              MOV     R7,#0EH
+                                           ; SOURCE LINE # 185
+010B         ?C0072:
+                                           ; SOURCE LINE # 186
+010B 30A205            JNB     P22,?C0075
+                                           ; SOURCE LINE # 187
+010E         ?C0076:
+                                           ; SOURCE LINE # 188
+010E 20A2FD            JB      P22,?C0076
+                                           ; SOURCE LINE # 189
+0111 7F10              MOV     R7,#010H
+                                           ; SOURCE LINE # 191
+0113         ?C0075:
+                                           ; SOURCE LINE # 192
+0113 30A405            JNB     P24,?C0078
+                                           ; SOURCE LINE # 193
+0116         ?C0079:
+                                           ; SOURCE LINE # 194
+0116 20A4FD            JB      P24,?C0079
+                                           ; SOURCE LINE # 195
+0119 7F0C              MOV     R7,#0CH
+                                           ; SOURCE LINE # 197
+011B         ?C0078:
+                                           ; SOURCE LINE # 198
+011B 30A605            JNB     P26,?C0003
+                                           ; SOURCE LINE # 199
+011E         ?C0082:
+                                           ; SOURCE LINE # 200
+011E 20A6FD            JB      P26,?C0082
+                                           ; SOURCE LINE # 201
+0121 7F0D              MOV     R7,#0DH
+                                           ; SOURCE LINE # 203
+                                           ; SOURCE LINE # 204
+                                           ; SOURCE LINE # 205
+0123         ?C0003:
+0123 0E                INC     R6
+0124 020000      R     LJMP    ?C0001
+0127         ?C0002:
+                                           ; SOURCE LINE # 206
+                                           ; SOURCE LINE # 207
+0127 22                RET     
+             ; FUNCTION scan_keypad (END)
+
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 11  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+PCAPWM4. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F6H  1
+CCF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DAH  1
+PDTCR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BDH  1
+TB80 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+P1M0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0091H  1
+PCAPWM5. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F7H  1
+CCF3 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DBH  1
+RTCCR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BEH  1
+TB81 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009BH  1
+BOREV. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0096H  1
+P2M0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0095H  1
+PCAPWM6. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F2H  1
+CCF4 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DCH  1
+P3M0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B1H  1
+P1 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0090H  1
+PCAPWM7. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F3H  1
+CCF5 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DDH  1
+P4M0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B3H  1
+P3M1 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B2H  1
+P2 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A0H  1
+SM01 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+SM10 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+ISPCR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E7H  1
+XICON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C0H  1
+P3 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B0H  1
+SM11 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009EH  1
+SM20 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+P4 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E8H  1
+AC . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D6H  1
+P6M0 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B5H  1
+SM21 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009DH  1
+EIE1 . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00ADH  1
+SPCON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0085H  1
+P6 . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F8H  1
+WDTCR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E1H  1
+SISTA. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D3H  1
+SFRPI. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00ACH  1
+EA . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AFH  1
+ADCFG0 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C3H  1
+S1CFG1 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009DH  1
+ADCFG1 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BBH  1
+S1CFG2 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009DH  1
+CF . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DFH  1
+scan_keypad. . . . . . . . . . . . . .  PUBLIC   CODE   PROC     0000H  -----
+  i. . . . . . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0006H  1
+  key_status . . . . . . . . . . . . .  * REG *  DATA   U_CHAR   0007H  1
+CH . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F9H  1
+PWMCR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BCH  1
+RTCTM. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B6H  1
+IE . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A8H  1
+CL . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E9H  1
+CCAP0H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FAH  1
+CCAP1H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FBH  1
+IP0H . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B7H  1
+CCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FCH  1
+CCAP3H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FDH  1
+CCAP4H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FEH  1
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 12  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+CCAP0L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EAH  1
+CR . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00DEH  1
+CCAP5H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FFH  1
+CCAP1L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EBH  1
+CCAPM0 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DAH  1
+EXF2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CEH  1
+IP0L . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B8H  1
+REN0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+CCAP6H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FAH  1
+CCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00ECH  1
+CCAPM1 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DBH  1
+ADCON0 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C4H  1
+REN1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009CH  1
+CCAP7H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FBH  1
+CCAP3L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EDH  1
+CCAPM2 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DCH  1
+CCAP4L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EEH  1
+CCAPM3 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DDH  1
+CCAP5L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EFH  1
+CCAPM4 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DEH  1
+CCAP6L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EAH  1
+CCAPM5 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DFH  1
+CCAP7L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00EBH  1
+CCAPM6 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DAH  1
+CY . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D7H  1
+CCAPM7 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00DBH  1
+CKCON0 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C7H  1
+CKCON1 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00BFH  1
+PT0L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B9H  1
+RCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CBH  1
+PT1L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BBH  1
+PT2L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BDH  1
+SP . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0081H  1
+CMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D9H  1
+CCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D8H  1
+OV . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D2H  1
+PX0L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B8H  1
+PAOE . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F1H  1
+SI1ADR . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D1H  1
+RCAP2L . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CAH  1
+PX1L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BAH  1
+PX2L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BEH  1
+SCMD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E6H  1
+SI1DAT . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D2H  1
+PX3L . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BFH  1
+SFIE . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008EH  1
+C_T2 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C9H  1
+CHRL . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CFH  1
+RCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CDH  1
+CLRL . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CEH  1
+SI1CON . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D4H  1
+TCLK . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CCH  1
+IFADRH . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E3H  1
+IFMT . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E5H  1
+P10. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
+P20. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A0H  1
+P11. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 13  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+P30. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B0H  1
+P21. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A1H  1
+P12. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0092H  1
+P40. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00E8H  1
+IFADRL . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E4H  1
+P31. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B1H  1
+P22. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A2H  1
+P13. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0093H  1
+P41. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00E9H  1
+P32. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B2H  1
+P23. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A3H  1
+SMCCFG . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009DH  1
+LINCFG . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009DH  1
+P14. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0094H  1
+TMOD . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0089H  1
+TCON . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0088H  1
+P60. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00F8H  1
+P33. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B3H  1
+P24. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A4H  1
+P15. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0095H  1
+P61. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00F9H  1
+SIS1TA . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D3H  1
+PUCON0 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B4H  1
+P34. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B4H  1
+P25. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A5H  1
+P16. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0096H  1
+P44. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ECH  1
+PUCON1 . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B4H  1
+P35. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00B5H  1
+P26. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A6H  1
+P17. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0097H  1
+P45. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00EDH  1
+P27. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A7H  1
+P47. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00EFH  1
+KBMASK . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D7H  1
+IE0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0089H  1
+IE1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008BH  1
+IE2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C1H  1
+B. . . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F0H  1
+IE3. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C5H  1
+KBPATN . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D5H  1
+CP_RL2 . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C8H  1
+ACC. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E0H  1
+ES0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ACH  1
+ET0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A9H  1
+ET1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ABH  1
+TF0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008DH  1
+ET2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00ADH  1
+RI0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+TF1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008FH  1
+TF2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CFH  1
+RI1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0098H  1
+TH0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008CH  1
+EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
+TI0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
+IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 14  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+TH2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CDH  1
+EX1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00AAH  1
+TI1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
+IT1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008AH  1
+P. . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D0H  1
+IT2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C0H  1
+EX2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C2H  1
+IT3. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C4H  1
+EX3. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C6H  1
+TL0. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008AH  1
+TL1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008BH  1
+TL2. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00CCH  1
+IFD. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E2H  1
+S0CFG. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009CH  1
+RS0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D3H  1
+ADCDH. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C6H  1
+S1CFG. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009CH  1
+RS1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D4H  1
+TR0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008CH  1
+TR1. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      008EH  1
+TR2. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CAH  1
+EIP1H. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00AFH  1
+ADCDL. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C5H  1
+P1AIO. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0092H  1
+EIP1L. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00AEH  1
+S1BRC. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009BH  1
+DPH. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0083H  1
+DPL. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0082H  1
+S0BUF. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON0. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0087H  1
+SPSTAT . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0084H  1
+S1BUF. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0099H  1
+PCON1. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0097H  1
+EXEN2. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00CBH  1
+S0CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+S1CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0098H  1
+INT2H. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C3H  1
+T2MOD. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C9H  1
+T2CON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C8H  1
+INT3H. . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00C7H  1
+SADEN. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B9H  1
+SM00_FE. . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009FH  1
+S1BRT. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   009AH  1
+KBCON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D6H  1
+PSL. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00BCH  1
+SADDR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A9H  1
+AUXR0. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A1H  1
+XICFG. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00C1H  1
+AUXR1. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A2H  1
+AUXR2. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A3H  1
+SIADR. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D1H  1
+AUXR3. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00A4H  1
+F0 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D5H  1
+SIDAT. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D2H  1
+F1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D1H  1
+PCAPWM0. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F2H  1
+PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 15  
+
+NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
+====                                    =====   ======  ====    ======  ====
+
+
+PCAPWM1. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F3H  1
+PCAPWM2. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F4H  1
+CCF0 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D8H  1
+RB80 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+PCAPWM3. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F5H  1
+CCF1 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D9H  1
+SICON. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D4H  1
+RB81 . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      009AH  1
+SPDAT. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   0086H  1
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    296    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

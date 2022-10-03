@@ -1,0 +1,17 @@
+>>> cc
+
+C51 COMPILER V9.60.0.0 - SN: K1SMC-8HY7IC
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+*** WARNING C280 IN LINE 56 OF .\MEMORY.C: 'key': unreferenced local variable
+*** WARNING C280 IN LINE 56 OF .\MEMORY.C: 'price': unreferenced local variable
+
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)
+C51 COMPILER V9.60.0.0 - SN: K1SMC-8HY7IC
+COPYRIGHT Copyright (C) 2012 - 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+*** ERROR C213 IN LINE 105 OF .\OM3.C: left side of asn-op not an lvalue
+*** ERROR C141 IN LINE 112 OF .\OM3.C: syntax error near '=', expected 'sizeof'
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  2 ERROR(S)
+
+>>> ld
+
