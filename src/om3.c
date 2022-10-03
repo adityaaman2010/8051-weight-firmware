@@ -7,17 +7,25 @@
 #include "tm1640.h"
 #include "keypad.h"
 #include "weight.h"
+#include "memory.h"
 
 
 
 void key_display(void);
 void Keypad_GPIO_Config(void);
+void displayPrice(void);
+void addToInputPrice(void);
+void displayWeight(void);
+void handleModeOne(void);
+void loadMemory(void);
+void clearPrice(void);
+void handleNumberInput(void);
 void key_sort(unsigned char);
 unsigned char* getCharArray(int);
 unsigned char* getNumberDisplayFloat(float, int, int);
 void initializeDisplay();
 
-unsigned char hi_key_no, lo_key_no;
+unsigned char xdata hi_key_no, lo_key_no;
 unsigned char xdata overflowHex[] = {0x10, 0x10, 0x10, 0x10, 0x10, 0x10};
 unsigned char xdata no_digits[] = {0xed,0xa0,0xd9,0xf8,0xb4,0x7c,0x7d,0xe0,0xfd,0xfc};	//0,1,2,3,4,5,6,7,8,9
 unsigned char xdata digi_chk[] = {0x40,0xc0,0xe0,0xe8,0xe9,0xed,0xfd};
@@ -27,80 +35,155 @@ unsigned char xdata compny_name[] = { 0xb5, 0x5d,0x0d, 0x0d, 0xed, 0x10, 0x7c, 0
 unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
 unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
 unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
-unsigned char xdata final_display[7];
 // flag to check if decimal mode activated
-int isDecimal = 0,afterDecimal = 0;
-int xdata precision = 2;
+int xdata isDecimal = 0,afterDecimal = 0;
+int xdata precision = 2, mode = 1, isOverflow = 0;
+float xdata weight, total, currentPrice;
+unsigned char xdata key, inputPrice[7], temp[1], output[8], final_display[7], savingTo;
 
 
 void main(void)
 {
-    float xdata weight, total, currentPrice;
-    int isOverflow = 0;
-    unsigned char key, inputPrice[7], temp[1];
-    unsigned char* output;
     initializeDisplay();
-    output = getNumberDisplayFloat(0, 5, 2);
-    TM1640_M_display(output);
-    output = getNumberDisplayFloat(0, 6, precision);
-    TM1640_L_display(output);
     while(1)
     {
         weight = getWeight();
-        output = getNumberDisplayFloat(weight, 5, precision);
-        TM1640_U_display(output);
         key = scan_keypad();
         Delay_Some_Time(10);
         if(key != 'A') {
             isOverflow = (isDecimal == 1 && strlen(inputPrice) < 6) || ((isDecimal == 0 && strlen(inputPrice) + precision < 6) && key == 10) || (isDecimal == 0 && strlen(inputPrice) + precision < 5) ? 0 : 1;
-            if ((key < 11 && isOverflow == 0) || key == 11)
+            if (mode == 1)
             {
-                 if(key == 11)
-                 {
-                     inputPrice[0] = '0';
-                     inputPrice[1] = '\0';
-                     isDecimal = 0;
-                     afterDecimal = 0;
-                 }
-                 else if (key < 10 &&  isDecimal == 0)
-                 {
-                    key = 0x30 | key;
-                    temp[0] = key;
-                    joinCharacter(inputPrice, temp);
-                }
-                 else if (key == 10 && isDecimal == 0)
-                 {
-                    isDecimal = 1;
+                if (key == 16)
+                {
+                    // set mode
+                    mode = 2;
+                    // default save to memory 1
+                    savingTo = 17;
+                    clearPrice();
+                    displayPrice();
+                    /*
+                    TODO: set left side display
+                    */
                     continue;
                 }
-                 else if (key < 10 &&  isDecimal == 1 && afterDecimal == 0)
-                 {
-                    // first number pressed after "."
-                    temp[0] = '.';
-                    joinCharacter(inputPrice, temp);
-                    key = 0x30 | key;
-                    temp[0] = key;
-                    joinCharacter(inputPrice, temp);
-                    afterDecimal = 1;
+                if (key > 16)
+                {
+                    loadMemory();
+                    continue;
                 }
-                 else if (key < 10 &&  isDecimal == 1 && afterDecimal == 1)
-                 {
-                    key = 0x30 | key;
-                    temp[0] = key;
-                    joinCharacter(inputPrice, temp);
+                
+                handleNumberInput();
+                displayWeight();
+                
+            }else if (mode == 2)
+            {
+                handleNumberInput();
+            }else if (mode == 3)
+            {
+                if (key == 11)
+                {
+                    clearPrice();
+                    mode = 1;
+                    displayPrice();
+                }else if (key > 16)
+                {
+                    loadMemory();
                 }
-                currentPrice = atof(inputPrice);
-                total = currentPrice * weight;
-                output = getNumberDisplayFloat(currentPrice,5, precision);
-                TM1640_M_display(output);
-                output = getNumberDisplayFloat(total, 6, precision);
-                TM1640_L_display(output);
+                displayWeight();
             }
+            
+            
         }
         Delay_Some_Time(10);
     }
 		
 }
+
+void displayWeight(void)
+{
+    output = getNumberDisplayFloat(weight, 5, precision);
+    TM1640_U_display(output);
+}
+
+void loadMemory(void)
+{
+    float x = getPriceFromMemory(key);
+    if (x !== -1)
+    {
+        // mode in which current price is immutable
+        mode = 3;
+        currentPrice = x;
+        displayPrice();
+    }
+}
+
+void handleNumberInput(void)
+{
+    if ((key < 11 && isOverflow == 0) || key == 11)
+    {
+        handleModeOne();
+    }
+}
+
+void handleModeOne(void)
+{
+    if(key == 11)
+    {
+        clearPrice();
+    }
+    else if (key < 10 &&  isDecimal == 0)
+    {
+        addToInputPrice();
+    }
+    else if (key == 10 && isDecimal == 0)
+    {
+        isDecimal = 1;
+        return;
+    }
+    else if (key < 10 &&  isDecimal == 1 && afterDecimal == 0)
+    {
+        // first number pressed after "."
+        temp[0] = '.';
+        joinCharacter(inputPrice, temp);
+        key = 0x30 | key;
+        temp[0] = key;
+        joinCharacter(inputPrice, temp);
+        afterDecimal = 1;
+        currentPrice = atof(inputPrice);
+    }
+    else if (key < 10 &&  isDecimal == 1 && afterDecimal == 1)
+    {
+        addToInputPrice();
+    }
+    displayPrice();
+}
+
+void clearPrice(void)
+{
+    inputPrice[0] = '\0';
+    isDecimal = 0;
+    afterDecimal = 0;
+    currentPrice = 0.0;
+}
+
+void addToInputPrice(void)
+{
+    key = 0x30 | key;
+    temp[0] = key;
+    joinCharacter(inputPrice, temp);
+    currentPrice = atof(inputPrice);
+}
+
+void displayPrice(void)
+{
+    total = currentPrice * weight;
+    output = getNumberDisplayFloat(currentPrice,5, precision);
+    TM1640_M_display(output);
+    output = getNumberDisplayFloat(total, 6, precision);
+    TM1640_L_display(output);
+}
+
 void Keypad_GPIO_Config(void)
 {
 		P1M0 = 0x1f;
@@ -260,4 +343,10 @@ void initializeDisplay()
     TM1640_M_display(blank_L);
     ldelay();
     ldelay();
+
+    output = getNumberDisplayFloat(0, 5, 2);
+    TM1640_M_display(output);
+    output = getNumberDisplayFloat(0, 6, precision);
+    TM1640_L_display(output);
+    loadPricesFromMemory();
 }

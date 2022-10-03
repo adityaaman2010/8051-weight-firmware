@@ -1,0 +1,78 @@
+{
+  "name": "om3",
+  "type": "C51",
+  "dependenceList": [],
+  "srcDirs": [],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": [
+      {
+        "name": "Source Group 1",
+        "files": [
+          {
+            "path": "keypad.c"
+          },
+          {
+            "path": "keypad.h"
+          },
+          {
+            "path": "macro.h"
+          },
+          {
+            "path": "memory.c"
+          },
+          {
+            "path": "memory.h"
+          },
+          {
+            "path": "om3.c"
+          },
+          {
+            "path": "tm1640.c"
+          },
+          {
+            "path": "utility.c"
+          },
+          {
+            "path": "weight.c"
+          },
+          {
+            "path": "weight.h"
+          }
+        ],
+        "folders": []
+      }
+    ]
+  },
+  "outDir": "build",
+  "deviceName": null,
+  "packDir": null,
+  "miscInfo": {
+    "uid": "173142ba6cd2e281ef0f4f600a089ad6"
+  },
+  "targets": {
+    "Target 1": {
+      "excludeList": [],
+      "toolchain": "Keil_C51",
+      "compileConfig": {
+        "options": "null"
+      },
+      "uploader": "Custom",
+      "uploadConfig": {
+        "bin": "",
+        "commandLine": "",
+        "eraseChipCommand": ""
+      },
+      "uploadConfigMap": {},
+      "custom_dep": {
+        "name": "default",
+        "incList": [],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": []
+      }
+    }
+  },
+  "version": "3.3"
+}

@@ -5,5 +5,5 @@
 #include "weight.h"
 
 double getWeight() {
-    return 2.550;
+    return 25.555;
 }

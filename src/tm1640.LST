@@ -1,4 +1,4 @@
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 1   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE TM1640
@@ -62,7 +62,7 @@ line level    source
   53   1          Tmp=date;
   54   1          //GPIO_WriteLow(GPIO4,GPIO_PIN_1);     //p41 low level DIN
   55   1          GPIO_write_DIN_low();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 2   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 2   
 
   56   1          //GPIO_WriteLow(GPIO4,GPIO_PIN_0);     //p40 low level SCLK
   57   1          GPIO_write_SCLK_low();
@@ -126,7 +126,7 @@ line level    source
  115          void TM1640_U_display(unsigned char *utemp)
  116          {
  117   1      
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 3   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 3   
 
  118   1          TM1640Start();
  119   1          TM1640WriteByte(0x44); //Set the starting address
@@ -190,7 +190,7 @@ line level    source
  177          void TM1640_UM_display(unsigned char *co_name)
  178          {
  179   1          TM1640Start();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 4   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 4   
 
  180   1          TM1640WriteByte(0x44); //Set the starting address
  181   1          TM1640Stop();
@@ -254,7 +254,7 @@ line level    source
  239   1          TM1640Start();
  240   1          TM1640WriteByte(0xc4);
  241   1          TM1640WriteByte(co_name[2]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 5   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 5   
 
  242   1          TM1640Stop();
  243   1          TM1640Start();
@@ -318,7 +318,7 @@ line level    source
  301   1          TM1640WriteByte(co_name[1]);
  302   1          TM1640Stop();
  303   1          TM1640Start();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 6   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 6   
 
  304   1          TM1640WriteByte(0xc8);
  305   1          TM1640WriteByte(co_name[0]);
@@ -382,7 +382,7 @@ line level    source
  363   1          TM1640Start();
  364   1          TM1640WriteByte(0xc5);
  365   1          TM1640WriteByte(co_name[3]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 7   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 7   
 
  366   1          TM1640Stop();
  367   1          TM1640Start();
@@ -446,7 +446,7 @@ line level    source
  425   1      
  426   1          TM1640Start();
  427   1          TM1640WriteByte(0xcb);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 8   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 8   
 
  428   1          TM1640WriteByte(co_name[10]);
  429   1          TM1640Stop();
@@ -510,7 +510,7 @@ line level    source
  487   1          TM1640Start();
  488   1          TM1640WriteByte(0xc6);
  489   1          TM1640WriteByte(co_name[7]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 9   
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 9   
 
  490   1          TM1640Stop();
  491   1          TM1640Start();
@@ -574,7 +574,7 @@ line level    source
  549   1          TM1640WriteByte(0xca);
  550   1          TM1640WriteByte(co_name[4]);
  551   1          TM1640Stop();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 10  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 10  
 
  552   1          TM1640Start();
  553   1          TM1640WriteByte(0xc9);
@@ -638,7 +638,7 @@ line level    source
  611   1          TM1640WriteByte(0xc1);
  612   1          TM1640WriteByte(co_name[13]);
  613   1          TM1640Stop();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 11  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 11  
 
  614   1          TM1640Start();
  615   1          TM1640WriteByte(0xc4);
@@ -702,7 +702,7 @@ line level    source
  673   1          TM1640WriteByte(co_name[10]);
  674   1          TM1640Stop();
  675   1          TM1640Start();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 12  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 12  
 
  676   1          TM1640WriteByte(0xc8);
  677   1          TM1640WriteByte(co_name[9]);
@@ -766,7 +766,7 @@ line level    source
  735   1          TM1640Stop();
  736   1          //TM1640Start();
  737   1          //TM1640WriteByte(0x8b); //Set the starting address
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 13  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 13  
 
  738   1          //TM1640Stop();
  739   1          Delay_Some_Time(100);
@@ -830,7 +830,7 @@ line level    source
  797   1          TM1640Stop();
  798   1          TM1640Start();
  799   1          TM1640WriteByte(0xc3);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 14  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 14  
 
  800   1          TM1640WriteByte(co_name[15]);
  801   1          TM1640Stop();
@@ -894,7 +894,7 @@ line level    source
  859   1          TM1640Start();
  860   1          TM1640WriteByte(0xc7);
  861   1          TM1640WriteByte(co_name[12]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 15  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 15  
 
  862   1          TM1640Stop();
  863   1          TM1640Start();
@@ -958,7 +958,7 @@ line level    source
  921   1          TM1640WriteByte(dichk_temp[0]);
  922   1          TM1640Stop();
  923   1      
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 16  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 16  
 
  924   1          TM1640Start();
  925   1          TM1640WriteByte(0xc4);
@@ -1022,7 +1022,7 @@ line level    source
  983   1          TM1640Stop();
  984   1      
  985   1          TM1640Start();
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 17  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 17  
 
  986   1          TM1640WriteByte(0xce);
  987   1          TM1640WriteByte(dichk_temp[1]);
@@ -1086,7 +1086,7 @@ line level    source
 1045   1          TM1640Start();
 1046   1          TM1640WriteByte(0xc9);
 1047   1          TM1640WriteByte(dichk_temp[1]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 18  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 18  
 
 1048   1          TM1640Stop();
 1049   1      
@@ -1150,7 +1150,7 @@ line level    source
 1107   1          TM1640Start();
 1108   1          TM1640WriteByte(0xc5);
 1109   1          TM1640WriteByte(dichk_temp[2]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 19  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 19  
 
 1110   1          TM1640Stop();
 1111   1      
@@ -1214,7 +1214,7 @@ line level    source
 1169   1          TM1640Start();
 1170   1          TM1640WriteByte(0xc1);
 1171   1          TM1640WriteByte(dichk_temp[3]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 20  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 20  
 
 1172   1          TM1640Stop();
 1173   1      
@@ -1278,7 +1278,7 @@ line level    source
 1231   1          TM1640Start();
 1232   1          TM1640WriteByte(0xce);
 1233   1          TM1640WriteByte(dichk_temp[4]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 21  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 21  
 
 1234   1          TM1640Stop();
 1235   1      
@@ -1342,7 +1342,7 @@ line level    source
 1293   1          TM1640WriteByte(dichk_temp[4]);
 1294   1          TM1640Stop();
 1295   1      
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 22  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 22  
 
 1296   1          Delay_Some_Time(500);
 1297   1      
@@ -1406,7 +1406,7 @@ line level    source
 1355   1          TM1640WriteByte(dichk_temp[5]);
 1356   1          TM1640Stop();
 1357   1      
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 23  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 23  
 
 1358   1          TM1640Start();
 1359   1          TM1640WriteByte(0xc8);
@@ -1470,7 +1470,7 @@ line level    source
 1417   1          TM1640WriteByte(dichk_temp[6]);
 1418   1          TM1640Stop();
 1419   1      
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 24  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 24  
 
 1420   1          TM1640Start();
 1421   1          TM1640WriteByte(0xc4);
@@ -1534,7 +1534,7 @@ line level    source
 1479   1          TM1640Start();
 1480   1          TM1640WriteByte(0xcc);
 1481   1          TM1640WriteByte(ltemp[2]);
-C51 COMPILER V9.60.0.0   TM1640                                                            09/08/2022 01:28:30 PAGE 25  
+C51 COMPILER V9.60.0.0   TM1640                                                            09/28/2019 11:31:45 PAGE 25  
 
 1482   1          TM1640Stop();
 1483   1          TM1640Start();
