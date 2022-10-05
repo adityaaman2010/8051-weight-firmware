@@ -1,18 +1,33 @@
 {
     "version": 2,
-    "beforeBuildTasks": [],
+    "beforeBuildTasks": [
+        {
+            "name": "new prebuild task",
+            "disable": false,
+            "abortAfterFailed": false,
+            "stopBuildAfterFailed": true,
+            "command": "echo \"project name: ${TargetName}\""
+        },
+        {
+            "name": "new prebuild task",
+            "disable": false,
+            "abortAfterFailed": false,
+            "stopBuildAfterFailed": true,
+            "command": "echo \"project name: ${TargetName}\""
+        }
+    ],
     "afterBuildTasks": [],
     "global": {
         "ram-mode": "SMALL",
         "rom-mode": "LARGE"
     },
     "c/cpp-compiler": {
-        "optimization-type": "SPEED",
+        "optimization-type": "SIZE",
         "optimization-level": "level-8"
     },
     "asm-compiler": {},
     "linker": {
-        "remove-unused": true,
-        "output-format": "elf"
+        "output-format": "elf",
+        "use-RTX": "None"
     }
 }

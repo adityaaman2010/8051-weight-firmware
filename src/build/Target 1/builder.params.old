@@ -18,32 +18,47 @@
         "__UVISION_VERSION=526"
     ],
     "sourceList": [
+        "MEMORY.asm",
         "keypad.c",
-        "memory.c",
         "om3.c",
         "tm1640.c",
         "utility.c",
         "weight.c"
     ],
     "sourceParams": {},
-    "sourceParamsMtime": 1664347038079.5972,
+    "sourceParamsMtime": 1664794116459.8445,
     "options": {
         "version": 2,
-        "beforeBuildTasks": [],
+        "beforeBuildTasks": [
+            {
+                "name": "new prebuild task",
+                "disable": false,
+                "abortAfterFailed": false,
+                "stopBuildAfterFailed": true,
+                "command": "echo \"project name: ${TargetName}\""
+            },
+            {
+                "name": "new prebuild task",
+                "disable": false,
+                "abortAfterFailed": false,
+                "stopBuildAfterFailed": true,
+                "command": "echo \"project name: ${TargetName}\""
+            }
+        ],
         "afterBuildTasks": [],
         "global": {
             "ram-mode": "SMALL",
             "rom-mode": "LARGE"
         },
         "c/cpp-compiler": {
-            "optimization-type": "SPEED",
+            "optimization-type": "SIZE",
             "optimization-level": "level-8",
-            "optimization": "8,SPEED"
+            "optimization": "8,SIZE"
         },
         "asm-compiler": {},
         "linker": {
-            "remove-unused": true,
-            "output-format": "elf"
+            "output-format": "elf",
+            "use-RTX": "None"
         }
     },
     "env": {
@@ -60,11 +75,11 @@
     },
     "sha": {
         "c/cpp-defines": "b5babb9cacba6494fa0692e84c1cf8da",
-        "beforeBuildTasks": "d751713988987e9331980363e24189ce",
+        "beforeBuildTasks": "f9f5de1236818dfb504ba64efe33c2bb",
         "afterBuildTasks": "d751713988987e9331980363e24189ce",
         "global": "c16529a49a409094a87f0219fb297e41",
-        "c/cpp-compiler": "d6401cb3a45dab99a8d0301dd2b94e32",
+        "c/cpp-compiler": "cb28ccfe8139e36a9d7783b0fca2b32a",
         "asm-compiler": "99914b932bd37a50b983c5e7c90ae93b",
-        "linker": "8f1ebe355af85e07f74ac5fb45fcd416"
+        "linker": "5abeb7a54541781c193932099df180ee"
     }
 }

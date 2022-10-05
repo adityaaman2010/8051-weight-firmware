@@ -7,14 +7,14 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>om3</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>MG82FG5B32</Device>
-          <Vendor>Megawin</Vendor>
+          <Device>AT89C52</Device>
+          <Vendor>Atmel</Vendor>
           <Cpu>IRAM(0x00 - 0xFF) XRAM (0x00-0x6FF) IROM(0x000 - 0x7FFF) CLOCK(25000000)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -45,14 +45,14 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>.\</OutputDirectory>
+          <OutputDirectory>.\build\Keil\</OutputDirectory>
           <OutputName>om3</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
-          <ListingPath>.\</ListingPath>
+          <ListingPath>.\build\Keil\</ListingPath>
           <HexFormatSelection>0</HexFormatSelection>
           <Merge32K>0</Merge32K>
           <CreateBatchFile>0</CreateBatchFile>
@@ -316,7 +316,7 @@
             <Fuzzy>3</Fuzzy>
             <Optimize>8</Optimize>
             <WarningLevel>2</WarningLevel>
-            <SizeSpeed>1</SizeSpeed>
+            <SizeSpeed>0</SizeSpeed>
             <ObjectExtend>1</ObjectExtend>
             <ACallAJmp>0</ACallAJmp>
             <InterruptVectorAddress>0</InterruptVectorAddress>
@@ -324,7 +324,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>..\..\..\..\..\..\Keil_v5\C51\INC</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -377,44 +377,49 @@
           <GroupName>Source Group 1</GroupName>
           <Files>
             <File>
-              <FileName>om3.c</FileName>
+              <FileName>keypad.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\om3.c</FilePath>
-            </File>
-            <File>
-              <FileName>macro.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\macro.h</FilePath>
-            </File>
-            <File>
-              <FileName>tm1640.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\tm1640.c</FilePath>
-            </File>
-            <File>
-              <FileName>utility.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\utility.c</FilePath>
+              <FilePath>keypad.c</FilePath>
             </File>
             <File>
               <FileName>keypad.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\keypad.h</FilePath>
+              <FilePath>keypad.h</FilePath>
             </File>
             <File>
-              <FileName>keypad.c</FileName>
+              <FileName>macro.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>macro.h</FilePath>
+            </File>
+            <File>
+              <FileName>MEMORY.asm</FileName>
+              <FileType>5</FileType>
+              <FilePath>MEMORY.asm</FilePath>
+            </File>
+            <File>
+              <FileName>om3.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\keypad.c</FilePath>
+              <FilePath>om3.c</FilePath>
+            </File>
+            <File>
+              <FileName>tm1640.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>tm1640.c</FilePath>
+            </File>
+            <File>
+              <FileName>utility.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>utility.c</FilePath>
             </File>
             <File>
               <FileName>weight.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\weight.c</FilePath>
+              <FilePath>weight.c</FilePath>
             </File>
             <File>
               <FileName>weight.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\weight.h</FilePath>
+              <FilePath>weight.h</FilePath>
             </File>
           </Files>
         </Group>

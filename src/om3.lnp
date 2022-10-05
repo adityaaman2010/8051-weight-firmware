@@ -1,7 +1,0 @@
-"om3.obj",
-"tm1640.obj",
-"utility.obj",
-"keypad.obj",
-"weight.obj" 
-TO "om3" 
-RAMSIZE(256) 

@@ -1,1 +1,1 @@
-.\memory.c OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(".\build\Target 1\memory.lst") INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION='526') OPTIMIZE(8,SPEED) SMALL ROM(LARGE) OBJECT(".\build\Target 1\memory.o")
+.\MEMORY.asm PRINT(.\build\Target 1\MEMORY.lst) INCDIR(../../../../../../Keil_v5/C51/INC) SET(SMALL) OBJECT(.\build\Target 1\MEMORY.o) EP

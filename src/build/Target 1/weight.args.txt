@@ -1,1 +1,1 @@
-.\weight.c OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(".\build\Target 1\weight.lst") INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION='526') OPTIMIZE(8,SPEED) SMALL ROM(LARGE) OBJECT(".\build\Target 1\weight.o")
+.\weight.c OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(".\build\Target 1\weight.lst") INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION='526') OPTIMIZE(8,SIZE) SMALL ROM(LARGE) OBJECT(".\build\Target 1\weight.o")

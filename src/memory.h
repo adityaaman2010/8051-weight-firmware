@@ -8,5 +8,6 @@
 float getPriceFromMemory(unsigned char);
 void savePriceToMemory(unsigned char, float);
 void loadPricesFromMemory(void);
+float loadPrice(unsigned char);
 
 #endif // !WEIGHT_MACHINE_MEMORY_H

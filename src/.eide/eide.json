@@ -20,10 +20,7 @@
             "path": "macro.h"
           },
           {
-            "path": "memory.c"
-          },
-          {
-            "path": "memory.h"
+            "path": "MEMORY.asm"
           },
           {
             "path": "om3.c"
@@ -68,6 +65,29 @@
       "custom_dep": {
         "name": "default",
         "incList": [],
+        "libList": [],
+        "sourceDirList": [],
+        "defineList": []
+      }
+    },
+    "om3": {
+      "excludeList": [],
+      "toolchain": "Keil_C51",
+      "compileConfig": {
+        "options": "null"
+      },
+      "uploader": "Custom",
+      "uploadConfig": {
+        "bin": "",
+        "commandLine": "",
+        "eraseChipCommand": ""
+      },
+      "uploadConfigMap": {},
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          "../../../../../../Keil_v5/C51/INC"
+        ],
         "libList": [],
         "sourceDirList": [],
         "defineList": []

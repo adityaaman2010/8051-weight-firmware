@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 1   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 1   
 
 
 C51 COMPILER V9.60.0.0, COMPILATION OF MODULE KEYPAD
 OBJECT MODULE PLACED IN .\build\Target 1\keypad.o
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe .\KEYPAD.C OMF2 TABS(4) CODE NOCOND SYMBOLS PRINT(.\build\Target 1\keypa
-                    -d.lst) INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION=526) OPTIMIZE(8,SPEED) SMALL ROM(LARGE) OBJECT
-                    -(.\build\Target 1\keypad.o)
+                    -d.lst) INCDIR(../../../../../../Keil_v5/C51/INC) DEFINE(__UVISION_VERSION=526) OPTIMIZE(8,SIZE) SMALL ROM(LARGE) OBJECT(
+                    -.\build\Target 1\keypad.o)
 
 line level    source
 
@@ -62,7 +62,7 @@ line level    source
   51   4                  }
   52   3              }
   53   2              if( i == 1)
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 2   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 2   
 
   54   2              {
   55   3                  KROW0 = 0;
@@ -126,7 +126,7 @@ line level    source
  113   4                      key_status = 9;
  114   4      //                key_status = 9;
  115   4                  }
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 3   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 3   
 
  116   3                  if(KCOL3 == 1)
  117   3                  {
@@ -190,7 +190,7 @@ line level    source
  175   3                  {
  176   4                      while(KCOL0 == 1);
  177   4                      key_status = 15;
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 4   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 4   
 
  178   4      //                key_status = 20;
  179   4                  }
@@ -222,7 +222,7 @@ line level    source
  205   2          }
  206   1          return key_status;
  207   1      }
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 5   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 5   
 
 ASSEMBLY LISTING OF GENERATED OBJECT CODE
 
@@ -286,7 +286,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 36
 0032         ?C0012:
                                            ; SOURCE LINE # 37
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 6   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 6   
 
 0032 20A2FD            JB      P22,?C0012
                                            ; SOURCE LINE # 38
@@ -350,7 +350,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 71
 0066         ?C0024:
                                            ; SOURCE LINE # 72
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 7   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 7   
 
 0066 30A205            JNB     P22,?C0027
                                            ; SOURCE LINE # 73
@@ -414,7 +414,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
                                            ; SOURCE LINE # 106
 0098 2096FD            JB      P16,?C0041
                                            ; SOURCE LINE # 107
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 8   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 8   
 
 009B 7F08              MOV     R7,#08H
                                            ; SOURCE LINE # 109
@@ -478,7 +478,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00CC         ?C0053:
                                            ; SOURCE LINE # 142
 00CC 309605            JNB     P16,?C0056
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 9   
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 9   
 
                                            ; SOURCE LINE # 143
 00CF         ?C0057:
@@ -542,7 +542,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 00FE 2095FD            JB      P15,?C0070
                                            ; SOURCE LINE # 177
 0101 7F0F              MOV     R7,#0FH
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 10  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 10  
 
                                            ; SOURCE LINE # 179
 0103         ?C0069:
@@ -596,7 +596,7 @@ ASSEMBLY LISTING OF GENERATED OBJECT CODE
 0127 22                RET     
              ; FUNCTION scan_keypad (END)
 
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 11  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 11  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -659,7 +659,7 @@ IP0H . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00B7H  1
 CCAP2H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FCH  1
 CCAP3H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FDH  1
 CCAP4H . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00FEH  1
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 12  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 12  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -722,7 +722,7 @@ IFMT . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00E5H  1
 P10. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0090H  1
 P20. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A0H  1
 P11. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0091H  1
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 13  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 13  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -785,7 +785,7 @@ EX0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00A8H  1
 TI0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0099H  1
 TH1. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   008DH  1
 IT0. . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      0088H  1
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 14  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 14  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====
@@ -848,7 +848,7 @@ SIDAT. . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D2H  1
 F1 . . . . . . . . . . . . . . . . . .  ABSBIT   -----  BIT      00D1H  1
 PCAPWM0. . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00F2H  1
 PSW. . . . . . . . . . . . . . . . . .  SFR      DATA   U_CHAR   00D0H  1
-C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 16:11:55 PAGE 15  
+C51 COMPILER V9.60.0.0   KEYPAD                                                            10/03/2022 19:06:34 PAGE 15  
 
 NAME                                    CLASS   MSPACE  TYPE    OFFSET  SIZE
 ====                                    =====   ======  ====    ======  ====

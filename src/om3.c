@@ -39,7 +39,8 @@ unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
 int xdata isDecimal = 0,afterDecimal = 0;
 int xdata precision = 2, mode = 1, isOverflow = 0;
 float xdata weight, total, currentPrice;
-unsigned char xdata key, inputPrice[7], temp[1], output[8], final_display[7], savingTo;
+unsigned char xdata key, inputPrice[7], temp[1], final_display[7], savingTo;
+unsigned char* output;
 
 
 void main(void)
@@ -51,7 +52,6 @@ void main(void)
         key = scan_keypad();
         Delay_Some_Time(10);
         if(key != 'A') {
-            isOverflow = (isDecimal == 1 && strlen(inputPrice) < 6) || ((isDecimal == 0 && strlen(inputPrice) + precision < 6) && key == 10) || (isDecimal == 0 && strlen(inputPrice) + precision < 5) ? 0 : 1;
             if (mode == 1)
             {
                 if (key == 16)
@@ -72,7 +72,6 @@ void main(void)
                     loadMemory();
                     continue;
                 }
-                
                 handleNumberInput();
                 displayWeight();
                 
@@ -108,8 +107,9 @@ void displayWeight(void)
 
 void loadMemory(void)
 {
-    float x = getPriceFromMemory(key);
-    if (x !== -1)
+    float x;
+    x = getPriceFromMemory(key);
+    if (x != -1)
     {
         // mode in which current price is immutable
         mode = 3;
@@ -120,6 +120,7 @@ void loadMemory(void)
 
 void handleNumberInput(void)
 {
+    isOverflow = (isDecimal == 1 && strlen(inputPrice) < 6) || ((isDecimal == 0 && strlen(inputPrice) + precision < 6) && key == 10) || (isDecimal == 0 && strlen(inputPrice) + precision < 5) ? 0 : 1;
     if ((key < 11 && isOverflow == 0) || key == 11)
     {
         handleModeOne();
@@ -282,33 +283,33 @@ unsigned char* getNumberDisplayFloat(float x, int displayLength, int precision)
     return final_display;
 }
 
-//void key_display(void)
-//{
-//    unsigned char temp[6];
-//    temp[0] = lo_key_no;
-//    temp[1] = hi_key_no;
-//    temp[2] = BLANK_HEX;
-//    temp[3] = BLANK_HEX;
-//    temp[4] = BLANK_HEX;
-//    temp[5] = BLANK_HEX;
-//    TM1640_L_display(temp);
-//
-//}
-//void key_sort(unsigned char temp_key)
-//{
-//    if(temp_key <10)
-//    {
-//        hi_key_no = 0;
-//        lo_key_no = temp_key;
-//    }
-//    else
-//    {
-//        hi_key_no = temp_key/10;
-//        lo_key_no = temp_key%10;
-//    }
-//    hi_key_no = no_digits[hi_key_no];
-//    lo_key_no = no_digits[lo_key_no];
-//}
+void key_display(void)
+{
+   unsigned char temp[6];
+   temp[0] = lo_key_no;
+   temp[1] = hi_key_no;
+   temp[2] = BLANK_HEX;
+   temp[3] = BLANK_HEX;
+   temp[4] = BLANK_HEX;
+   temp[5] = BLANK_HEX;
+   TM1640_L_display(temp);
+
+}
+void key_sort(unsigned char temp_key)
+{
+   if(temp_key <10)
+   {
+       hi_key_no = 0;
+       lo_key_no = temp_key;
+   }
+   else
+   {
+       hi_key_no = temp_key/10;
+       lo_key_no = temp_key%10;
+   }
+   hi_key_no = no_digits[hi_key_no];
+   lo_key_no = no_digits[lo_key_no];
+}
 
 void initializeDisplay()
 {
@@ -346,7 +347,10 @@ void initializeDisplay()
 
     output = getNumberDisplayFloat(0, 5, 2);
     TM1640_M_display(output);
+    TM1640_U_display(output);
     output = getNumberDisplayFloat(0, 6, precision);
     TM1640_L_display(output);
     loadPricesFromMemory();
+    inputPrice[0] = '\0';
+    mode = 1;
 }
