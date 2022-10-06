@@ -6,19 +6,32 @@
 #include "REG_MG82FG5Bxx.h"
 #include "macro.h"
 
-float xdata memoryOne = 202.5;
-float xdata memoryTwo = 90.6;
-float xdata memoryThree = -1;
-float xdata memoryFour = -1;
-float xdata memoryFive = -1;
-float xdata memorySix = -1;
-float xdata memorySeven = -1;
+
+
+float xdata memoryOne = 0.0;
+float xdata memoryTwo = 0.0;
+float xdata memoryThree = 0.0;
+float xdata memoryFour = 0.0;
+float xdata memoryFive = 0.0;
+float xdata memorySix = 0.0;
+float xdata memorySeven = 0.0;
 unsigned char start_add, end_add;
 float readWrite;
 
+union f  {
+  float          f;          /* Floating-point value */
+  unsigned long ul;          /* Unsigned long value */
+};
 
 void loadPricesFromMemory(void)
 {
+    memoryOne = loadPrice(17);
+    memoryTwo = loadPrice(18);
+    memoryThree = loadPrice(19);
+    memoryFour = loadPrice(20);
+    memoryFive = loadPrice(21);
+    memorySix = loadPrice(22);
+    memorySeven = loadPrice(23);
 
 }
 
@@ -57,34 +70,35 @@ float getPriceFromMemory(unsigned char key)
 
 float loadPrice(unsigned char key)
 {
+    union f x;
     switch (key){
     case 17:
         start_add = 0x76;
         end_add = 0x00;
         break;
     case 18:
-        start_add = 0x04;
-        end_add = 0x07;
+        start_add = 0x76;
+        end_add = 0x04;
         break;
     case 19:
-        start_add = 0x08;
-        end_add = 0x0b;
+        start_add = 0x76;
+        end_add = 0x08;
         break;
     case 20:
-        start_add = 0x0c;
-        end_add = 0x0f;
+        start_add = 0x76;
+        end_add = 0x0B;
         break;
     case 21:
-        start_add = 0x10;
-        end_add = 0x13;
+        start_add = 0x76;
+        end_add = 0x10;
         break;
     case 22:
-        start_add = 0x14;
-        end_add = 0x17;
+        start_add = 0x76;
+        end_add = 0x14;
         break;
     case 23:
-        start_add = 0x18;
-        end_add = 0x1b;
+        start_add = 0x76;
+        end_add = 0x18;
         break;
     }
     #pragma asm
@@ -99,6 +113,11 @@ float loadPrice(unsigned char key)
         MOV IFMT,#00h
         MOV ISPCR,#00000000b
     #pragma endasm
+
+    x.f = readWrite;
+    if (x.ul == NaN){
+        return 0.0;
+    }
     return readWrite;
 }
 
@@ -111,28 +130,28 @@ void savePriceToMemory(unsigned char key,float price)
         end_add = 0x00;
         break;
     case 18:
-        start_add = 0x04;
-        end_add = 0x07;
+        start_add = 0x76;
+        end_add = 0x04;
         break;
     case 19:
-        start_add = 0x08;
-        end_add = 0x0b;
+        start_add = 0x76;
+        end_add = 0x08;
         break;
     case 20:
-        start_add = 0x0c;
-        end_add = 0x0f;
+        start_add = 0x76;
+        end_add = 0x0B;
         break;
     case 21:
-        start_add = 0x10;
-        end_add = 0x13;
+        start_add = 0x76;
+        end_add = 0x10;
         break;
     case 22:
-        start_add = 0x14;
-        end_add = 0x17;
+        start_add = 0x76;
+        end_add = 0x14;
         break;
     case 23:
-        start_add = 0x18;
-        end_add = 0x1b;
+        start_add = 0x76;
+        end_add = 0x18;
         break;
     }
 
