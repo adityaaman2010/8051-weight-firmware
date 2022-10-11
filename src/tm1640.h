@@ -16,5 +16,6 @@ void TM1640_M_display(unsigned char *);
 void TM1640_L_display(unsigned char *);
 void TM1640_UM_display(unsigned char *);
 void TM1640_digichk(unsigned char *);
+unsigned char getHexFromAlphabet(unsigned char);
 
 #endif //WEIGHT_MACHINE_TM1640_H

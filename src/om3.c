@@ -20,6 +20,9 @@ void handleModeOne(void);
 void loadMemory(void);
 void clearPrice(void);
 void handleNumberInput(void);
+void handleModeOne(void);
+void handleModeTwo(void);
+void handleModeThree(void);
 void key_sort(unsigned char);
 unsigned char* getCharArray(int);
 unsigned char* getNumberDisplayFloat(float, int, int);
@@ -39,12 +42,13 @@ unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
 int xdata isDecimal = 0,afterDecimal = 0;
 int xdata precision = 2, mode = 1, isOverflow = 0;
 float xdata weight, total, currentPrice;
-unsigned char xdata key, inputPrice[7], temp[1], final_display[7], savingTo;
+unsigned char xdata key, inputPrice[7], temp[1], final_display[7], savingTo = -1;
 unsigned char* output;
 
 
 void main(void)
 {
+    int i;
     initializeDisplay();
     while(1)
     {
@@ -54,48 +58,20 @@ void main(void)
         if(key != 'A') {
             if (mode == 1)
             {
-                if (key == 16)
-                {
-                    // set mode
-                    mode = 2;
-                    // default save to memory 1
-                    savingTo = 17;
-                    clearPrice();
-                    displayPrice();
-                    /*
-                    TODO: set left side display
-                    */
-                    continue;
-                }
-                if (key > 16)
-                {
-                    loadMemory();
-                    continue;
-                }
-                handleNumberInput();
-                displayWeight();
-                
+                handleModeOne();
             }else if (mode == 2)
             {
-                handleNumberInput();
+                handleModeTwo();
             }else if (mode == 3)
             {
-                if (key == 11)
-                {
-                    clearPrice();
-                    mode = 1;
-                    displayPrice();
-                }else if (key > 16)
-                {
-                    loadMemory();
-                }
-                displayWeight();
+                handleModeThree();
             }
             
             
         }
         Delay_Some_Time(10);
     }
+    
 		
 }
 
@@ -108,7 +84,8 @@ void displayWeight(void)
 void loadMemory(void)
 {
     float x;
-    x = getPriceFromMemory(key);
+    savingTo = -1;
+    x = loadOnePrice(key);
     if (x != -1)
     {
         // mode in which current price is immutable
@@ -116,6 +93,86 @@ void loadMemory(void)
         currentPrice = x;
         displayPrice();
     }
+}
+
+void handleModeThree(void)
+{
+    if (key == 11)
+    {
+        clearPrice();
+        mode = 1;
+        displayPrice();
+    }else if (key > 16)
+    {
+        loadMemory();
+    }
+    displayWeight();
+}
+
+void handleModeTwo(void)
+{
+    int i;
+    if (key == 16 && savingTo != -1)
+    {
+        savePriceToMemory(savingTo, currentPrice);
+        displayWeight();
+        Delay_Some_Time(100);
+        key = savingTo;
+        loadMemory();
+    }
+    else if (key > 16)
+    {
+        savingTo = key;
+        for(i=0;i < 5; i++)
+        {
+            final_display[i] = BLANK_HEX;
+        }
+        final_display[5] = '\0';
+        output = getMemoryNumber(savingTo);
+        final_display[0] = output[1];
+        final_display[1] = output[0];
+        final_display[2] = getHexFromAlphabet('t');
+        final_display[3] = getHexFromAlphabet('E');
+        final_display[4] = getHexFromAlphabet('S');
+        TM1640_U_display(final_display);
+        return;
+    }else if (key == 11)
+    {
+        clearPrice();
+        mode = 1;
+        displayPrice();
+    }else
+    {
+        handleNumberInput();
+    }
+}
+
+void handleModeOne(void)
+{
+    if (key == 16)
+        {
+            // set mode
+            mode = 2;
+            clearPrice();
+            displayPrice();
+            for(i=0;i < 5; i++)
+            {
+                final_display[i] = BLANK_HEX;
+            }
+            final_display[5] = '\0';
+            final_display[2] = getHexFromAlphabet('t');
+            final_display[3] = getHexFromAlphabet('E');
+            final_display[4] = getHexFromAlphabet('S');
+            TM1640_U_display(final_display);
+            return;
+        }
+        if (key > 16)
+        {
+            loadMemory();
+            return;
+        }
+        handleNumberInput();
+        displayWeight();
 }
 
 void handleNumberInput(void)
@@ -251,6 +308,7 @@ unsigned char* getNumberDisplayFloat(float x, int displayLength, int precision)
     {
         final_display[i] = BLANK_HEX;
     }
+    final_display[displayLength] = '\0';
     for(i=0;i < strlen(t); i++)
     {
         if(t[i]  == '.')
@@ -350,7 +408,8 @@ void initializeDisplay()
     TM1640_U_display(output);
     output = getNumberDisplayFloat(0, 6, precision);
     TM1640_L_display(output);
-    loadPricesFromMemory();
     inputPrice[0] = '\0';
     mode = 1;
+    weight = getWeight();
+    displayWeight();
 }

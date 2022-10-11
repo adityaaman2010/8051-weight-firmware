@@ -20,7 +20,10 @@
             "path": "macro.h"
           },
           {
-            "path": "MEMORY.asm"
+            "path": "memory.c"
+          },
+          {
+            "path": "memory.h"
           },
           {
             "path": "om3.c"

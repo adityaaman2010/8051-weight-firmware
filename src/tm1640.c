@@ -1,11 +1,31 @@
 //
 // Created by aditya on 28-08-2022.
 //
+#include <STRING.H>
 #include "REG_MG82FG5Bxx.h"
 #include "macro.h"
 #include "tm1640.h"
 #include "utility.h"
 
+unsigned char xdata alphabets[] = {
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'O', 'P', 'S', 'U', 'Z', 't'
+    };
+unsigned char xdata alphaHex[] = {
+    0xf5, 0xfd, 0x4d, 0xed, 0x5d, 0x55, 0x7d, 0xb5, 0x05, 0xe8, 0x15, 0x0d, 0xed, 0xd5, 0x7c, 0xad, 0xd9, 0x1d
+    };
+
+unsigned char getHexFromAlphabet(unsigned char value)
+{
+    int i = 0;
+    for (i = 0; i < strlen(alphabets); i++)
+    {
+        if (value == alphabets[i])
+        {
+            return alphaHex[i];
+        }
+}
+    
+}
 void TM1640_Init(unsigned char InValue)
 {
     //GPIO_WriteHigh(GPIO4,GPIO_PIN_1);			//P41 write high DIN
