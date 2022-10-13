@@ -10,7 +10,7 @@
 #include "memory.h"
 
 
-
+void handleTare(void);
 void key_display(void);
 void Keypad_GPIO_Config(void);
 void displayPrice(void);
@@ -39,7 +39,7 @@ unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
 unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
 unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
 // flag to check if decimal mode activated
-int xdata isDecimal = 0,afterDecimal = 0;
+int xdata isDecimal = 0,afterDecimal = 0, i;
 int xdata precision = 2, mode = 1, isOverflow = 0;
 float xdata weight, total, currentPrice;
 unsigned char xdata key, inputPrice[7], temp[1], final_display[7], savingTo = -1;
@@ -48,7 +48,6 @@ unsigned char* output;
 
 void main(void)
 {
-    int i;
     initializeDisplay();
     while(1)
     {
@@ -59,15 +58,15 @@ void main(void)
             if (mode == 1)
             {
                 handleModeOne();
-            }else if (mode == 2)
+            }
+            else if (mode == 2)
             {
                 handleModeTwo();
-            }else if (mode == 3)
+            }
+            else if (mode == 3)
             {
                 handleModeThree();
             }
-            
-            
         }
         Delay_Some_Time(10);
     }
@@ -97,6 +96,7 @@ void loadMemory(void)
 
 void handleModeThree(void)
 {
+    handleTare();
     if (key == 11)
     {
         clearPrice();
@@ -111,7 +111,6 @@ void handleModeThree(void)
 
 void handleModeTwo(void)
 {
-    int i;
     if (key == 16 && savingTo != -1)
     {
         savePriceToMemory(savingTo, currentPrice);
@@ -136,12 +135,14 @@ void handleModeTwo(void)
         final_display[4] = getHexFromAlphabet('S');
         TM1640_U_display(final_display);
         return;
-    }else if (key == 11)
+    }
+    else if (key == 11)
     {
         clearPrice();
         mode = 1;
         displayPrice();
-    }else
+    }
+    else
     {
         handleNumberInput();
     }
@@ -150,29 +151,41 @@ void handleModeTwo(void)
 void handleModeOne(void)
 {
     if (key == 16)
+    {
+        // set mode
+        mode = 2;
+        clearPrice();
+        displayPrice();
+        for(i=0;i < 5; i++)
         {
-            // set mode
-            mode = 2;
-            clearPrice();
-            displayPrice();
-            for(i=0;i < 5; i++)
-            {
-                final_display[i] = BLANK_HEX;
-            }
-            final_display[5] = '\0';
-            final_display[2] = getHexFromAlphabet('t');
-            final_display[3] = getHexFromAlphabet('E');
-            final_display[4] = getHexFromAlphabet('S');
-            TM1640_U_display(final_display);
-            return;
+            final_display[i] = BLANK_HEX;
         }
-        if (key > 16)
-        {
-            loadMemory();
-            return;
-        }
-        handleNumberInput();
+        final_display[5] = '\0';
+        final_display[2] = getHexFromAlphabet('t');
+        final_display[3] = getHexFromAlphabet('E');
+        final_display[4] = getHexFromAlphabet('S');
+        TM1640_U_display(final_display);
+        return;
+    }
+    if (key > 16)
+    {
+        loadMemory();
+        return;
+    }
+    handleNumberInput();
+    handleTare();
+    displayWeight();
+}
+
+void handleTare(void)
+{
+    if (key == 14)
+    {
+        setOffsetWeight(weight);
+        weight = getWeight();
         displayWeight();
+    }
+    
 }
 
 void handleNumberInput(void)

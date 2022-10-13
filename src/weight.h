@@ -6,5 +6,7 @@
 #define WEIGHT_MACHINE_WEIGHT_H
 
 double getWeight();
+void setOffsetWeight(float);
+unsigned long int Adc_Read(void);
 
 #endif //WEIGHT_MACHINE_WEIGHT_H

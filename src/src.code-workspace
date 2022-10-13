@@ -4,6 +4,11 @@
             "path": "."
         }
     ],
-    "settings": {},
+    "settings": {
+        "files.associations": {
+            "weight.h": "c",
+            "reg_mg82fg5bxx.h": "c"
+        }
+    },
     "extensions": {}
 }
