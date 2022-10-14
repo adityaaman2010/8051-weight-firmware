@@ -36,4 +36,11 @@
 #define KCOL3 	P24
 #define KCOL4 	P26
 
+#define UNIT_PRICE_MODE 1
+#define MEMORY_SET_MODE 2
+#define MEMORY_LOAD_MODE 3
+#define ADDITION_MODE 4
+#define CHNAGE_MODE 5
+#define RECALL_MODE 6
+
 #endif //WEIGHT_MACHINE_MACRO_H

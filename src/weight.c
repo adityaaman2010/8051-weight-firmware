@@ -5,12 +5,17 @@
 #include "REG_MG82FG5Bxx.h"
 #include "macro.h"
 #include "weight.h"
+#include "utility.h"
 
 float xdata offsetWeight = 0.00;
 float xdata weightFactor = 1;
 
 double getWeight() {
-    return 2.5 - offsetWeight;
+	if (2.5 - offsetWeight < 0)
+	{
+		return 0;
+	}
+	return 2.5 - offsetWeight;
 }
 
 void setOffsetWeight(float w)
@@ -28,7 +33,7 @@ unsigned long int Adc_Read(void)
 	for(i = 0; i<24; i++)
 	{
 		ADC_CLK = 1;
-		MicroSecondDelay();
+		Delay_Some_Time(100);
 		if(ADC_DOUT == 1)
 		{
 			a << i;
@@ -40,7 +45,7 @@ unsigned long int Adc_Read(void)
 			a = a|0;
 		}
 		ADC_CLK = 1;
-		MicroSecondDelay();
+		Delay_Some_Time(100);
 	}
 	return a;
 	

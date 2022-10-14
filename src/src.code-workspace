@@ -7,7 +7,8 @@
     "settings": {
         "files.associations": {
             "weight.h": "c",
-            "reg_mg82fg5bxx.h": "c"
+            "reg_mg82fg5bxx.h": "c",
+            "macro.h": "c"
         }
     },
     "extensions": {}
