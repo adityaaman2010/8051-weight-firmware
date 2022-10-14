@@ -141,6 +141,8 @@ void handleModeFive(void)
         for (i = 0; i < 6; i++)
         {
             temp[i] = BLANK_HEX;
+        }
+        temp[0] = getHexFromAlphabet('n');
         temp[1] = getHexFromAlphabet('r');
         temp[2] = getHexFromAlphabet('t');
         temp[3] = getHexFromAlphabet('E');
@@ -153,10 +155,19 @@ void handleModeFive(void)
             temp[i] = BLANK_HEX;
         }
         TM1640_L_display(temp);
+        Delay_Some_Time(10000);
+        if (previousMode == RECALL_MODE)
         {
+            setRecallMode();
+        }
+        else if (previousMode == MEMORY_LOAD_MODE)
         {
+            mode = MEMORY_LOAD_MODE;
             key = loadedMemory;
             loadMemory();
+            displayWeight();
+        }
+        else
         {
             clearPrice();
             displayPrice();
