@@ -148,7 +148,7 @@ void handleModeFive(void)
         temp[3] = getHexFromAlphabet('E');
         temp[4] = getHexFromAlphabet('r');
         TM1640_U_display(temp);
-        output = getNumberDisplayFloat(currentPrice - y, 5, 0);
+        output = getNumberDisplayFloat(currentPrice - y, 5, precision);
         TM1640_M_display(output);
         for (i = 0; i < 6; i++)
         {
