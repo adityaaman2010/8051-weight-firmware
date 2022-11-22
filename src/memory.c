@@ -7,7 +7,6 @@
 #include "macro.h"
 
 
-
 float xdata memoryOne = 0.0;
 float xdata memoryTwo = 0.0;
 float xdata memoryThree = 0.0;
@@ -15,10 +14,13 @@ float xdata memoryFour = 0.0;
 float xdata memoryFive = 0.0;
 float xdata memorySix = 0.0;
 float xdata memorySeven = 0.0;
+int xdata l;
+unsigned char xdata settingsStarter = 0x62, scrollingName[21], scrollingStart = 0x1D, password[4];
 
 
 union f  {
   float          f;          /* Floating-point value */
+  int           in;  
   unsigned long ul;          /* Unsigned long value */
 };
 
@@ -153,47 +155,271 @@ float loadOnePrice(unsigned char key)
     ISPCR = 0x80;
     IFMT = 0x01;
     IFADRH = start_add;
-
-    IFADRL = end_add;
-    SCMD = 0x46;
-    SCMD = 0x0B9;
-    thing.bytes[0] = IFD;
-
-    IFADRL = end_add + 1;
-    SCMD = 0x46;
-    SCMD = 0x0B9;
-    thing.bytes[1] = IFD;
-
-    IFADRL = end_add + 2;
-    SCMD = 0x46;
-    SCMD = 0x0B9;
-    thing.bytes[2] = IFD;
-
-    IFADRL = end_add + 3;
-    SCMD = 0x46;
-    SCMD = 0x0B9;
-    thing.bytes[3] = IFD;
-
+    for (l = 0; l < 4; l++)
+    {
+        IFADRL = end_add + l;
+        SCMD = 0x46;
+        SCMD = 0x0B9;
+        thing.bytes[l] = IFD;
+    }
     IFMT = 0x00;
     ISPCR = 0x00;
-    // #pragma asm
-    //     MOV CKCON1,#00001011b
-    //     MOV ISPCR,#10000000b
-    //     MOV IFMT,#01h
-    //     MOV IFADRH,end_add
-    //     MOV IFADRL,start_add
-    //     MOV SCMD,#46h
-    //     MOV SCMD,#0B9h
-    //     MOV readWrite,IFD
-    //     MOV IFMT,#00h
-    //     MOV ISPCR,#00000000b
-    // #pragma endasm
-
     x.f = thing.a;
     if (x.ul == NaN){
         return 0.0;
     }
     return thing.a;
+}
+
+int loadPrecision(void)
+{
+    return loadInteger(0x76, settingsStarter);
+}
+
+void savePrecision(int value)
+{
+    saveInteger(0x76, settingsStarter, value);
+}
+
+int loadDisplayZeroFlag(void)
+{
+    return loadInteger(0x76, settingsStarter + 2);
+}
+
+void saveDisplayZeroFlag(int value)
+{
+    saveInteger(0x76, settingsStarter + 2, value);
+}
+
+int loadPowerOffFlag(void)
+{
+    return loadInteger(0x76, settingsStarter + 4);
+}
+
+void savePowerOffFlag(int value)
+{
+    saveInteger(0x76, settingsStarter + 4, value);
+}
+
+int loadBuzzerFlag(void)
+{
+    return loadInteger(0x76, settingsStarter + 6);
+}
+
+void saveBuzzerFlag(int value)
+{
+    saveInteger(0x76, settingsStarter + 6, value);
+}
+
+unsigned char* loadPassword(void)
+{
+    password[0] = loadCharacter(0x76, settingsStarter + 8);
+    password[1] = loadCharacter(0x76, settingsStarter + 9);
+    password[2] = loadCharacter(0x76, settingsStarter + 10);
+    password[3] = loadCharacter(0x76, settingsStarter + 11);
+    if (password[0] == 0xff)
+    {
+        password[0] = 0xd9;
+        password[1] = 0xed;
+        password[2] = 0xa0;
+        password[3] = 0xed;
+    }
+    return password;
+}
+
+
+
+void savePassword(unsigned char* value)
+{
+    saveCharacter(0x76, settingsStarter + 8, value[0]);
+    saveCharacter(0x76, settingsStarter + 9, value[1]);
+    saveCharacter(0x76, settingsStarter + 10, value[2]);
+    saveCharacter(0x76, settingsStarter + 11, value[3]);
+}
+
+void saveAutoZeroTracking(float value)
+{
+    saveFloat(0x76, settingsStarter + 12, value);
+}
+
+float loadAutoZeroTracking(void)
+{
+    return loadFloat(0x76, settingsStarter + 12);
+}
+
+void saveCapacityAndResolution(float* value)
+{
+    int xdata i;
+    unsigned char address[] = { 0x78, 0x7c, 0x80, 0x84, 0x88, 0x8c, 0x90};
+    for(i=0; i < ((2*value[0]) + 1); i++)
+    {
+        saveFloat(0x76, address[i], value[i]);
+    }
+}
+
+float* loadCapacityAndResolution(void)
+{
+    int xdata i;
+    float result[7];
+    unsigned char address[] = { 0x78, 0x7c, 0x80, 0x84, 0x88, 0x8c, 0x90};
+    for(i=0; i < 7 + 1; i++)
+    {
+        result[i] = loadFloat(0x76, address[i]);
+    }
+    return result;
+}
+
+unsigned char* loadCompanyName(void)
+{
+    for (l = 0; l < 21; l++)
+    {
+        scrollingName[l] = loadCharacter(0x76, scrollingStart + l);
+    }
+    if (scrollingName[0] == 0xff)
+    {
+        for (l = 1; l < 11; l++)
+        {
+            scrollingName[l] = 0xed;
+        }
+        scrollingName[0] = 10;
+    }
+    return scrollingName;
+}
+
+void saveCompanyName(unsigned char* value)
+{
+    for(l = 0; l < value[0]+1; l++)
+    {
+        saveCharacter(0x76, scrollingStart+l, value[l]);
+    }
+}
+
+void saveCharacter(unsigned char start_add, unsigned char end_add, unsigned char value)
+{
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x02 ; 
+    IFADRH = start_add;
+    IFADRL = end_add;
+    IFD = value;
+    SCMD = 0x46;
+    SCMD = 0x0B9;
+    IFMT = 0x00;
+    ISPCR = 0x00;
+}
+
+unsigned char loadCharacter(unsigned char start_add, unsigned char end_add)
+{
+    unsigned char xdata result;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x01;
+    IFADRH = start_add;
+    IFADRL = end_add;
+    SCMD = 0x46;
+    SCMD = 0x0B9;
+    result = IFD;
+    IFMT = 0x00;
+    ISPCR = 0x00;
+    return result;
+}
+
+void saveInteger(unsigned char start_add, unsigned char end_add, int toSave)
+{
+    union {
+        int a;
+        unsigned char bytes[2];
+    } thing;
+    thing.a = toSave;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x02 ; 
+    IFADRH = start_add;
+    for (l = 0; l < 2; l++)
+    {
+        IFADRL = end_add + l;
+        IFD = thing.bytes[l] ;
+        SCMD = 0x46;
+        SCMD = 0x0B9;
+    }
+    IFMT = 0x00;
+    ISPCR = 0x00;
+}
+
+int loadInteger(unsigned char start_add, unsigned char end_add)
+{
+    union f x;
+    union {
+        int a;
+        unsigned char bytes[2];
+    } thing;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x01;
+    IFADRH = start_add;
+    for (l = 0; l < 2; l++)
+    {
+        IFADRL = end_add + l;
+        SCMD = 0x46;
+        SCMD = 0x0B9;
+        thing.bytes[l] = IFD;
+    }
+    IFMT = 0x00;
+    ISPCR = 0x00;
+    x.in = thing.a;
+    if (x.ul == NaN){
+        return 0;
+    }
+    return thing.a;
+}
+
+float loadFloat(unsigned char start_add, unsigned char end_add)
+{
+    union f x;
+    union {
+        float a;
+        unsigned char bytes[4];
+    } thing;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x01;
+    IFADRH = start_add;
+    for (l = 0; l < 4; l++)
+    {
+        IFADRL = end_add + l;
+        SCMD = 0x46;
+        SCMD = 0x0B9;
+        thing.bytes[l] = IFD;
+    }
+    IFMT = 0x00;
+    ISPCR = 0x00;
+    x.f = thing.a;
+    if (x.ul == NaN){
+        return 0;
+    }
+    return thing.a;
+}
+
+void saveFloat(unsigned char start_add, unsigned char end_add, float toSave)
+{
+    union {
+        float a;
+        unsigned char bytes[4];
+    } thing;
+    thing.a = toSave;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x02 ; 
+    IFADRH = start_add;
+    for (l = 0; l < 4; l++)
+    {
+        IFADRL = end_add + l;
+        IFD = thing.bytes[l] ;
+        SCMD = 0x46;
+        SCMD = 0x0B9;
+    }
+    IFMT = 0x00;
+    ISPCR = 0x00;
 }
 
 void savePriceToMemory(unsigned char key,float price)
@@ -243,46 +469,17 @@ void savePriceToMemory(unsigned char key,float price)
         break;
     }
     thing.a = price;
-        CKCON1 = 0x0B;
-        ISPCR = 0x80;
-        IFMT = 0x02 ; 
-        IFADRH = start_add; 
-        IFADRL = end_add;
-        IFD = thing.bytes[0] ;
+    CKCON1 = 0x0B;
+    ISPCR = 0x80;
+    IFMT = 0x02 ; 
+    IFADRH = start_add;
+    for (l = 0; l < 4; l++)
+    {
+        IFADRL = end_add + l;
+        IFD = thing.bytes[l] ;
         SCMD = 0x46;
         SCMD = 0x0B9;
-
-        IFADRL = end_add + 1;
-        IFD = thing.bytes[1] ;
-        SCMD = 0x46;
-        SCMD = 0x0B9;
-
-        IFADRL = end_add + 2;
-        IFD = thing.bytes[2] ;
-        SCMD = 0x46;
-        SCMD = 0x0B9;
-
-        IFADRL = end_add + 3;
-        IFD = thing.bytes[3] ;
-        SCMD = 0x46;
-        SCMD = 0x0B9;
-
-
-        IFMT = 0x00;
-        ISPCR = 0x00;
-
-    // #pragma asm
-    //     MOV CKCON1,#00001011b
-    //     MOV ISPCR,#10000000b 
-    //     MOV IFMT,#02h ; 
-    //     MOV IFADRH, end_add 
-    //     MOV IFADRL, start_add
-    //     MOV IFD, readWrite 
-    //     MOV SCMD,#46h
-    //     MOV SCMD,#0B9h
-
-    //     MOV IFMT,#00h
-    //     MOV ISPCR,#00000000b
-    // #pragma endasm
-
+    }
+    IFMT = 0x00;
+    ISPCR = 0x00;
 }

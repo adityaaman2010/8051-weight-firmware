@@ -6,5 +6,6 @@
 #define WEIGHT_MACHINE_KEYPAD_H
 
 unsigned char scan_keypad(void);
+void Keypad_GPIO_Config(void);
 
 #endif //WEIGHT_MACHINE_KEYPAD_H

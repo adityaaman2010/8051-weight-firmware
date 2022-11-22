@@ -8,5 +8,6 @@
 void ldelay(void);
 void Delay_Some_Time(unsigned int );
 void joinCharacter(unsigned char*, unsigned char*);
+void secondDelay(int second);
 
 #endif //WEIGHT_MACHINE_UTILITY_H

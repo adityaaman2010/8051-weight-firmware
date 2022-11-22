@@ -42,5 +42,6 @@
 #define ADDITION_MODE 4
 #define CHNAGE_MODE 5
 #define RECALL_MODE 6
+#define SETTINGS_MODE 7
 
 #endif //WEIGHT_MACHINE_MACRO_H

@@ -17,5 +17,9 @@ void TM1640_L_display(unsigned char *);
 void TM1640_UM_display(unsigned char *);
 void TM1640_digichk(unsigned char *);
 unsigned char getHexFromAlphabet(unsigned char);
+unsigned char* getNumberDisplayFloat(float, int, int);
+unsigned char* getAlphaHex();
+unsigned char* getNumberHex();
+void displayCompanyName(unsigned char *);
 
 #endif //WEIGHT_MACHINE_TM1640_H

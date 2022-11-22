@@ -8,5 +8,6 @@
 double getWeight();
 void setOffsetWeight(float);
 unsigned long int Adc_Read(void);
+int getAdcRead(void);
 
 #endif //WEIGHT_MACHINE_WEIGHT_H

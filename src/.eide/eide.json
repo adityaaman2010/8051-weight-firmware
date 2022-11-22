@@ -29,6 +29,12 @@
             "path": "om3.c"
           },
           {
+            "path": "settings.c"
+          },
+          {
+            "path": "settings.h"
+          },
+          {
             "path": "tm1640.c"
           },
           {

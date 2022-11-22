@@ -6,6 +6,23 @@
 #include "macro.h"
 #include "keypad.h"
 
+
+void Keypad_GPIO_Config(void)
+{
+		P1M0 = 0x1f;
+		P22 = 1;
+		P24 = 1;
+		P26 = 1;
+		P16 = 1;
+		P15 = 1;
+		P10 = 0;
+		P11 = 0;
+		P12 = 0;
+		P13 = 0;
+		P14 = 0;
+		
+}
+
 unsigned char scan_keypad(void)
 {
     unsigned char i;

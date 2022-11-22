@@ -9,6 +9,7 @@
 
 float xdata offsetWeight = 0.00;
 float xdata weightFactor = 1;
+int xdata test = 0;
 
 double getWeight() {
 	if (2.5 - offsetWeight < 0)
@@ -21,6 +22,27 @@ double getWeight() {
 void setOffsetWeight(float w)
 {
     offsetWeight = w;
+}
+
+int getAdcRead(void)
+{
+	secondDelay(2);
+	if (test == 0)
+	{
+		test += 1;
+		return 25006;
+	}
+	else if (test == 1)
+	{
+		test = 2;
+		return 0;
+	}
+	else
+	{
+		test = 0;
+		return 35000;
+	}
+	
 }
 
 unsigned long int Adc_Read(void)

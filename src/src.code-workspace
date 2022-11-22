@@ -6,9 +6,17 @@
     ],
     "settings": {
         "files.associations": {
-            "weight.h": "c",
+            "TM1640.C": "cpp",
+            "string.h": "c",
+            "STRING.H": "cpp",
+            "STDLIB.H": "cpp",
+            "STDIO.H": "cpp",
             "reg_mg82fg5bxx.h": "c",
-            "macro.h": "c"
+            "weight.h": "c",
+            "keypad.h": "c",
+            "MEMORY.C": "cpp",
+            "tm1640.h": "c",
+            "WEIGHT.C": "cpp"
         }
     },
     "extensions": {}
