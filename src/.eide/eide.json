@@ -29,6 +29,9 @@
             "path": "om3.c"
           },
           {
+            "path": "REG_MG82FG5Bxx.h"
+          },
+          {
             "path": "settings.c"
           },
           {
@@ -39,6 +42,9 @@
           },
           {
             "path": "utility.c"
+          },
+          {
+            "path": "utility.h"
           },
           {
             "path": "weight.c"

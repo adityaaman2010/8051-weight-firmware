@@ -7,7 +7,7 @@
         "rom-mode": "LARGE"
     },
     "c/cpp-compiler": {
-        "optimization-type": "SPEED",
+        "optimization-type": "SIZE",
         "optimization-level": "level-8"
     },
     "asm-compiler": {},

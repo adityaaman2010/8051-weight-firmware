@@ -55,6 +55,7 @@ void main(void)
     int doBreak = -2;
     Keypad_GPIO_Config();
     TM1640_GPIO_Config();
+    Adc_GPIO_Config();
     TM1640_Init(DSPTM1640_DIS); 		//TM1640 initialization
     Delay_Some_Time(10);
     TM1640_U_display(prc);
@@ -89,11 +90,10 @@ void main(void)
     TM1640_L_display(output);
     inputPrice[0] = '\0';
     mode = UNIT_PRICE_MODE;
-    weight = getWeight();
-    displayWeight();
+    // displayWeight();
     while(1)
     {
-        weight = getWeight();
+        displayWeight();
         key = scan_keypad();
         Delay_Some_Time(10);
         if(key != 'A') {
@@ -131,9 +131,23 @@ void main(void)
 
 void displayWeight(void)
 {
-    weight = getWeight();
-    output = getNumberDisplayFloat(weight, 5, precision);
-    TM1640_U_display(output);
+    float x = (float)getAdcRead();
+    output = getNumberDisplayFloat(x, 5, 0);
+    TM1640_L_display(output);
+    // unsigned char* x = getAdcWeight();
+    // for (i = 0; i < 6; i++)
+    // {
+    //     temp[i] = BLANK_HEX;
+    // }
+    // temp[4] = x[0];
+    // temp[3] = x[1];
+    // temp[2] = x[2];
+    // temp[1] = x[3];
+    // temp[0] = x[4];
+    // TM1640_U_display(temp);
+    // weight = getWeight();
+    // output = getNumberDisplayFloat(weight, 5, precision);
+    // TM1640_U_display(output);
 }
 
 void loadMemory(void)
