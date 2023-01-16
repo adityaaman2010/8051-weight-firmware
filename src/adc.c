@@ -1,95 +1,90 @@
 #include <stdio.h>
-
+#include "REG_MG82FG5Bxx.h"
 #include "adc.h"
+#include "utility.h"
 
-sbit SDA = P3^2;
-sbit SCL = P3^3;
+#define SDA  P44
+#define SCL  P45
 
 
-void i2c_start();
-void i2c_stop();
-void i2c_write(unsigned char data);
-unsigned char i2c_read(unsigned char ack);
-unsigned long read_hx711();
-
-void main() {
+void main1() {
     unsigned long weight;
     while(1) {
         weight = read_hx711();
         printf("Weight: %lu\n", weight);
-        delay(1000); //todo change delay function
+        Delay_Some_Time(1000); //todo change Delay_Some_Time function
     }
 }
 
-unsigned long read_hx711() {
+float read_hx711() {
     unsigned long count;
-    unsigned char data[3];
+    unsigned char dataa[] = {0x00,0x00,0x00};
     i2c_start();
     i2c_write(0x90);
     i2c_write(0xE0);
     i2c_stop();
     i2c_start();
     i2c_write(0x91);
-    data[2] = i2c_read(1);
-    data[1] = i2c_read(1);
-    data[0] = i2c_read(0);
+    dataa[2] = i2c_read(1);
+    dataa[1] = i2c_read(1);
+    dataa[0] = i2c_read(0);
     i2c_stop();
-    count = ((unsigned long)data[2] << 16) | ((unsigned long)data[1] << 8) | (unsigned long)data[0];
-    return count;
+    count = ((unsigned long)dataa[2] << 16) | ((unsigned long)dataa[1] << 8) | (unsigned long)dataa[0];
+    return count/66.9;
 }
 
 void i2c_start() {
     SDA = 1;
     SCL = 1;
-    delay(1);
+    Delay_Some_Time(1);
     SDA = 0;
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 0;
 }
 
 void i2c_stop() {
     SCL = 0;
     SDA = 0;
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 1;
-    delay(1);
+    Delay_Some_Time(1);
     SDA = 1;
 }
 
-void i2c_write(unsigned char data) {
+void i2c_write(unsigned char dataa) {
     unsigned char i;
     for(i = 0; i < 8; i++) {
         SCL = 0;
-        if((data & 0x80) != 0) {
+        if((dataa & 0x80) != 0) {
             SDA = 1;
         } else {
             SDA = 0;
         }
-        delay(1);
+        Delay_Some_Time(1);
         SCL = 1;
-        delay(1);
-        data <<= 1;
+        Delay_Some_Time(1);
+        dataa <<= 1;
     }
     SCL = 0;
     SDA = 1;
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 1;
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 0;
 }
 
 unsigned char i2c_read(unsigned char ack) {
-    unsigned char i, data = 0;
+    unsigned char i, dataa = 0;
     SDA = 1;
     for(i = 0; i < 8; i++) {
         SCL = 0;
-        delay(1);
+        Delay_Some_Time(1);
         SCL = 1;
-        data <<= 1;
+        dataa <<= 1;
         if(SDA != 0) {
-            data |= 0x01;
+            dataa |= 0x01;
         }
-        delay(1);
+        Delay_Some_Time(1);
     }
     SCL = 0;
     if(ack == 1) {
@@ -97,9 +92,9 @@ unsigned char i2c_read(unsigned char ack) {
     } else {
         SDA = 1;
     }
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 1;
-    delay(1);
+    Delay_Some_Time(1);
     SCL = 0;
-    return data;
+    return dataa;
 }

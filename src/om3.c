@@ -9,6 +9,7 @@
 #include "weight.h"
 #include "memory.h"
 #include "settings.h"
+#include "adc.h"
 
 
 void handleTare(void);
@@ -48,6 +49,20 @@ float xdata weight, total, currentPrice, memoryModeTotal;
 unsigned char xdata key, inputPrice[7], finalDisplay[7], temp[1], savingTo = -1, loadedMemory;
 unsigned char* xdata output;
 
+void showH(void)
+{
+    for (i = 0; i < 6; i++)
+    {
+        temp[i] = BLANK_HEX;
+    }
+    temp[0] = getHexFromAlphabet('H');
+    temp[1] = getHexFromAlphabet('H');
+    temp[2] = getHexFromAlphabet('H');
+    temp[3] = getHexFromAlphabet('H');
+    secondDelay(2);
+    TM1640_L_display(temp);
+    secondDelay(1);
+}
 
 void main(void)
 {
@@ -84,7 +99,7 @@ void main(void)
     {
         initializeDisplay();
     }
-    output = getNumberDisplayFloat(0, 5, 2);
+    output = getNumberDisplayFloat(0, 5, precision);
     TM1640_M_display(output);
     output = getNumberDisplayFloat(0, 6, precision);
     TM1640_L_display(output);
@@ -94,6 +109,7 @@ void main(void)
     while(1)
     {
         displayWeight();
+        showH();
         key = scan_keypad();
         Delay_Some_Time(10);
         if(key != 'A') {
@@ -122,6 +138,9 @@ void main(void)
             {
                 handleModeSix();
             }
+        }else
+        {
+            // displayPrice();
         }
         Delay_Some_Time(10);
     }
@@ -131,8 +150,8 @@ void main(void)
 
 void displayWeight(void)
 {
-    float x = (float)getAdcRead();
-    output = getNumberDisplayFloat(x, 5, 0);
+    float x = read_hx711();
+    output = getNumberDisplayFloat(x, 6, 0);
     TM1640_L_display(output);
     // unsigned char* x = getAdcWeight();
     // for (i = 0; i < 6; i++)

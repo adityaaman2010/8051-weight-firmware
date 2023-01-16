@@ -7,6 +7,8 @@
 #include "weight.h"
 #include "utility.h"
 
+
+
 float xdata offsetWeight = 0.00;
 float xdata weightFactor = 1;
 int xdata test = 0;

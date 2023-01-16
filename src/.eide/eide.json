@@ -5,7 +5,14 @@
   "srcDirs": [],
   "virtualFolder": {
     "name": "<virtual_root>",
-    "files": [],
+    "files": [
+      {
+        "path": "adc.c"
+      },
+      {
+        "path": "adc.h"
+      }
+    ],
     "folders": [
       {
         "name": "Source Group 1",
