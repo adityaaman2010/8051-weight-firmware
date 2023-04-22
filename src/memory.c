@@ -5,6 +5,8 @@
 #include "memory.h"
 #include "REG_MG82FG5Bxx.h"
 #include "macro.h"
+#include "tm1640.h"
+#include "utility.h"
 
 
 float xdata memoryOne = 0.0;
@@ -250,21 +252,23 @@ float loadAutoZeroTracking(void)
 void saveCapacityAndResolution(float* value)
 {
     int xdata i;
-    unsigned char address[] = { 0x78, 0x7c, 0x80, 0x84, 0x88, 0x8c, 0x90};
+    unsigned char xdata address[] = { 0x00, 0x05, 0x10, 0x20, 0x30, 0x40, 0x50 };
     for(i=0; i < ((2*value[0]) + 1); i++)
     {
-        saveFloat(0x76, address[i], value[i]);
+        saveFloat(0x79, address[i], value[i]);
+        
     }
 }
 
 float* loadCapacityAndResolution(void)
 {
     int xdata i;
-    float result[7];
-    unsigned char address[] = { 0x78, 0x7c, 0x80, 0x84, 0x88, 0x8c, 0x90};
+    unsigned char* xdata output;
+    float xdata result[7];
+    unsigned char xdata address[] = { 0x00, 0x05, 0x10, 0x20, 0x30, 0x40, 0x50 };
     for(i=0; i < 7 + 1; i++)
     {
-        result[i] = loadFloat(0x76, address[i]);
+        result[i] = loadFloat(0x79, address[i]);
     }
     return result;
 }
@@ -292,6 +296,16 @@ void saveCompanyName(unsigned char* value)
     {
         saveCharacter(0x76, scrollingStart+l, value[l]);
     }
+}
+
+void saveWeightCalibration(float value)
+{
+    saveFloat(0x76, 0x3D, value);
+}
+
+float getWeightCalibration(void)
+{
+    return loadFloat(0x76, 0x3D);
 }
 
 void saveCharacter(unsigned char start_add, unsigned char end_add, unsigned char value)

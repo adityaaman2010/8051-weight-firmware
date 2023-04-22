@@ -52,7 +52,7 @@ unsigned char* getNumberDisplayFloat(float x, int displayLength, int precision)
     int value_len = 0;
     int set_flag = 0;
     int after_display = 0;
-    int y, i, index;
+    int xdata y, i, index, displaySingleZero;
     unsigned char a;
     if (precision == 0)
     {

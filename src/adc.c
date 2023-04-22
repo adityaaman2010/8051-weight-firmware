@@ -1,100 +1,229 @@
-#include <stdio.h>
 #include "REG_MG82FG5Bxx.h"
 #include "adc.h"
-#include "utility.h"
+#define DT P41
+#define SCK P40
+#define P3_0 P30
+void delay(unsigned char);
+void uart_init(void);
+void Adc_Digi_Conv(void);
+void Adc_Process(unsigned long count);
+unsigned long w;
+unsigned char local_adc_digi[8];
+//unsigned char adc_sub[5];
 
-#define SDA  P44
-#define SCL  P45
-
-
-void main1() {
-    unsigned long weight;
-    while(1) {
-        weight = read_hx711();
-        printf("Weight: %lu\n", weight);
-        Delay_Some_Time(1000); //todo change Delay_Some_Time function
-    }
-}
-
-float read_hx711() {
-    unsigned long count;
-    unsigned char dataa[] = {0x00,0x00,0x00};
-    i2c_start();
-    i2c_write(0x90);
-    i2c_write(0xE0);
-    i2c_stop();
-    i2c_start();
-    i2c_write(0x91);
-    dataa[2] = i2c_read(1);
-    dataa[1] = i2c_read(1);
-    dataa[0] = i2c_read(0);
-    i2c_stop();
-    count = ((unsigned long)dataa[2] << 16) | ((unsigned long)dataa[1] << 8) | (unsigned long)dataa[0];
-    return count/66.9;
-}
-
-void i2c_start() {
-    SDA = 1;
-    SCL = 1;
-    Delay_Some_Time(1);
-    SDA = 0;
-    Delay_Some_Time(1);
-    SCL = 0;
-}
-
-void i2c_stop() {
-    SCL = 0;
-    SDA = 0;
-    Delay_Some_Time(1);
-    SCL = 1;
-    Delay_Some_Time(1);
-    SDA = 1;
-}
-
-void i2c_write(unsigned char dataa) {
+unsigned int readCount()
+{
+    unsigned int val=101.187;
+    unsigned long sample=555053;
+    unsigned long w;
+    long count = 0;
     unsigned char i;
-    for(i = 0; i < 8; i++) {
-        SCL = 0;
-        if((dataa & 0x80) != 0) {
-            SDA = 1;
-        } else {
-            SDA = 0;
-        }
-        Delay_Some_Time(1);
-        SCL = 1;
-        Delay_Some_Time(1);
-        dataa <<= 1;
+	  P4M0=0x03;
+	  DT=0;
+	  SCK=0;
+	 // DT=0;
+    DT = 1;
+	  P4M0=0x01;
+	  DT=1;
+    SCK = 0;
+	 // DT=1;
+    while(DT == 1);
+
+    for(i = 0; i < 24; i++)
+    {
+			  
+        SCK = 1;
+				delay(17);
+        count = count << 1;
+        SCK = 0;
+		 	  delay(1);
+        if(DT == 1)
+        {
+					count++;
+				}
     }
-    SCL = 0;
-    SDA = 1;
-    Delay_Some_Time(1);
-    SCL = 1;
-    Delay_Some_Time(1);
-    SCL = 0;
+		SCK = 1;
+    delay(17);
+    SCK = 0;
+		delay(1);
+    count = count ^ 0x800000;
+    w = (((count - sample) / val) - 2 * ((count - sample) / val));
+    return (unsigned int) w;
 }
 
-unsigned char i2c_read(unsigned char ack) {
-    unsigned char i, dataa = 0;
-    SDA = 1;
-    for(i = 0; i < 8; i++) {
-        SCL = 0;
-        Delay_Some_Time(1);
-        SCL = 1;
-        dataa <<= 1;
-        if(SDA != 0) {
-            dataa |= 0x01;
-        }
-        Delay_Some_Time(1);
-    }
-    SCL = 0;
-    if(ack == 1) {
-        SDA = 0;
-    } else {
-        SDA = 1;
-    }
-    Delay_Some_Time(1);
-    SCL = 1;
-    Delay_Some_Time(1);
-    SCL = 0;
-    return dataa;
+
+void delay(unsigned char d_count)
+{
+    unsigned char i;
+    for(i = 0; i < d_count; i++);
 }
+void uart_init(void)
+{
+	CKCON0=0x08;
+	MCDS0 ;
+	IHRCOE ;
+	P3M0=0x01;
+	S0CON=0x40;
+	PCON0=0x80;
+	S0CFG=0x00;
+	AUXR2=0x08;
+	TCON=0x40;
+	TMOD=0x20;
+	TL1=178;
+	TH1=178;
+	TCON=0x40;
+	TMOD=0x20;
+	P4M0=0x01;
+}
+
+void Adc_Process(unsigned long w)
+{
+	//unsigned char i;
+	unsigned long adc_sample;
+	adc_sample = w;
+
+	while(adc_sample > 0)
+	{
+		if(adc_sample >= 10000000)
+		{
+			local_adc_digi[0] = adc_sample /  10000000;
+			adc_sample = adc_sample  %  10000000; 
+			local_adc_digi[1] = adc_sample /  1000000;
+			adc_sample = adc_sample  %  1000000;
+			local_adc_digi[2] = adc_sample /  100000;
+			adc_sample = adc_sample  %  100000;
+			local_adc_digi[3] = adc_sample /  10000;
+			adc_sample = adc_sample  %  10000;
+			local_adc_digi[4] = adc_sample /  1000;
+			adc_sample = adc_sample  %  1000;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		
+	
+		if(adc_sample >= 1000000 && adc_sample <10000000)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = adc_sample /  1000000;
+			adc_sample = adc_sample  %  1000000;
+			local_adc_digi[2] = adc_sample /  100000;
+			adc_sample = adc_sample  %  100000;
+			local_adc_digi[3] = adc_sample /  10000;
+			adc_sample = adc_sample  %  10000;
+			local_adc_digi[4] = adc_sample /  1000;
+			adc_sample = adc_sample  %  1000;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		if(adc_sample >= 100000 && adc_sample < 1000000)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = adc_sample /  100000;
+			adc_sample = adc_sample  %  100000;
+			local_adc_digi[3] = adc_sample /  10000;
+			adc_sample = adc_sample  %  10000;
+			local_adc_digi[4] = adc_sample /  1000;
+			adc_sample = adc_sample  %  1000;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;	
+		}
+	
+		if(adc_sample >=10000 && adc_sample <100000)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = 0 ;
+			local_adc_digi[3] = adc_sample /  10000;
+			adc_sample = adc_sample  %  10000;
+			local_adc_digi[4] = adc_sample /  1000;
+			adc_sample = adc_sample  %  1000;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		if(adc_sample >=1000 && adc_sample <10000)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = 0 ;
+			local_adc_digi[3] = 0 ;
+			local_adc_digi[4] = adc_sample /  1000;
+			adc_sample = adc_sample  %  1000;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		if(adc_sample >=100 && adc_sample <1000)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = 0 ;
+			local_adc_digi[3] = 0 ;
+			local_adc_digi[4] = 0 ;
+			local_adc_digi[5] = adc_sample /  100;
+			adc_sample = adc_sample  %  100;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		if(adc_sample >=10 && adc_sample <100)
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = 0 ;
+			local_adc_digi[3] = 0 ;
+			local_adc_digi[4] = 0 ;
+			local_adc_digi[5] = 0 ;
+			local_adc_digi[6] = adc_sample /  10;
+			adc_sample = adc_sample  %  10;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+		if(adc_sample < 10 )
+		{
+			local_adc_digi[0] = 0 ;
+			local_adc_digi[1] = 0 ;
+			local_adc_digi[2] = 0 ;
+			local_adc_digi[3] = 0 ;
+			local_adc_digi[4] = 0 ;
+			local_adc_digi[5] = 0 ;
+			local_adc_digi[6] = 0 ;
+			local_adc_digi[7] = adc_sample;
+			break;
+		}
+	}
+		
+}
+
+void Adc_Digi_Conv(void)
+{
+	unsigned char i;
+	//unsigned char a[10];
+  for(i=0;i<8;i++)
+	{
+		local_adc_digi[i] += 0x30;
+	}
+	//S0BUF='M';
+}
+
+

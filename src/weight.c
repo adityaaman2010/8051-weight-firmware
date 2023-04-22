@@ -1,37 +1,96 @@
 //
 // Created by aditya on 01-09-2022.
 //
-
 #include "REG_MG82FG5Bxx.h"
 #include "macro.h"
 #include "weight.h"
 #include "utility.h"
+#include "adc.h"
+#include "memory.h"
 
 
 
-float xdata offsetWeight = 0.00;
-float xdata weightFactor = 1;
+unsigned int xdata offsetWeight = 0;
+float xdata weightFactor = 0, autoZeroValue;
 int xdata test = 0;
 unsigned char xdata adc_digi[8];
+unsigned long xdata codedZeroWeight = 55136;
+unsigned int xdata adcCount = 0;
+float* xdata capacityArray;
 
-unsigned char* getAdcWeight()
-{
-	Adc_Process(Adc_Read());
-	return adc_digi;
-}
 
-double getWeight()
+
+float getWeight()
 {
-	if (2.5 - offsetWeight < 0)
+	float xdata result = 0, finalResult, remainder = 0;
+	adcCount = readCount() - offsetWeight;
+	if (adcCount < 0)
+	{
+		return 0;
+	}else
+	{
+		result = adcCount;
+		if (weightFactor > 0)
+		{
+			result = weightFactor * result;
+		}
+		
+	}
+	if (result < autoZeroValue)
 	{
 		return 0;
 	}
-	return 2.5 - offsetWeight;
+	finalResult = result;
+	// if (capacityArray[0] > 0)
+	// {
+	// 	if (result <= (capacityArray[2]*1000))
+	// 	{
+	// 		finalResult = result - (finalResult % (int)capacityArray[1]);
+	// 	}else if (capacityArray[0] > 1 && result <= (capacityArray[4]*1000))
+	// 	{
+	// 		finalResult = result - (finalResult % (int)capacityArray[3]);
+	// 	}else if (capacityArray[0] > 2 && result <= (capacityArray[6]*1000))
+	// 	{
+	// 		finalResult = result - (finalResult % (int)capacityArray[5]);
+	// 	}
+	// }
+	finalResult = finalResult / 1000;
+	if (finalResult < 0)
+	{
+		return 0;
+	}
+	return round(finalResult, 3);
+}
+
+float getSettingWeight(void)
+{
+	float xdata result = 0;
+	result = readCount() - offsetWeight;
+	result = result / 1000;
+	if (result < 0)
+	{
+		return 0;
+	}
+	return round(result, 3);
+}
+
+
+
+unsigned int getOffsetCount(void)
+{
+	return offsetWeight;
 }
 
 void setOffsetWeight(float w)
 {
-    offsetWeight = w;
+    offsetWeight = readCount();
+	if (w == 0)
+	{
+		weightFactor = getWeightCalibration();
+		capacityArray = loadCapacityAndResolution();
+		autoZeroValue = loadAutoZeroTracking();
+	}
+	
 }
 
 int getAdcRead(void)
@@ -89,142 +148,5 @@ void Adc_GPIO_Config(void)
 		P44 = 0;
 		P45 = 1;
 		ADC_CLK = 1;
-}
-
-void Adc_Process(unsigned long int adc_temp)
-{
-	unsigned long int adc_sample;
-	adc_sample = adc_temp;
-
-	while(adc_sample > 0)
-	{
-		if(adc_sample >= 10000000)
-		{
-			adc_digi[7] = adc_sample /  10000000;
-			adc_sample = adc_sample  %  10000000; 
-			adc_digi[6] = adc_sample /  1000000;
-			adc_sample = adc_sample  %  1000000;
-			adc_digi[5] = adc_sample /  100000;
-			adc_sample = adc_sample  %  100000;
-			adc_digi[4] = adc_sample /  10000;
-			adc_sample = adc_sample  %  10000;
-			adc_digi[3] = adc_sample /  1000;
-			adc_sample = adc_sample  %  1000;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		
-	
-		if(adc_sample >= 1000000 && adc_sample <10000000)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = adc_sample /  1000000;
-			adc_sample = adc_sample  %  1000000;
-			adc_digi[5] = adc_sample /  100000;
-			adc_sample = adc_sample  %  100000;
-			adc_digi[4] = adc_sample /  10000;
-			adc_sample = adc_sample  %  10000;
-			adc_digi[3] = adc_sample /  1000;
-			adc_sample = adc_sample  %  1000;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		if(adc_sample >= 100000 && adc_sample < 1000000)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = adc_sample /  100000;
-			adc_sample = adc_sample  %  100000;
-			adc_digi[4] = adc_sample /  10000;
-			adc_sample = adc_sample  %  10000;
-			adc_digi[3] = adc_sample /  1000;
-			adc_sample = adc_sample  %  1000;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;	
-		}
-	
-		if(adc_sample >=10000 && adc_sample <100000)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = 0 ;
-			adc_digi[4] = adc_sample /  10000;
-			adc_sample = adc_sample  %  10000;
-			adc_digi[3] = adc_sample /  1000;
-			adc_sample = adc_sample  %  1000;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		if(adc_sample >=1000 && adc_sample <10000)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = 0 ;
-			adc_digi[4] = 0 ;
-			adc_digi[3] = adc_sample /  1000;
-			adc_sample = adc_sample  %  1000;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		if(adc_sample >=100 && adc_sample <1000)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = 0 ;
-			adc_digi[4] = 0 ;
-			adc_digi[3] = 0 ;
-			adc_digi[2] = adc_sample /  100;
-			adc_sample = adc_sample  %  100;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		if(adc_sample >=10 && adc_sample <100)
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = 0 ;
-			adc_digi[4] = 0 ;
-			adc_digi[3] = 0 ;
-			adc_digi[2] = 0 ;
-			adc_digi[1] = adc_sample /  10;
-			adc_sample = adc_sample  %  10;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-		if(adc_sample < 10 )
-		{
-			adc_digi[7] = 0 ;
-			adc_digi[6] = 0 ;
-			adc_digi[5] = 0 ;
-			adc_digi[4] = 0 ;
-			adc_digi[3] = 0 ;
-			adc_digi[2] = 0 ;
-			adc_digi[1] = 0 ;
-			adc_digi[0] = adc_sample;
-			break;
-		}
-	}
 }
 

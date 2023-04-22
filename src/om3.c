@@ -9,7 +9,6 @@
 #include "weight.h"
 #include "memory.h"
 #include "settings.h"
-#include "adc.h"
 
 
 void handleTare(void);
@@ -43,30 +42,18 @@ unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
 unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
 unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
 // flag to check if decimal mode activated
-int xdata isDecimal = 0,afterDecimal = 0, i, j;
-int xdata precision = 3, mode = 0, previousMode, isOverflow = 0, memoryAddCount = 0;
-float xdata weight, total, currentPrice, memoryModeTotal;
+int xdata isDecimal = 0,afterDecimal = 0, i, j, showWeight = 1;
+int xdata precision = 2, mode = 0, previousMode, isOverflow = 0, memoryAddCount = 0;
+float xdata total, currentPrice, previousPrice = 0, memoryModeTotal;
 unsigned char xdata key, inputPrice[7], finalDisplay[7], temp[1], savingTo = -1, loadedMemory;
 unsigned char* xdata output;
+float xdata weight;
 
-void showH(void)
-{
-    for (i = 0; i < 6; i++)
-    {
-        temp[i] = BLANK_HEX;
-    }
-    temp[0] = getHexFromAlphabet('H');
-    temp[1] = getHexFromAlphabet('H');
-    temp[2] = getHexFromAlphabet('H');
-    temp[3] = getHexFromAlphabet('H');
-    secondDelay(2);
-    TM1640_L_display(temp);
-    secondDelay(1);
-}
 
 void main(void)
 {
     int temp;
+    float* xdata capA;
     int doBreak = -2;
     Keypad_GPIO_Config();
     TM1640_GPIO_Config();
@@ -99,20 +86,35 @@ void main(void)
     {
         initializeDisplay();
     }
-    output = getNumberDisplayFloat(0, 5, precision);
-    TM1640_M_display(output);
-    output = getNumberDisplayFloat(0, 6, precision);
-    TM1640_L_display(output);
-    inputPrice[0] = '\0';
+    precision = loadPrecision();
+    clearPrice();
+    displayPrice();
     mode = UNIT_PRICE_MODE;
-    // displayWeight();
+    setOffsetWeight(0);
+    displayWeight();
+    // capA = loadCapacityAndResolution();
     while(1)
     {
-        displayWeight();
-        showH();
+        // for (i = 0; i < 7; i++)
+        // {
+        //     output = getNumberDisplayFloat(capA[i], 6, 2);
+        //     TM1640_L_display(output);
+        //     secondDelay(1);
+        //     output = getNumberDisplayFloat(111, 6, 2);
+        //     TM1640_L_display(output);
+        //     secondDelay(1);
+        // }
+        
+        if (showWeight == 1)
+        {
+            displayWeight();
+        }
         key = scan_keypad();
-        Delay_Some_Time(10);
+        Delay_Some_Time(5);
         if(key != 'A') {
+            // key_sort(key);
+            // key_display();
+            // continue;
             if (mode == UNIT_PRICE_MODE)
             {
                 handleModeOne();
@@ -140,7 +142,10 @@ void main(void)
             }
         }else
         {
-            // displayPrice();
+            if (mode != CHNAGE_MODE && mode != RECALL_MODE)
+            {
+                displayPrice();
+            }
         }
         Delay_Some_Time(10);
     }
@@ -150,23 +155,20 @@ void main(void)
 
 void displayWeight(void)
 {
-    float x = read_hx711();
-    output = getNumberDisplayFloat(x, 6, 0);
-    TM1640_L_display(output);
-    // unsigned char* x = getAdcWeight();
-    // for (i = 0; i < 6; i++)
-    // {
-    //     temp[i] = BLANK_HEX;
-    // }
-    // temp[4] = x[0];
-    // temp[3] = x[1];
-    // temp[2] = x[2];
-    // temp[1] = x[3];
-    // temp[0] = x[4];
-    // TM1640_U_display(temp);
-    // weight = getWeight();
-    // output = getNumberDisplayFloat(weight, 5, precision);
+    // unsigned int x = readCount();
+    // output = getNumberDisplayFloat(x, 5, 0);
     // TM1640_U_display(output);
+    int xdata displaySingleZero;
+    displaySingleZero = loadDisplayZeroFlag();
+    weight = getWeight();
+    if (displaySingleZero == 1 && weight == 0)
+    {
+        output = getNumberDisplayFloat(weight, 5, 0);
+    }else
+    {
+        output = getNumberDisplayFloat(weight, 5, 3);
+    }
+    TM1640_U_display(output);
 }
 
 void loadMemory(void)
@@ -219,6 +221,7 @@ void handleModeFive(void)
         temp[3] = getHexFromAlphabet('E');
         temp[4] = getHexFromAlphabet('r');
         TM1640_U_display(temp);
+        showWeight = 0;
         output = getNumberDisplayFloat(currentPrice - y, 5, precision);
         TM1640_M_display(output);
         for (i = 0; i < 6; i++)
@@ -235,6 +238,7 @@ void handleModeFive(void)
         {
             mode = MEMORY_LOAD_MODE;
             key = loadedMemory;
+            showWeight = 1;
             loadMemory();
             displayWeight();
         }
@@ -242,6 +246,7 @@ void handleModeFive(void)
         {
             clearPrice();
             displayPrice();
+            showWeight = 1;
             displayWeight();
             mode = UNIT_PRICE_MODE;
         }
@@ -273,6 +278,7 @@ void setChangeMode(void)
     temp[3] = getHexFromAlphabet('H');
     temp[4] = getHexFromAlphabet('C');
     TM1640_U_display(temp);
+    showWeight = 0;
     clearPrice();
     output = getNumberDisplayFloat(0, 5, 0);
     TM1640_M_display(output);
@@ -306,6 +312,7 @@ void handleModeSix(void)
         temp[2] = getHexFromAlphabet('n');
         TM1640_U_display(temp);
         Delay_Some_Time(5000);
+        showWeight = 1;
         clearPrice();
         displayPrice();
         displayWeight();
@@ -342,6 +349,7 @@ void setRecallMode(void)
     temp[4] = getHexFromAlphabet('t');
     temp[5] = BLANK_HEX;
     TM1640_U_display(temp);
+    showWeight = 0;
     output = getNumberDisplayFloat(memoryModeTotal, 6, precision);
     TM1640_L_display(output);
 }
@@ -371,18 +379,22 @@ void handleModeFour(int isSetting)
         temp[1] = getHexFromAlphabet('D');
         temp[2] = getHexFromAlphabet('A');
         TM1640_U_display(temp);
+        showWeight = 0;
         output = getNumberDisplayFloat(memoryModeTotal, 6, precision);
         TM1640_L_display(output);
         Delay_Some_Time(10000);
         displayPrice();
+        showWeight = 1;
     }else{
         if (key < 12)
         {
             handleNumberInput();
+            showWeight = 1;
         }
         else if (key > 16)
         {
             loadMemory();
+            showWeight = 1;
         }
         else if (key == 12 && weight == 0)
         {
@@ -406,10 +418,11 @@ void handleModeFour(int isSetting)
             {
                 temp[i] = BLANK_HEX;
             }
-            temp[0] = getHexFromAlphabet('D');
-            temp[1] = getHexFromAlphabet('D');
+            temp[0] = getHexFromAlphabet('d');
+            temp[1] = getHexFromAlphabet('d');
             temp[2] = getHexFromAlphabet('A');
             TM1640_U_display(temp);
+            showWeight = 0;
             output = getNumberDisplayFloat(memoryModeTotal, 6, precision);
             TM1640_L_display(output);
             Delay_Some_Time(10000);
@@ -419,9 +432,11 @@ void handleModeFour(int isSetting)
             }
             TM1640_L_display(temp);
             displayPrice();
+            showWeight = 1;
         }
         else 
         {
+            showWeight = 1;
             handleTare();
         }
     }
@@ -467,6 +482,7 @@ void handleModeTwo(void)
         key = savingTo;
         mode = MEMORY_LOAD_MODE;
         loadMemory();
+        showWeight = 1;
     }
     else if (key > 16)
     {
@@ -483,12 +499,14 @@ void handleModeTwo(void)
         finalDisplay[3] = getHexFromAlphabet('E');
         finalDisplay[4] = getHexFromAlphabet('S');
         TM1640_U_display(finalDisplay);
+        showWeight = 0;
         return;
     }
     else if (key == 11)
     {
         clearPrice();
         mode = UNIT_PRICE_MODE;
+        showWeight = 0;
         displayPrice();
     }
     else
@@ -564,6 +582,7 @@ void handleModeOne(void)
         finalDisplay[3] = getHexFromAlphabet('E');
         finalDisplay[4] = getHexFromAlphabet('S');
         TM1640_U_display(finalDisplay);
+        showWeight = 0;
         return;
     }
     else if (key > 16)
@@ -604,19 +623,12 @@ void addToInputPrice(void)
 }
 
 void displayPrice(void)
-{
+{   
     unsigned char temp[6];
+    weight = getWeight();
     total = currentPrice * weight;
     output = getNumberDisplayFloat(currentPrice,5, precision);
     TM1640_M_display(output);
-    temp[0] = BLANK_HEX;
-    temp[1] = BLANK_HEX;
-    temp[2] = BLANK_HEX;
-    temp[3] = BLANK_HEX;
-    temp[4] = BLANK_HEX;
-    temp[5] = BLANK_HEX;
-    TM1640_L_display(temp);
-    Delay_Some_Time(500);
     output = getNumberDisplayFloat(total, 6, precision);
     TM1640_L_display(output);
 }

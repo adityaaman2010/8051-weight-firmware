@@ -2,6 +2,7 @@
 // Created by aditya on 28-08-2022.
 //
 
+#include <stdio.h>
 #include "utility.h"
 #include "REG_MG82FG5Bxx.h"
 
@@ -47,4 +48,28 @@ void joinCharacter(unsigned char* a, unsigned char* b) {
     }
     a[i] = b[0];
     a[i+1] = '\0';
+}
+
+float round(float var, int places)
+{
+    // we use array of chars to store number
+    // as a string.
+    char xdata str[40];
+ 
+    if (places == 1)
+	{
+		sprintf(str, "%.1f", var);
+	}
+	else if (places == 2)
+	{
+		sprintf(str, "%.2f", var);
+	}
+	else if (places == 3)
+	{
+		sprintf(str, "%.3f", var);
+	}
+    // scan string value in var
+    sscanf(str, "%f", &var);
+ 
+    return var;
 }

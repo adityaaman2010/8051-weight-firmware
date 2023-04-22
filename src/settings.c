@@ -7,18 +7,21 @@
 #include "tm1640.h"
 #include "keypad.h"
 #include "weight.h"
+#include "adc.h"
 #include "memory.h"
 #include "settings.h"
 
 unsigned char xdata numbers[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+int xdata resolutionArray[] = {1, 2, 5, 10, 20, 50, 100, 200, 500};
 unsigned char xdata scannedKey, displayArray[7], step, breakSettings, currentPassword[4], frameName[21], newPass[4], capacityString[6];
 unsigned char* xdata numbersHex;
 unsigned char* xdata displayOutput;
 unsigned char* xdata alphabetHex;
 int xdata cursor = -1, k, setCompanyName = 1, frameNameAdded, stableBuzzer = 1, powerOff = 1;
-int xdata displayZero = 1, setPassword = 1, decimalPrecision = 3, resolutionSteps = 1, isResolution = 1;
-int xdata capacityLength = 0, pointer, adcRead = -1;
-float xdata autoZero = 1.0, currentCapacity;
+int xdata displayZero = 1, setPassword = 1, decimalPrecision = 3, resolutionSteps = 1, isResolution = 1, weightPrecision = 3;
+int xdata capacityLength = 0;
+unsigned int xdata adcRead = 0, randomFloat;
+float xdata autoZero = 1.0, currentCapacity, weightMultiplier;
 float xdata resolutionCapacityArray[8];
 
 
@@ -94,8 +97,8 @@ int handleSettings(void)
 
 void handleCalibration(void)
 {
-    int xdata start = 0, previousRead, loadAdcRead, breakOut = 0, temp;
-    float xdata weight;
+    int xdata start = 0, loadAdcRead, breakOut = 0;
+    float xdata weight, temp;
     while (1)
     {
         setBlankHex(5);
@@ -130,16 +133,12 @@ void handleCalibration(void)
         {
             while (1)
             {
-                if (adcRead != 0)
-                {
-                    adcRead = getAdcRead();
-                    // doubt here on what to display and what adc value to show or weight value to show
-                    displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
-                    TM1640_M_display(displayOutput);
-                }
+                adcRead = readCount();
+                displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
+                TM1640_M_display(displayOutput);
                 scannedKey = scan_keypad();
                 Delay_Some_Time(5);
-                if (scannedKey != 'A' && scannedKey == 16 && adcRead == 0)
+                if (scannedKey != 'A' && scannedKey == 16)
                 {
                     start = 2;
                     setBlankHex(5);
@@ -148,6 +147,7 @@ void handleCalibration(void)
                     displayArray[2] = getHexFromAlphabet('O');
                     displayArray[3] = getHexFromAlphabet('L');
                     TM1640_M_display(displayArray);
+                    setOffsetWeight(1);
                     break;
                 }
             }
@@ -160,46 +160,119 @@ void handleCalibration(void)
                 Delay_Some_Time(5);
                 if (scannedKey != 'A' && scannedKey == 16)
                 {
+                    weight = getSettingWeight();
+                    frameNameAdded = 0;
                     start = 3;
                     break;
                 }
             }
         }else if (start == 3)
         {
+            currentCapacity = weight;
             while (1)
             {
                 scannedKey = scan_keypad();
-                weight = getWeight();
-                displayOutput = getNumberDisplayFloat(weight, 5, decimalPrecision);
-                // TODO: Handle weight change
-                TM1640_M_display(displayOutput);
-                if (scannedKey != 'A' && scannedKey == 16)
+                if (scannedKey != 'A')
                 {
-                    start = 4;
-                    setBlankHex(5);
-                    displayArray[0] = getHexFromAlphabet('F');
-                    displayArray[1] = getHexFromAlphabet('-');
-                    displayArray[2] = getHexFromAlphabet('L');
-                    displayArray[3] = getHexFromAlphabet('A');
-                    displayArray[4] = getHexFromAlphabet('C');
-                    TM1640_M_display(displayArray);
-                    break;
+                    if (scannedKey == 14)
+                    {
+                        switch (frameNameAdded - weightPrecision)
+                        {
+                        case -3:
+                            temp = 0.001;
+                            break;
+                        case -2:
+                            temp = 0.01;
+                            break;
+                        case -1:
+                            temp = 0.1;
+                            break;
+                        case 0:
+                            temp = 1;
+                            break;
+                        case 1:
+                            temp = 1;
+                            break;
+                        case 2:
+                            temp = 10;
+                            break;
+                        default:
+                            break;
+                        }
+                        if (currentCapacity + temp < 99)
+                        {
+                            currentCapacity += temp;
+                        }
+                        
+                    }else if (scannedKey == 15)
+                    {
+                        switch (frameNameAdded - weightPrecision)
+                        {
+                        case -3:
+                            temp = 0.001;
+                            break;
+                        case -2:
+                            temp = 0.01;
+                            break;
+                        case -1:
+                            temp = 0.1;
+                            break;
+                        case 0:
+                            temp = 1;
+                            break;
+                        case 1:
+                            temp = 1;
+                            break;
+                        case 2:
+                            temp = 10;
+                            break;
+                        default:
+                            break;
+                        }
+                        if (currentCapacity - temp >= 0)
+                        {
+                            currentCapacity -= temp;
+                        }
+                    }else if (scannedKey == 11)
+                    {
+                        setCurrentCapacity(0);
+                        frameNameAdded = 0;
+                    }else if (scannedKey == 16)
+                    {
+                        start = 4;
+                        setBlankHex(5);
+                        displayArray[0] = getHexFromAlphabet('F');
+                        displayArray[1] = getHexFromAlphabet('-');
+                        displayArray[2] = getHexFromAlphabet('L');
+                        displayArray[3] = getHexFromAlphabet('A');
+                        displayArray[4] = getHexFromAlphabet('C');
+                        TM1640_M_display(displayArray);
+                        break;
+                    }       
                 }
+                displayOutput = getNumberDisplayFloat(currentCapacity, 5, weightPrecision);
+                TM1640_M_display(displayOutput);
             }
             
             
         }else if (start == 4)
         {
-            // we will use this to check if the adc input has not changed
-            loadAdcRead = getAdcRead();
-            displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
-            TM1640_M_display(displayOutput);
             while(1)
             {
+                adcRead = readCount();
+                displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
+                TM1640_M_display(displayOutput);
                 scannedKey = scan_keypad();
                 if (scannedKey != 'A' && scannedKey == 16)
                 {
                     start = 5;
+                    randomFloat = adcRead - getOffsetCount();
+                    displayOutput = getNumberDisplayFloat(randomFloat, 5, 0);
+                    TM1640_M_display(displayOutput);
+                    Delay_Some_Time(9999);
+                    weightMultiplier = ((int)(currentCapacity * 1000)) / randomFloat;
+                    weightMultiplier = round(weightMultiplier, 3);
+                    saveWeightCalibration(weightMultiplier);
                     setBlankHex(5);
                     displayArray[0] = getHexFromAlphabet('E');
                     displayArray[1] = getHexFromAlphabet('n');
@@ -216,6 +289,7 @@ void handleCalibration(void)
                 scannedKey = scan_keypad();
                 if (scannedKey != 'A' && scannedKey == 16)
                 {
+                    start = 6;
                     breakOut = 1;
                     break;
                 }
@@ -236,15 +310,15 @@ void handleResolutionAndCapacityInput(int isSetting)
     {
         if (isResolution == 1)
         {
-            if (scannedKey == 14 && frameNameAdded < 9){
+            if (scannedKey == 14 && frameNameAdded < 8){
                 frameNameAdded += 1;
             }else if (scannedKey == 14)
             {
-                frameNameAdded = 1;
+                frameNameAdded = 0;
             }else if (scannedKey == 16)
             {
                 // here we are using cursor as step ex: ld 1, ld 2 and ld 3
-                resolutionCapacityArray[2*cursor + 1] = frameNameAdded;
+                resolutionCapacityArray[2*cursor + 1] = resolutionArray[frameNameAdded];
                 isResolution = 0;
                 frameNameAdded = 0;
                 setCurrentCapacity(cursor+1);
@@ -256,7 +330,7 @@ void handleResolutionAndCapacityInput(int isSetting)
             /* code */
             if (scannedKey == 14)
             {
-                switch (frameNameAdded - decimalPrecision)
+                switch (frameNameAdded - weightPrecision)
                 {
                 case -3:
                     temp = 0.001;
@@ -271,12 +345,7 @@ void handleResolutionAndCapacityInput(int isSetting)
                     temp = 1;
                     break;
                 case 1:
-                    if (decimalPrecision == 0)
-                    {
-                        temp = 10;
-                    }else{
-                        temp = 1;
-                    }
+                    temp = 1;
                     break;
                 case 2:
                     temp = 10;
@@ -294,7 +363,7 @@ void handleResolutionAndCapacityInput(int isSetting)
                 if (frameNameAdded == capacityLength)
                 {
                     frameNameAdded = 0;
-                }else if (frameNameAdded + 1 == decimalPrecision)
+                }else if (frameNameAdded + 1 == weightPrecision)
                 {
                     frameNameAdded += 2;
                 }else{
@@ -304,7 +373,6 @@ void handleResolutionAndCapacityInput(int isSetting)
             {
                 setCurrentCapacity(0);
                 frameNameAdded = 0;
-                pointer = 0;
             }else if (scannedKey == 16)
             {
                 resolutionCapacityArray[2*cursor + 2] = currentCapacity;
@@ -319,10 +387,10 @@ void handleResolutionAndCapacityInput(int isSetting)
                     cursor += 1;
                     if (cursor == 1)
                     {
-                        frameNameAdded = 2;
+                        frameNameAdded = 1;
                     }else
                     {
-                        frameNameAdded = 5;
+                        frameNameAdded = 2;
                     }
                     isResolution = 1;
                 }
@@ -330,9 +398,9 @@ void handleResolutionAndCapacityInput(int isSetting)
         }
     }else
     {
-        frameNameAdded = 1;
+        frameNameAdded = 0;
         cursor = 0;
-        capacityLength = 2 + decimalPrecision;
+        capacityLength = 2 + weightPrecision;
     }
     setBlankHex(5);
     if (isResolution == 1)
@@ -354,10 +422,10 @@ void handleResolutionAndCapacityInput(int isSetting)
     
     if (isResolution == 1)
     {
-        displayOutput = getNumberDisplayFloat((float) frameNameAdded, 5, 0);
+        displayOutput = getNumberDisplayFloat(resolutionArray[frameNameAdded], 5, 0);
     }else
     {
-        displayOutput = getNumberDisplayFloat(currentCapacity, 5, decimalPrecision);
+        displayOutput = getNumberDisplayFloat(currentCapacity, 5, weightPrecision);
     }
     TM1640_M_display(displayOutput);
 }
@@ -947,11 +1015,11 @@ void handlePassword()
         }
     }
     setBlankHex(6);
-    displayArray[0] = password[3];
-    displayArray[1] = password[2];
-    displayArray[2] = password[1];
-    displayArray[3] = password[0];
-    TM1640_L_display(displayArray);
+    // displayArray[0] = password[3];
+    // displayArray[1] = password[2];
+    // displayArray[2] = password[1];
+    // displayArray[3] = password[0];
+    // TM1640_L_display(displayArray);
     setBlankHex(5);
     displayArray[1] = getHexFromAlphabet('S');
     displayArray[2] = getHexFromAlphabet('S');

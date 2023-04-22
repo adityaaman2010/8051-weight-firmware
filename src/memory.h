@@ -33,5 +33,8 @@ float loadAutoZeroTracking(void);
 void saveAutoZeroTracking(float);
 void saveCapacityAndResolution(float*);
 float* loadCapacityAndResolution(void);
+void saveWeightCalibration(float value);
+float getWeightCalibration(void);
+
 
 #endif // !WEIGHT_MACHINE_MEMORY_H
