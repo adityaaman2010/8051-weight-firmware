@@ -253,24 +253,16 @@ void saveCapacityAndResolution(float* value)
 {
     int xdata i;
     unsigned char xdata address[] = { 0x00, 0x05, 0x10, 0x20, 0x30, 0x40, 0x50 };
-    for(i=0; i < ((2*value[0]) + 1); i++)
+    for(i=0; i < ((int)(2*value[0]) + 1); i++)
     {
         saveFloat(0x79, address[i], value[i]);
-        
     }
 }
 
-float* loadCapacityAndResolution(void)
+float loadCapacityAndResolution(int i)
 {
-    int xdata i;
-    unsigned char* xdata output;
-    float xdata result[7];
     unsigned char xdata address[] = { 0x00, 0x05, 0x10, 0x20, 0x30, 0x40, 0x50 };
-    for(i=0; i < 7 + 1; i++)
-    {
-        result[i] = loadFloat(0x79, address[i]);
-    }
-    return result;
+    return loadFloat(0x79, address[i]);
 }
 
 unsigned char* loadCompanyName(void)

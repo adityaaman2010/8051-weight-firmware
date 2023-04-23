@@ -11,12 +11,11 @@
 
 
 unsigned int xdata offsetWeight = 0;
-float xdata weightFactor = 0, autoZeroValue;
-int xdata test = 0;
+float xdata weightFactor = 0, autoZeroValue, capacityOne, capacityTwo, capacityThree;
+int xdata capacityStep, precisionOne, precisionTwo, precisionThree;
 unsigned char xdata adc_digi[8];
 unsigned long xdata codedZeroWeight = 55136;
 unsigned int xdata adcCount = 0;
-float* xdata capacityArray;
 
 
 
@@ -41,20 +40,32 @@ float getWeight()
 		return 0;
 	}
 	finalResult = result;
-	// if (capacityArray[0] > 0)
-	// {
-	// 	if (result <= (capacityArray[2]*1000))
-	// 	{
-	// 		finalResult = result - (finalResult % (int)capacityArray[1]);
-	// 	}else if (capacityArray[0] > 1 && result <= (capacityArray[4]*1000))
-	// 	{
-	// 		finalResult = result - (finalResult % (int)capacityArray[3]);
-	// 	}else if (capacityArray[0] > 2 && result <= (capacityArray[6]*1000))
-	// 	{
-	// 		finalResult = result - (finalResult % (int)capacityArray[5]);
-	// 	}
-	// }
-	finalResult = finalResult / 1000;
+	if (capacityStep > 0)
+	{
+		precisionOne = (int)loadCapacityAndResolution(1);
+		capacityOne = loadCapacityAndResolution(2);
+		if (result <= (capacityOne*1000))
+		{
+			finalResult = result - ((int)finalResult % precisionOne);
+		}else if (capacityStep > 1)
+		{
+			precisionTwo = (int)loadCapacityAndResolution(3);
+			capacityTwo = loadCapacityAndResolution(4);
+			if (result <= (capacityTwo*1000))
+			{
+				finalResult = result - ((int)finalResult % precisionTwo);
+			}
+		}else if (capacityStep > 2)
+		{
+			precisionThree = (int)loadCapacityAndResolution(5);
+			capacityThree = loadCapacityAndResolution(6);
+			if (result <= (capacityThree*1000))
+			{
+				finalResult = result - ((int)finalResult % precisionThree);
+			}
+		}
+	}
+	finalResult = ((int)finalResult) / 1000.0;
 	if (finalResult < 0)
 	{
 		return 0;
@@ -87,7 +98,7 @@ void setOffsetWeight(float w)
 	if (w == 0)
 	{
 		weightFactor = getWeightCalibration();
-		capacityArray = loadCapacityAndResolution();
+		capacityStep = (int)loadCapacityAndResolution(0);
 		autoZeroValue = loadAutoZeroTracking();
 	}
 	
@@ -95,23 +106,6 @@ void setOffsetWeight(float w)
 
 int getAdcRead(void)
 {
-	secondDelay(2);
-	if (test == 0)
-	{
-		test += 1;
-		return 25006;
-	}
-	else if (test == 1)
-	{
-		test = 2;
-		return 0;
-	}
-	else
-	{
-		test = 0;
-		return 35000;
-	}
-	
 }
 
 unsigned long int Adc_Read(void)

@@ -22,7 +22,7 @@ int xdata displayZero = 1, setPassword = 1, decimalPrecision = 3, resolutionStep
 int xdata capacityLength = 0;
 unsigned int xdata adcRead = 0, randomFloat;
 float xdata autoZero = 1.0, currentCapacity, weightMultiplier;
-float xdata resolutionCapacityArray[8];
+float xdata resolutionCapacityArray[7];
 
 
 int handleSettings(void)
@@ -267,9 +267,6 @@ void handleCalibration(void)
                 {
                     start = 5;
                     randomFloat = adcRead - getOffsetCount();
-                    displayOutput = getNumberDisplayFloat(randomFloat, 5, 0);
-                    TM1640_M_display(displayOutput);
-                    Delay_Some_Time(9999);
                     weightMultiplier = ((int)(currentCapacity * 1000)) / randomFloat;
                     weightMultiplier = round(weightMultiplier, 3);
                     saveWeightCalibration(weightMultiplier);
@@ -282,7 +279,8 @@ void handleCalibration(void)
                     break;
                 }
             }
-        }else if (start == 5)
+        }
+        if (start == 5)
         {
             while(1)
             {
@@ -318,7 +316,7 @@ void handleResolutionAndCapacityInput(int isSetting)
             }else if (scannedKey == 16)
             {
                 // here we are using cursor as step ex: ld 1, ld 2 and ld 3
-                resolutionCapacityArray[2*cursor + 1] = resolutionArray[frameNameAdded];
+                resolutionCapacityArray[2*cursor + 1] = (float)resolutionArray[frameNameAdded];
                 isResolution = 0;
                 frameNameAdded = 0;
                 setCurrentCapacity(cursor+1);
@@ -585,7 +583,7 @@ void handlePowerOffOn(int isSetting)
         }
         else if (scannedKey == 16)
         {
-            saveBuzzerFlag(powerOff);
+            savePowerOffFlag(powerOff);
             step = 8;
             handleDisplaySingleZero(1);
             return;

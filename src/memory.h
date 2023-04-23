@@ -32,7 +32,7 @@ void saveFloat(unsigned char, unsigned char, float);
 float loadAutoZeroTracking(void);
 void saveAutoZeroTracking(float);
 void saveCapacityAndResolution(float*);
-float* loadCapacityAndResolution(void);
+float loadCapacityAndResolution(int i);
 void saveWeightCalibration(float value);
 float getWeightCalibration(void);
 

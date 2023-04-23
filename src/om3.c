@@ -52,9 +52,7 @@ float xdata weight;
 
 void main(void)
 {
-    int temp;
-    float* xdata capA;
-    int doBreak = -2;
+    int xdata doBreak = -2, temp, timer = 0, breakMainLoop = 0, shouldPowerOff = 0;
     Keypad_GPIO_Config();
     TM1640_GPIO_Config();
     Adc_GPIO_Config();
@@ -92,19 +90,9 @@ void main(void)
     mode = UNIT_PRICE_MODE;
     setOffsetWeight(0);
     displayWeight();
-    // capA = loadCapacityAndResolution();
+    shouldPowerOff = loadPowerOffFlag();
     while(1)
     {
-        // for (i = 0; i < 7; i++)
-        // {
-        //     output = getNumberDisplayFloat(capA[i], 6, 2);
-        //     TM1640_L_display(output);
-        //     secondDelay(1);
-        //     output = getNumberDisplayFloat(111, 6, 2);
-        //     TM1640_L_display(output);
-        //     secondDelay(1);
-        // }
-        
         if (showWeight == 1)
         {
             displayWeight();
@@ -112,9 +100,7 @@ void main(void)
         key = scan_keypad();
         Delay_Some_Time(5);
         if(key != 'A') {
-            // key_sort(key);
-            // key_display();
-            // continue;
+            timer = 0;
             if (mode == UNIT_PRICE_MODE)
             {
                 handleModeOne();
@@ -145,11 +131,26 @@ void main(void)
             if (mode != CHNAGE_MODE && mode != RECALL_MODE)
             {
                 displayPrice();
+                // output = getNumberDisplayFloat(timer, 5, 0);
+                // TM1640_M_display(output);
+            }
+            if (timer > 233 && shouldPowerOff == 1)
+            {
+                breakMainLoop = 1;
+            }else if (weight == 0)
+            {
+                timer += 1;
+            }else if (weight > 0)
+            {
+                timer = 0;
             }
         }
         Delay_Some_Time(10);
+        if (breakMainLoop == 1)
+        {
+            break;
+        }
     }
-    
 		
 }
 
