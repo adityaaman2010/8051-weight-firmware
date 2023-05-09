@@ -6,12 +6,9 @@
     ],
     "settings": {
         "files.associations": {
-            "MEMORY.C": "cpp",
             "WEIGHT.C": "cpp",
-            "SETTINGS.C": "cpp",
             "ADC.C": "cpp",
-            "TM1640.C": "cpp",
-            "stdlib.h": "c"
+            "SETTINGS.C": "cpp"
         }
     },
     "extensions": {}

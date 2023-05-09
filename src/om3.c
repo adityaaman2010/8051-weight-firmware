@@ -9,6 +9,7 @@
 #include "weight.h"
 #include "memory.h"
 #include "settings.h"
+#include "adc.h"
 
 
 void handleTare(void);
@@ -39,6 +40,7 @@ unsigned char xdata ver[] = { 0xed, 0xa2,0x00,0x45,0x5d, 0xad};
 unsigned char xdata compny_name[] = { 0xb5, 0x5d,0x0d, 0x0d, 0xed, 0x10, 0x7c, 0x4d, 0xf5,0x0d};
 unsigned char* xdata companyName;
 unsigned char xdata blank_L[] = { 0x00,0x00,0x00,0x00,0x00,0x00};
+unsigned char xdata blank_M[] = { 0x00,0x00,0x00,0x00,0x00};
 unsigned char xdata bat_digi[] = { 0x00,0x1d, 0xf5, 0xfd,0x00};
 unsigned char xdata bat_voltg[] = { 0xb4,0xa2, 0xa0, 0x00,0x00};
 // flag to check if decimal mode activated
@@ -52,7 +54,8 @@ float xdata weight;
 
 void main(void)
 {
-    int xdata doBreak = -2, temp, timer = 0, breakMainLoop = 0, shouldPowerOff = 0;
+    int xdata doBreak = -2, temp, timer = 0, sleepDisplay = 0, shouldPowerOff = 0;
+    int aa, oo;
     Keypad_GPIO_Config();
     TM1640_GPIO_Config();
     Adc_GPIO_Config();
@@ -93,7 +96,14 @@ void main(void)
     shouldPowerOff = loadPowerOffFlag();
     while(1)
     {
-        if (showWeight == 1)
+        weight = getWeight();
+        if (weight > 0)
+        {
+            sleepDisplay = 0;
+            timer = 0;
+        }
+        
+        if (showWeight == 1 && sleepDisplay != 1)
         {
             displayWeight();
         }
@@ -101,6 +111,7 @@ void main(void)
         Delay_Some_Time(5);
         if(key != 'A') {
             timer = 0;
+            sleepDisplay = 0;
             if (mode == UNIT_PRICE_MODE)
             {
                 handleModeOne();
@@ -128,15 +139,17 @@ void main(void)
             }
         }else
         {
-            if (mode != CHNAGE_MODE && mode != RECALL_MODE)
+            if (mode != CHNAGE_MODE && mode != RECALL_MODE && sleepDisplay != 1)
             {
-                displayPrice();
-                // output = getNumberDisplayFloat(timer, 5, 0);
+                // aa = readCount();
+                // oo =getOffsetCount();
+                // output = getNumberDisplayFloat(aa-oo, 5, 0);
                 // TM1640_M_display(output);
+                displayPrice();
             }
             if (timer > 233 && shouldPowerOff == 1)
             {
-                breakMainLoop = 1;
+                sleepDisplay = 1;
             }else if (weight == 0)
             {
                 timer += 1;
@@ -146,9 +159,11 @@ void main(void)
             }
         }
         Delay_Some_Time(10);
-        if (breakMainLoop == 1)
+        if (sleepDisplay == 1)
         {
-            break;
+            TM1640_L_display(blank_L);
+            TM1640_M_display(blank_M);
+            TM1640_U_display(blank_M);
         }
     }
 		
@@ -156,7 +171,7 @@ void main(void)
 
 void displayWeight(void)
 {
-    // unsigned int x = readCount();
+    // unsigned int x = debugMehtod();
     // output = getNumberDisplayFloat(x, 5, 0);
     // TM1640_U_display(output);
     int xdata displaySingleZero;

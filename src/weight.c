@@ -18,20 +18,36 @@ unsigned long xdata codedZeroWeight = 55136;
 unsigned int xdata adcCount = 0;
 
 
+unsigned int debugMehtod() {
+	float xdata result = 0, finalResult, remainder = 0;
+	int xdata currentPrecision;
+	unsigned long xdata middleware;
+	middleware = (readCount() - offsetWeight);
+	adcCount = middleware;
+	return adcCount;
+}
 
 float getWeight()
 {
-	float xdata result = 0, finalResult, remainder = 0;
-	adcCount = readCount() - offsetWeight;
-	if (adcCount < 0)
+	float xdata result = 0, finalResult, remainder = -1;
+	int xdata currentPrecision;
+	unsigned long xdata middleware, tempCount;
+	long x, y;
+	tempCount = readCount();
+	middleware = tempCount - offsetWeight;
+	adcCount = middleware;
+	x = tempCount; y = offsetWeight;
+	if (x <= y)
 	{
 		return 0;
 	}else
 	{
-		result = adcCount;
 		if (weightFactor > 0)
 		{
-			result = weightFactor * result;
+			result = weightFactor * adcCount;
+		}else
+		{
+			result = 1.0 * adcCount;
 		}
 		
 	}
@@ -46,14 +62,18 @@ float getWeight()
 		capacityOne = loadCapacityAndResolution(2);
 		if (result <= (capacityOne*1000))
 		{
-			finalResult = result - ((int)finalResult % precisionOne);
+			remainder = ((unsigned int)finalResult % precisionOne);
+			currentPrecision = precisionOne;
+			finalResult = result - remainder;
 		}else if (capacityStep > 1)
 		{
 			precisionTwo = (int)loadCapacityAndResolution(3);
 			capacityTwo = loadCapacityAndResolution(4);
 			if (result <= (capacityTwo*1000))
 			{
-				finalResult = result - ((int)finalResult % precisionTwo);
+				remainder = ((unsigned int)finalResult % precisionTwo);
+				currentPrecision = precisionTwo;
+				finalResult = result - remainder;
 			}
 		}else if (capacityStep > 2)
 		{
@@ -61,28 +81,39 @@ float getWeight()
 			capacityThree = loadCapacityAndResolution(6);
 			if (result <= (capacityThree*1000))
 			{
-				finalResult = result - ((int)finalResult % precisionThree);
+				remainder = ((unsigned int)finalResult % precisionThree);
+				currentPrecision = precisionThree;
+				finalResult = result - remainder;
 			}
 		}
 	}
-	finalResult = ((int)finalResult) / 1000.0;
-	if (finalResult < 0)
+	if (remainder != -1)
+	{
+		if (currentPrecision / 2 < remainder)
+		{
+			finalResult += currentPrecision;
+		}
+		
+	}
+	if (finalResult <= 0)
 	{
 		return 0;
 	}
-	return round(finalResult, 3);
+	return round((finalResult / 1000.0), 3);
 }
 
 float getSettingWeight(void)
 {
-	float xdata result = 0;
-	result = readCount() - offsetWeight;
-	result = result / 1000;
-	if (result < 0)
+	unsigned int xdata result = 0;
+	float xdata t;
+	result = (unsigned int) (readCount() - offsetWeight);
+	t = result;
+	t = t / 1000;
+	if (t < 0)
 	{
 		return 0;
 	}
-	return round(result, 3);
+	return round(t, 3);
 }
 
 
@@ -94,7 +125,7 @@ unsigned int getOffsetCount(void)
 
 void setOffsetWeight(float w)
 {
-    offsetWeight = readCount();
+    offsetWeight = (unsigned int) readCount();
 	if (w == 0)
 	{
 		weightFactor = getWeightCalibration();

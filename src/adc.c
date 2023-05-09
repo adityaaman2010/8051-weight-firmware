@@ -11,7 +11,7 @@ unsigned long w;
 unsigned char local_adc_digi[8];
 //unsigned char adc_sub[5];
 
-unsigned int readCount()
+unsigned long readCount()
 {
     unsigned int val=101.187;
     unsigned long sample=555053;
@@ -48,7 +48,7 @@ unsigned int readCount()
 		delay(1);
     count = count ^ 0x800000;
     w = (((count - sample) / val) - 2 * ((count - sample) / val));
-    return (unsigned int) w;
+    return w;
 }
 
 

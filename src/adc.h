@@ -3,6 +3,6 @@
 
 
 
-unsigned int readCount(void);
+unsigned long readCount(void);
 
 #endif

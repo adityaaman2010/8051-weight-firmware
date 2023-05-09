@@ -19,5 +19,6 @@ void handleResolutionTimes(int);
 void handleResolutionAndCapacityInput(int);
 void handleCalibration(void);
 void setCurrentCapacity(int);
+unsigned int debugMehtod(void);
 
 #endif // SETTINGS

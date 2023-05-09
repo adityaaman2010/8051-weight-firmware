@@ -86,7 +86,9 @@
       }
     },
     "om3": {
-      "excludeList": [],
+      "excludeList": [
+        "<virtual_root>/Source Group 1/MEMORY.asm"
+      ],
       "toolchain": "Keil_C51",
       "compileConfig": {
         "options": "null"

@@ -133,7 +133,7 @@ void handleCalibration(void)
         {
             while (1)
             {
-                adcRead = readCount();
+                adcRead = (unsigned int) readCount();
                 displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
                 TM1640_M_display(displayOutput);
                 scannedKey = scan_keypad();
@@ -259,7 +259,7 @@ void handleCalibration(void)
         {
             while(1)
             {
-                adcRead = readCount();
+                adcRead = (unsigned int) readCount();
                 displayOutput = getNumberDisplayFloat(adcRead, 5, 0);
                 TM1640_M_display(displayOutput);
                 scannedKey = scan_keypad();
