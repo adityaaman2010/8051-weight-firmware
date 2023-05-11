@@ -14,7 +14,7 @@ unsigned int xdata offsetWeight = 0;
 float xdata weightFactor = 0, autoZeroValue, capacityOne, capacityTwo, capacityThree;
 int xdata capacityStep, precisionOne, precisionTwo, precisionThree;
 unsigned char xdata adc_digi[8];
-unsigned long xdata codedZeroWeight = 55136;
+long xdata offsetWeightLong;
 unsigned int xdata adcCount = 0;
 
 
@@ -36,8 +36,8 @@ float getWeight()
 	tempCount = readCount();
 	middleware = tempCount - offsetWeight;
 	adcCount = middleware;
-	x = tempCount; y = offsetWeight;
-	if (x <= y)
+	x = (long)tempCount;
+	if (x <= offsetWeightLong)
 	{
 		return 0;
 	}else
@@ -125,7 +125,8 @@ unsigned int getOffsetCount(void)
 
 void setOffsetWeight(float w)
 {
-    offsetWeight = (unsigned int) readCount();
+	offsetWeightLong = (long) readCount();
+    offsetWeight = (unsigned int) offsetWeightLong;
 	if (w == 0)
 	{
 		weightFactor = getWeightCalibration();

@@ -6,9 +6,7 @@
     ],
     "settings": {
         "files.associations": {
-            "WEIGHT.C": "cpp",
-            "ADC.C": "cpp",
-            "SETTINGS.C": "cpp"
+            "WEIGHT.C": "cpp"
         }
     },
     "extensions": {}
